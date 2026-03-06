@@ -1,0 +1,113 @@
+#!/bin/bash
+# ============================================
+# SHIELD - Database Setup Script
+# ============================================
+# Execute this script on the VPS to initialize the database
+# Usage: sudo bash setup-database.sh
+# ============================================
+
+set -e
+
+# Configuration
+DB_NAME="shield"
+DB_USER="shield_user"
+DB_PASS="ShieldSecure2026#"
+SHIELD_PATH="/var/www/shield"
+JWT_SECRET=$(openssl rand -hex 32)
+
+echo "============================================"
+echo "SHIELD - Database Setup"
+echo "============================================"
+
+# Check if running as root
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root: sudo bash setup-database.sh"
+    exit 1
+fi
+
+# Step 1: Create database and user
+echo "[1/5] Creating database and user..."
+mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
+echo "✓ Database '${DB_NAME}' created"
+
+# Step 2: Execute migrations
+echo "[2/5] Running migrations..."
+MIGRATION_DIR="${SHIELD_PATH}/database/migrations"
+if [ -d "$MIGRATION_DIR" ]; then
+    for file in "$MIGRATION_DIR"/*.sql; do
+        if [ -f "$file" ]; then
+            echo "  → Executing $(basename $file)..."
+            mysql "$DB_NAME" < "$file"
+        fi
+    done
+    echo "✓ All migrations executed"
+else
+    echo "⚠ No migrations found in $MIGRATION_DIR"
+fi
+
+# Step 3: Create .env file
+echo "[3/5] Creating .env file..."
+cat > "${SHIELD_PATH}/.env" << EOF
+# SHIELD Production Environment
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://stabilis-it.ch/internal/shield
+
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=${DB_NAME}
+DB_USERNAME=${DB_USER}
+DB_PASSWORD=${DB_PASS}
+
+# Security
+JWT_SECRET=${JWT_SECRET}
+
+# Services (configure as needed)
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=
+DEEPGRAM_API_KEY=
+ELEVENLABS_API_KEY=
+OPENAI_API_KEY=
+FIREBASE_SERVER_KEY=
+EOF
+chown www-data:www-data "${SHIELD_PATH}/.env"
+chmod 600 "${SHIELD_PATH}/.env"
+echo "✓ .env file created"
+
+# Step 4: Create test user
+echo "[4/5] Creating test user..."
+# Generate bcrypt hash for password "TestPassword123"
+TEST_PASSWORD_HASH='$2y$10$xK8FQvB1qQp5hI3NHRU4/.2xYqYWCJqHbD3w1JvZm0nQN1B6VxYia'
+
+mysql "$DB_NAME" << EOF
+INSERT INTO users (email, password, first_name, last_name, phone, email_verified, status, onboarding_completed)
+VALUES ('test@shield-app.local', '${TEST_PASSWORD_HASH}', 'Test', 'User', '+33612345678', 1, 'active', 1)
+ON DUPLICATE KEY UPDATE password='${TEST_PASSWORD_HASH}', status='active';
+EOF
+echo "✓ Test user created"
+echo "  Email: test@shield-app.local"
+echo "  Password: TestPassword123"
+
+# Step 5: Set permissions
+echo "[5/5] Setting permissions..."
+chown -R www-data:www-data "${SHIELD_PATH}"
+chmod -R 755 "${SHIELD_PATH}"
+chmod -R 775 "${SHIELD_PATH}/public/uploads"
+chmod -R 775 "${SHIELD_PATH}/storage"
+echo "✓ Permissions set"
+
+echo ""
+echo "============================================"
+echo "✅ SHIELD Database Setup Complete!"
+echo "============================================"
+echo ""
+echo "Test credentials:"
+echo "  URL: https://stabilis-it.ch/internal/shield"
+echo "  Email: test@shield-app.local"
+echo "  Password: TestPassword123"
+echo ""

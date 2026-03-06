@@ -73,6 +73,7 @@ jobs:
             sudo mkdir -p ${{ env.VPS_PATH }}/public/uploads
             sudo mkdir -p ${{ env.VPS_PATH }}/storage/logs
             sudo mkdir -p ${{ env.VPS_PATH }}/database/migrations
+            sudo mkdir -p ${{ env.VPS_PATH }}/scripts
             sudo chown -R debian:debian ${{ env.VPS_PATH }}
           "
 
@@ -93,6 +94,23 @@ jobs:
         run: |
           rsync -avz \
             database/migrations/ ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/database/migrations/
+
+      - name: Deploy setup script
+        run: |
+          rsync -avz \
+            scripts/setup-database.sh ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/scripts/
+
+      - name: Setup database (first deploy only)
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            # Check if database already exists
+            if ! sudo mysql -e \"USE shield\" 2>/dev/null; then
+              echo '→ First deploy: setting up database...'
+              sudo bash ${{ env.VPS_PATH }}/scripts/setup-database.sh
+            else
+              echo '→ Database already exists, skipping setup'
+            fi
+          "
 
       - name: Deploy nginx snippet
         run: |
