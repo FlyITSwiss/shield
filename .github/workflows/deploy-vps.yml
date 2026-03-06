@@ -72,6 +72,7 @@ jobs:
             sudo mkdir -p ${{ env.VPS_PATH }}/backend/php
             sudo mkdir -p ${{ env.VPS_PATH }}/public/uploads
             sudo mkdir -p ${{ env.VPS_PATH }}/storage/logs
+            sudo mkdir -p ${{ env.VPS_PATH }}/database/migrations
             sudo chown -R debian:debian ${{ env.VPS_PATH }}
           "
 
