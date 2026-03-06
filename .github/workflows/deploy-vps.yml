@@ -148,14 +148,14 @@ jobs:
           fi
           echo "Health check passed: $response"
 
-      - name: Check API endpoint
+      - name: Check login page accessible
         run: |
-          response=$(curl -s https://${{ env.VPS_HOST }}/internal/shield/api/v1/health.php)
-          if [[ "$response" != *"ok"* ]] && [[ "$response" != *"healthy"* ]]; then
-            echo "API health check failed: $response"
+          response=$(curl -sI https://${{ env.VPS_HOST }}/internal/shield/auth/login | head -n1)
+          if [[ "$response" != *"200"* ]]; then
+            echo "Login page check failed: $response"
             exit 1
           fi
-          echo "API health check passed: $response"
+          echo "Login page accessible: $response"
 
   # Phase 4: Notification
   notify:
