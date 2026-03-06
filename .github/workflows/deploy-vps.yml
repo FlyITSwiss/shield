@@ -69,11 +69,10 @@ jobs:
       - name: Create deployment directory
         run: |
           ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
-            mkdir -p ${{ env.VPS_PATH }}/backend/php
-            mkdir -p ${{ env.VPS_PATH }}/public/uploads
-            mkdir -p ${{ env.VPS_PATH }}/storage/logs
-            chmod -R 775 ${{ env.VPS_PATH }}/public/uploads
-            chmod -R 775 ${{ env.VPS_PATH }}/storage
+            sudo mkdir -p ${{ env.VPS_PATH }}/backend/php
+            sudo mkdir -p ${{ env.VPS_PATH }}/public/uploads
+            sudo mkdir -p ${{ env.VPS_PATH }}/storage/logs
+            sudo chown -R debian:debian ${{ env.VPS_PATH }}
           "
 
       - name: Deploy backend PHP
@@ -150,8 +149,8 @@ jobs:
 
       - name: Check API endpoint
         run: |
-          response=$(curl -sI https://${{ env.VPS_HOST }}/internal/shield/api/v1/health | head -n1)
-          if [[ "$response" != *"200"* ]]; then
+          response=$(curl -s https://${{ env.VPS_HOST }}/internal/shield/api/v1/health.php)
+          if [[ "$response" != *"ok"* ]] && [[ "$response" != *"healthy"* ]]; then
             echo "API health check failed: $response"
             exit 1
           fi
