@@ -19,7 +19,7 @@ env:
   VPS_HOST: stabilis-it.ch
   VPS_USER: 'debian'
   VPS_PATH: /var/www/shield
-  PHP_VERSION: '8.2'
+  PHP_VERSION: '8.4'
 
 jobs:
   # Phase 1: Validation
