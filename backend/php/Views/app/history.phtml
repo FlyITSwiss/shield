@@ -1,0 +1,143 @@
+<?php
+/**
+ * SHIELD - Historique des incidents
+ */
+$pageTitle = __('history.title') . ' - SHIELD';
+$bodyClass = 'page-history';
+$pageScripts = ['app/history.js'];
+?>
+
+<div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+        <button type="button" id="btn-back" class="btn-icon" aria-label="<?= __('ui.back') ?>">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <h1 class="header-title"><?= __('history.title') ?></h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- Filtres -->
+    <div class="history-filters">
+        <select id="filter-status" class="form-select-sm">
+            <option value=""><?= __('history.all_status') ?></option>
+            <option value="resolved"><?= __('history.status_resolved') ?></option>
+            <option value="cancelled"><?= __('history.status_cancelled') ?></option>
+            <option value="escalated"><?= __('history.status_escalated') ?></option>
+        </select>
+        <select id="filter-period" class="form-select-sm">
+            <option value="30"><?= __('history.last_30_days') ?></option>
+            <option value="90"><?= __('history.last_90_days') ?></option>
+            <option value="365"><?= __('history.last_year') ?></option>
+            <option value=""><?= __('history.all_time') ?></option>
+        </select>
+    </div>
+
+    <!-- Liste des incidents -->
+    <div class="history-list" id="history-list">
+        <!-- Chargement -->
+        <div class="loading-state" id="loading-state">
+            <div class="spinner-container">
+                <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/></svg>
+            </div>
+            <p><?= __('ui.loading') ?></p>
+        </div>
+
+        <!-- Etat vide -->
+        <div class="empty-state hidden" id="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <h3><?= __('history.empty_title') ?></h3>
+            <p><?= __('history.empty_text') ?></p>
+        </div>
+
+        <!-- Les incidents seront injectes ici par JS -->
+    </div>
+</div>
+
+<!-- Modal detail incident -->
+<div class="modal-overlay hidden" id="incident-modal">
+    <div class="modal-content modal-incident">
+        <div class="modal-header">
+            <h2><?= __('history.incident_details') ?></h2>
+            <button type="button" class="btn-modal-close" id="btn-modal-close">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+
+        <div class="incident-details" id="incident-details">
+            <!-- Status badge -->
+            <div class="incident-status-row">
+                <span class="incident-status" id="incident-status"></span>
+                <span class="incident-date" id="incident-date"></span>
+            </div>
+
+            <!-- Timeline -->
+            <div class="incident-timeline" id="incident-timeline">
+                <!-- Timeline items seront injectes ici -->
+            </div>
+
+            <!-- Location -->
+            <div class="incident-section">
+                <h3><?= __('history.location') ?></h3>
+                <div class="incident-map" id="incident-map">
+                    <!-- Mini carte ou adresse -->
+                </div>
+                <p class="incident-address" id="incident-address"></p>
+            </div>
+
+            <!-- Contacts alertes -->
+            <div class="incident-section">
+                <h3><?= __('history.contacts_notified') ?></h3>
+                <ul class="contacts-notified" id="contacts-notified">
+                    <!-- Liste des contacts notifies -->
+                </ul>
+            </div>
+
+            <!-- Notes -->
+            <div class="incident-section" id="notes-section">
+                <h3><?= __('history.notes') ?></h3>
+                <p class="incident-notes" id="incident-notes"></p>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="btn-close-modal">
+                <?= __('ui.close') ?>
+            </button>
+            <button type="button" class="btn btn-outline-danger hidden" id="btn-report-issue">
+                <?= __('history.report_issue') ?>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Template pour un item d'historique -->
+<template id="history-item-template">
+    <div class="history-item" data-id="">
+        <div class="history-item-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div class="history-item-content">
+            <div class="history-item-header">
+                <span class="history-item-status"></span>
+                <span class="history-item-duration"></span>
+            </div>
+            <p class="history-item-date"></p>
+            <p class="history-item-location"></p>
+        </div>
+        <div class="history-item-arrow">
+            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </div>
+    </div>
+</template>
+
+<!-- Template pour timeline -->
+<template id="timeline-item-template">
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span class="timeline-time"></span>
+            <p class="timeline-text"></p>
+        </div>
+    </div>
+</template>

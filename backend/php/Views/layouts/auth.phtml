@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="<?= $lang ?? 'fr' ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#8E24AA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="csrf-token" content="<?= $csrfToken ?? '' ?>">
+
+    <title><?= $pageTitle ?? 'SHIELD' ?></title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="<?= asset_url('manifest.json') ?>">
+    <link rel="apple-touch-icon" href="<?= asset_url('icons/icon-192.png') ?>">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="<?= versioned_asset('css/shield-core.css') ?>">
+
+    <!-- Config JS -->
+    <script>
+        window.ShieldConfig = {
+            basePath: <?= json_encode(BASE_PATH) ?>,
+            apiUrl: <?= json_encode(BASE_PATH . '/api') ?>,
+            lang: <?= json_encode($lang ?? 'fr') ?>,
+            csrfToken: <?= json_encode($csrfToken ?? '') ?>
+        };
+        // i18n fonction
+        window.__ = function(key) {
+            return key; // Placeholder - sera remplace par i18n.js
+        };
+    </script>
+</head>
+<body class="shield-auth <?= $bodyClass ?? '' ?>">
+    <!-- Background effect -->
+    <div class="auth-background">
+        <div class="auth-gradient"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="auth-main">
+        <?= $content ?? '' ?>
+    </main>
+
+    <!-- Scripts -->
+    <script src="<?= versioned_asset('js/core/api-service.js') ?>"></script>
+    <script src="<?= versioned_asset('js/core/i18n.js') ?>"></script>
+    <?php if (!empty($pageScripts)): ?>
+        <?php foreach ($pageScripts as $script): ?>
+            <script src="<?= versioned_asset("js/{$script}") ?>" type="module"></script>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</body>
+</html>

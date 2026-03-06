@@ -1,0 +1,25 @@
+{
+    "name": "stabilis/shield",
+    "description": "SHIELD - Women's Safety Application",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "firebase/php-jwt": "^6.10",
+        "twilio/sdk": "^7.0",
+        "ext-pdo": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shield\\": "backend/php/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "audit": {
+            "ignore": ["PKSA-y2cr-5h3j-g3ys"]
+        }
+    }
+}

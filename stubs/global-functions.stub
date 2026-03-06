@@ -1,0 +1,112 @@
+<?php
+/**
+ * PHPStan stubs for SHIELD global functions
+ * These functions are defined in bootstrap.php
+ */
+
+/**
+ * Translate a key
+ * @param string $key
+ * @param array<string, mixed> $params
+ * @return string
+ */
+function __(string $key, array $params = []): string {}
+
+/**
+ * Generate base URL
+ * @param string $path
+ * @return string
+ */
+function base_url(string $path = ''): string {}
+
+/**
+ * Generate asset URL
+ * @param string $path
+ * @return string
+ */
+function asset_url(string $path): string {}
+
+/**
+ * Generate API URL
+ * @param string $endpoint
+ * @return string
+ */
+function api_url(string $endpoint): string {}
+
+/**
+ * Redirect to path
+ * @param string $path
+ * @param int $statusCode
+ * @return never
+ */
+function redirect_to(string $path, int $statusCode = 302): never {}
+
+/**
+ * Escape HTML
+ * @param string|null $string
+ * @return string
+ */
+function e(?string $string): string {}
+
+/**
+ * Return JSON response
+ * @param mixed $data
+ * @param int $statusCode
+ * @return never
+ */
+function json_response(mixed $data, int $statusCode = 200): never {}
+
+/**
+ * Return JSON error
+ * @param string $message
+ * @param int $statusCode
+ * @param array<string, mixed> $extra
+ * @return never
+ */
+function json_error(string $message, int $statusCode = 400, array $extra = []): never {}
+
+/**
+ * Return JSON success
+ * @param mixed $data
+ * @param string|null $message
+ * @return never
+ */
+function json_success(mixed $data = null, ?string $message = null): never {}
+
+/**
+ * Check if request is AJAX
+ * @return bool
+ */
+function is_ajax(): bool {}
+
+/**
+ * Get CSRF token
+ * @return string
+ */
+function csrf_token(): string {}
+
+/**
+ * Verify CSRF token
+ * @return bool
+ */
+function verify_csrf(): bool {}
+
+/**
+ * Generate CSRF field
+ * @return string
+ */
+function csrf_field(): string {}
+
+/**
+ * Get PDO connection
+ * @return PDO
+ */
+function get_db(): PDO {}
+
+/**
+ * Get service from DI container
+ * @template T
+ * @param class-string<T> $class
+ * @return T
+ */
+function app(string $class): object {}

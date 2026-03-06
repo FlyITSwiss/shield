@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= e($pageTitle ?? 'Erreur') ?> - SHIELD</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .error-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: #8E24AA;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .error-message {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+        }
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #8E24AA;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #7B1FA2;
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .shield-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+        }
+        .shield-icon svg {
+            fill: #8E24AA;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="shield-icon">
+            <svg viewBox="0 0 100 100">
+                <path d="M50 5 L90 20 L90 45 C90 70 70 90 50 95 C30 90 10 70 10 45 L10 20 Z" fill="#8E24AA"/>
+            </svg>
+        </div>
+        <div class="error-code"><?= e((string)($errorCode ?? 500)) ?></div>
+        <p class="error-message"><?= e($errorMessage ?? 'Une erreur est survenue') ?></p>
+        <div class="error-actions">
+            <a href="<?= base_url('/') ?>" class="btn btn-primary">Accueil</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
+</body>
+</html>

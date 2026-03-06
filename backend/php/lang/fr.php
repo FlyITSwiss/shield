@@ -1,0 +1,480 @@
+<?php
+/**
+ * SHIELD - Traductions Francaises
+ *
+ * REGLES:
+ * - Tous les accents francais OBLIGATOIRES (e, e, a, u, c, etc.)
+ * - Format cle plate: 'module.action_description'
+ * - Parametres: ':param' pour substitution
+ * - Synchroniser avec en.php
+ */
+
+return [
+    // ============================================
+    // APPLICATION GÉNÉRALE
+    // ============================================
+    'app.name' => 'SHIELD',
+    'app.tagline' => 'Votre sécurité, notre priorité',
+    'app.description' => 'Application de sécurité personnelle féminine',
+
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    'nav.home' => 'Accueil',
+    'nav.sos' => 'SOS',
+    'nav.contacts' => 'Contacts',
+    'nav.settings' => 'Paramètres',
+    'nav.profile' => 'Profil',
+    'nav.history' => 'Historique',
+    'nav.help' => 'Aide',
+    'nav.logout' => 'Déconnexion',
+
+    // ============================================
+    // UI ELEMENTS
+    // ============================================
+    'ui.close' => 'Fermer',
+    'ui.open' => 'Ouvrir',
+    'ui.back_to_app' => 'Retour à l\'application',
+    'ui.loading' => 'Chargement...',
+    'ui.error' => 'Erreur',
+    'ui.success' => 'Succès',
+    'ui.warning' => 'Attention',
+    'ui.info' => 'Information',
+
+    // ============================================
+    // BOUTONS COMMUNS
+    // ============================================
+    'btn.save' => 'Enregistrer',
+    'btn.cancel' => 'Annuler',
+    'btn.confirm' => 'Confirmer',
+    'btn.delete' => 'Supprimer',
+    'btn.edit' => 'Modifier',
+    'btn.add' => 'Ajouter',
+    'btn.close' => 'Fermer',
+    'btn.back' => 'Retour',
+    'btn.next' => 'Suivant',
+    'btn.previous' => 'Précédent',
+    'btn.submit' => 'Envoyer',
+    'btn.search' => 'Rechercher',
+    'btn.filter' => 'Filtrer',
+    'btn.reset' => 'Réinitialiser',
+    'btn.retry' => 'Réessayer',
+    'btn.continue' => 'Continuer',
+    'btn.skip' => 'Passer',
+    'btn.done' => 'Terminé',
+    'btn.enable' => 'Activer',
+    'btn.disable' => 'Désactiver',
+
+    // ============================================
+    // MESSAGES
+    // ============================================
+    'msg.success' => 'Opération réussie',
+    'msg.error' => 'Une erreur est survenue',
+    'msg.loading' => 'Chargement...',
+    'msg.saving' => 'Enregistrement...',
+    'msg.deleting' => 'Suppression...',
+    'msg.saved' => 'Modifications enregistrées',
+    'msg.deleted' => 'Élément supprimé',
+    'msg.updated' => 'Mise à jour effectuée',
+    'msg.created' => 'Élément créé avec succès',
+    'msg.no_results' => 'Aucun résultat trouvé',
+    'msg.confirm_delete' => 'Êtes-vous sûr de vouloir supprimer cet élément ?',
+    'msg.confirm_action' => 'Êtes-vous sûr de vouloir effectuer cette action ?',
+    'msg.session_expired' => 'Votre session a expiré. Veuillez vous reconnecter.',
+    'msg.network_error' => 'Erreur de connexion. Vérifiez votre connexion internet.',
+    'msg.permission_denied' => 'Accès refusé',
+    'msg.not_found' => 'Élément non trouvé',
+    'msg.back_online' => 'Connexion rétablie',
+    'msg.offline' => 'Mode hors-ligne - Les données seront synchronisées',
+    'msg.copied_clipboard' => 'Lien copié dans le presse-papiers',
+    'sos.synced' => 'Alertes synchronisées avec succès',
+
+    // ============================================
+    // VALIDATION
+    // ============================================
+    'validation.required' => 'Ce champ est obligatoire',
+    'validation.email' => 'Veuillez entrer une adresse email valide',
+    'validation.email_required' => 'L\'adresse email est obligatoire',
+    'validation.email_invalid' => 'Format d\'email invalide',
+    'validation.password_required' => 'Le mot de passe est obligatoire',
+    'validation.phone' => 'Veuillez entrer un numéro de téléphone valide',
+    'validation.min_length' => 'Ce champ doit contenir au moins :min caractères',
+    'validation.max_length' => 'Ce champ ne doit pas dépasser :max caractères',
+    'validation.password_mismatch' => 'Les mots de passe ne correspondent pas',
+    'validation.password_weak' => 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre',
+    'validation.invalid_format' => 'Format invalide',
+    'validation.file_too_large' => 'Le fichier est trop volumineux (max :size)',
+    'validation.invalid_file_type' => 'Type de fichier non autorisé',
+
+    // ============================================
+    // AUTHENTIFICATION
+    // ============================================
+    'auth.login' => 'Connexion',
+    'auth.login_title' => 'Connexion',
+    'auth.login_button' => 'Se connecter',
+    'auth.logout' => 'Déconnexion',
+    'auth.register' => 'Inscription',
+    'auth.register_title' => 'Créer un compte',
+    'auth.register_link' => 'S\'inscrire',
+    'auth.tagline' => 'Votre sécurité, notre priorité',
+    'auth.email' => 'Adresse email',
+    'auth.email_placeholder' => 'votre@email.com',
+    'auth.password' => 'Mot de passe',
+    'auth.password_placeholder' => '••••••••',
+    'auth.password_confirm' => 'Confirmer le mot de passe',
+    'auth.password_confirm_placeholder' => '••••••••',
+    'auth.show_password' => 'Afficher le mot de passe',
+    'auth.hide_password' => 'Masquer le mot de passe',
+    'auth.remember_me' => 'Se souvenir de moi',
+    'auth.forgot_password' => 'Mot de passe oublié ?',
+    'auth.reset_password' => 'Réinitialiser le mot de passe',
+    'auth.or_continue_with' => 'ou continuer avec',
+    'auth.login_success' => 'Connexion réussie',
+    'auth.login_failed' => 'Email ou mot de passe incorrect',
+    'auth.logout_success' => 'Déconnexion réussie',
+    'auth.register_success' => 'Compte créé avec succès',
+    'auth.account_created' => 'Votre compte a été créé. Vous pouvez maintenant vous connecter.',
+    'auth.email_exists' => 'Cette adresse email est déjà utilisée',
+    'auth.password_reset_sent' => 'Un email de réinitialisation a été envoyé',
+    'auth.password_changed' => 'Mot de passe modifié avec succès',
+    'auth.terms_accept' => 'J\'accepte les conditions d\'utilisation',
+    'auth.privacy_accept' => 'J\'accepte la politique de confidentialité',
+    'auth.create_account' => 'Créer un compte',
+    'auth.already_have_account' => 'Vous avez déjà un compte ?',
+    'auth.no_account' => 'Pas encore de compte ?',
+    'auth.first_name' => 'Prénom',
+    'auth.first_name_placeholder' => 'Votre prénom',
+    'auth.last_name' => 'Nom',
+    'auth.last_name_placeholder' => 'Votre nom',
+    'auth.phone' => 'Téléphone',
+    'auth.phone_placeholder' => '6 12 34 56 78',
+
+    // ============================================
+    // OAUTH / SSO
+    // ============================================
+    'oauth.continue_with' => 'Continuer avec :provider',
+    'oauth.google' => 'Google',
+    'oauth.facebook' => 'Facebook',
+    'oauth.instagram' => 'Instagram',
+    'oauth.error' => 'Erreur de connexion avec :provider',
+    'auth.oauth_not_configured' => 'Cette méthode de connexion n\'est pas disponible',
+    'auth.oauth_failed' => 'Échec de la connexion. Veuillez réessayer.',
+    'auth.invalid_credentials' => 'Email ou mot de passe incorrect',
+    'auth.account_disabled' => 'Ce compte a été désactivé',
+
+    // ============================================
+    // SOS / URGENCE
+    // ============================================
+    'sos.button_label' => 'SOS',
+    'sos.tap_to_activate' => 'Appuyez pour activer',
+    'sos.hold_to_cancel' => 'Maintenez pour annuler',
+    'sos.activating' => 'Activation en cours...',
+    'sos.activated' => 'Alerte SOS activée',
+    'sos.cancelled' => 'Alerte SOS annulée',
+    'sos.countdown' => 'Déclenchement dans :seconds secondes',
+    'sos.contacting_services' => 'Contact des services d\'urgence...',
+    'sos.contacting_contacts' => 'Notification des contacts de confiance...',
+    'sos.location_shared' => 'Votre position a été partagée',
+    'sos.ai_calling' => 'Agent IA en ligne',
+    'sos.silent_mode' => 'Mode silencieux activé',
+    'sos.silent_mode_info' => 'L\'alarme sonore est désactivée. Vos contacts seront alertés discrètement.',
+    'sos.alarm_playing' => 'Alarme en cours',
+    'sos.help_on_way' => 'Les secours sont en route',
+    'sos.stay_calm' => 'Restez calme, nous sommes avec vous',
+    'sos.false_alarm' => 'Fausse alerte',
+    'sos.false_alarm_confirm' => 'Confirmer qu\'il s\'agit d\'une fausse alerte ?',
+    'sos.incident_recorded' => 'Incident enregistré',
+    'sos.tap_5_times' => 'Appuyez 5 fois rapidement',
+    'sos.hold_volume' => 'Maintenez le bouton volume 3 secondes',
+    'sos.share_title' => 'Alerte SHIELD',
+    'sos.share_text' => 'Je suis en situation d\'urgence. Voici ma position en temps réel:',
+    'sos.share_dialog' => 'Partager ma position',
+    'sos.current_location' => 'Position actuelle:',
+    'sos.tracking_link' => 'Suivi en temps réel:',
+    'sos.share_success' => 'Position partagée avec succès',
+    'sos.share_failed' => 'Échec du partage de position',
+    'sos.share_revoked' => 'Lien de partage révoqué',
+
+    // ============================================
+    // CONTACTS DE CONFIANCE
+    // ============================================
+    'contacts.title' => 'Contacts de confiance',
+    'contacts.add' => 'Ajouter un contact',
+    'contacts.edit' => 'Modifier le contact',
+    'contacts.delete' => 'Supprimer le contact',
+    'contacts.max_reached' => 'Nombre maximum de contacts atteint (5)',
+    'contacts.name' => 'Nom',
+    'contacts.phone' => 'Téléphone',
+    'contacts.email' => 'Email',
+    'contacts.relation' => 'Relation',
+    'contacts.relation.family' => 'Famille',
+    'contacts.relation.friend' => 'Ami(e)',
+    'contacts.relation.partner' => 'Partenaire',
+    'contacts.relation.colleague' => 'Collègue',
+    'contacts.relation.other' => 'Autre',
+    'contacts.priority' => 'Priorité',
+    'contacts.priority.high' => 'Haute',
+    'contacts.priority.medium' => 'Moyenne',
+    'contacts.priority.low' => 'Basse',
+    'contacts.notify_sms' => 'Notifier par SMS',
+    'contacts.notify_call' => 'Appeler',
+    'contacts.notify_push' => 'Notification push',
+    'contacts.added' => 'Contact ajouté avec succès',
+    'contacts.updated' => 'Contact mis à jour',
+    'contacts.deleted' => 'Contact supprimé',
+    'contacts.empty' => 'Aucun contact de confiance configuré',
+    'contacts.empty_info' => 'Ajoutez des contacts qui seront alertés en cas d\'urgence',
+    'contacts.test_alert' => 'Envoyer une alerte test',
+    'contacts.test_sent' => 'Alerte test envoyée',
+    'contacts.status.pending' => 'En attente',
+    'contacts.status.sending' => 'Envoi en cours',
+    'contacts.status.delivered' => 'Délivré',
+    'contacts.status.failed' => 'Échec',
+    'contacts.status.acknowledged' => 'Confirmé',
+    'contacts.status.responding' => 'En route',
+    'contacts.status.arrived' => 'Sur place',
+    'contacts.all_notified' => 'Tous les contacts ont été notifiés',
+    'contacts.all_acknowledged' => 'Tous les contacts ont confirmé',
+
+    // ============================================
+    // SERVICES D'URGENCE
+    // ============================================
+    'emergency.title' => 'Services d\'urgence',
+    'emergency.police' => 'Police',
+    'emergency.ambulance' => 'Ambulance',
+    'emergency.fire' => 'Pompiers',
+    'emergency.helpline' => 'Ligne d\'aide',
+    'emergency.domestic_violence' => 'Violences conjugales',
+    'emergency.call' => 'Appeler le :number',
+    'emergency.calling' => 'Appel en cours...',
+    'emergency.country' => 'Pays détecté: :country',
+    'emergency.local_services' => 'Services locaux',
+
+    // ============================================
+    // PROFIL UTILISATEUR
+    // ============================================
+    'profile.title' => 'Mon profil',
+    'profile.edit' => 'Modifier le profil',
+    'profile.first_name' => 'Prénom',
+    'profile.last_name' => 'Nom',
+    'profile.phone' => 'Téléphone',
+    'profile.email' => 'Email',
+    'profile.photo' => 'Photo de profil',
+    'profile.change_photo' => 'Changer la photo',
+    'profile.remove_photo' => 'Supprimer la photo',
+    'profile.blood_type' => 'Groupe sanguin',
+    'profile.allergies' => 'Allergies',
+    'profile.medications' => 'Médicaments',
+    'profile.medical_notes' => 'Notes médicales',
+    'profile.emergency_info' => 'Informations d\'urgence',
+    'profile.updated' => 'Profil mis à jour',
+
+    // ============================================
+    // PARAMÈTRES
+    // ============================================
+    'settings.title' => 'Paramètres',
+    'settings.general' => 'Général',
+    'settings.notifications' => 'Notifications',
+    'settings.privacy' => 'Confidentialité',
+    'settings.security' => 'Sécurité',
+    'settings.language' => 'Langue',
+    'settings.theme' => 'Thème',
+    'settings.theme.dark' => 'Sombre',
+    'settings.theme.light' => 'Clair',
+    'settings.theme.auto' => 'Automatique',
+    'settings.sound' => 'Sons',
+    'settings.vibration' => 'Vibration',
+    'settings.location' => 'Localisation',
+    'settings.location_always' => 'Toujours activer la localisation',
+    'settings.background_location' => 'Localisation en arrière-plan',
+    'settings.silent_mode' => 'Mode silencieux par défaut',
+    'settings.silent_mode_info' => 'Utile en cas de violence conjugale',
+    'settings.auto_call' => 'Appel automatique services urgence',
+    'settings.countdown_duration' => 'Durée du compte à rebours',
+    'settings.countdown_5s' => '5 secondes',
+    'settings.countdown_10s' => '10 secondes',
+    'settings.countdown_15s' => '15 secondes',
+    'settings.alarm_type' => 'Type d\'alarme',
+    'settings.alarm.siren' => 'Sirène',
+    'settings.alarm.horn' => 'Klaxon',
+    'settings.alarm.voice' => 'Voix',
+    'settings.saved' => 'Paramètres enregistrés',
+    'settings.change_password' => 'Changer le mot de passe',
+    'settings.delete_account' => 'Supprimer le compte',
+    'settings.delete_account_warning' => 'Cette action est irréversible. Toutes vos données seront supprimées.',
+
+    // ============================================
+    // HISTORIQUE
+    // ============================================
+    'history.title' => 'Historique des alertes',
+    'history.empty' => 'Aucune alerte enregistrée',
+    'history.incident' => 'Incident',
+    'history.date' => 'Date',
+    'history.duration' => 'Durée',
+    'history.location' => 'Lieu',
+    'history.location_unknown' => 'Lieu inconnu',
+    'history.status' => 'Statut',
+    'history.status_active' => 'En cours',
+    'history.status_resolved' => 'Résolu',
+    'history.status_escalated' => 'Escaladé',
+    'history.status_cancelled' => 'Annulé',
+    'history.status.resolved' => 'Résolu',
+    'history.status.false_alarm' => 'Fausse alerte',
+    'history.status.pending' => 'En cours',
+    'history.details' => 'Détails',
+    'history.contacts_notified' => 'Contacts notifiés',
+    'history.services_called' => 'Services appelés',
+    'history.recording' => 'Enregistrement audio',
+    'history.photos' => 'Photos',
+    'history.alert_triggered' => 'Alerte déclenchée',
+    'history.contacts_alerted' => 'Contacts alertés',
+    'history.escalated_police' => 'Escaladé à la police',
+    'history.confirmed_safe' => 'Confirmé en sécurité',
+    'history.alert_cancelled' => 'Alerte annulée',
+    'history.no_contacts_notified' => 'Aucun contact notifié',
+    'history.acknowledged' => 'Acquitté',
+    'history.notified' => 'Notifié',
+
+    // ============================================
+    // AGENT IA
+    // ============================================
+    'ai.connecting' => 'Connexion à l\'agent IA...',
+    'ai.connected' => 'Agent IA connecté',
+    'ai.speaking' => 'L\'agent parle...',
+    'ai.listening' => 'En écoute...',
+    'ai.processing' => 'Traitement...',
+    'ai.error' => 'Erreur de connexion à l\'agent',
+    'ai.retry' => 'Reconnexion...',
+    'ai.end_call' => 'Terminer l\'appel',
+    'ai.mute' => 'Couper le micro',
+    'ai.unmute' => 'Activer le micro',
+    'ai.speaker' => 'Haut-parleur',
+
+    // ============================================
+    // LOCALISATION
+    // ============================================
+    'location.title' => 'Localisation',
+    'location.current' => 'Position actuelle',
+    'location.updating' => 'Mise à jour de la position...',
+    'location.error' => 'Impossible d\'obtenir la position',
+    'location.permission_required' => 'Permission de localisation requise',
+    'location.permission_denied' => 'Permission de localisation refusée',
+    'location.enable_gps' => 'Veuillez activer le GPS',
+    'location.accuracy' => 'Précision: :meters mètres',
+    'location.share' => 'Partager ma position',
+    'location.shared' => 'Position partagée',
+
+    // ============================================
+    // PAYS SUPPORTES
+    // ============================================
+    'country.FR' => 'France',
+    'country.CH' => 'Suisse',
+    'country.BE' => 'Belgique',
+    'country.DE' => 'Allemagne',
+    'country.ES' => 'Espagne',
+    'country.IT' => 'Italie',
+    'country.NL' => 'Pays-Bas',
+    'country.PT' => 'Portugal',
+    'country.SE' => 'Suède',
+    'country.PL' => 'Pologne',
+
+    // ============================================
+    // ONBOARDING
+    // ============================================
+    'onboarding.welcome' => 'Bienvenue sur SHIELD',
+    'onboarding.intro' => 'Votre application de sécurité personnelle',
+    'onboarding.step1_title' => 'Déclenchement rapide',
+    'onboarding.step1_desc' => 'Appuyez 5 fois rapidement sur l\'écran ou maintenez le bouton volume pour déclencher l\'alerte',
+    'onboarding.step2_title' => 'Contacts de confiance',
+    'onboarding.step2_desc' => 'Ajoutez jusqu\'à 5 personnes qui seront alertées en cas d\'urgence',
+    'onboarding.step3_title' => 'Agent IA 24/7',
+    'onboarding.step3_desc' => 'Un agent vocal intelligent vous accompagne pendant la crise',
+    'onboarding.step4_title' => 'Mode silencieux',
+    'onboarding.step4_desc' => 'Pour les situations de violence conjugale, l\'alarme peut être désactivée',
+    'onboarding.get_started' => 'Commencer',
+    'onboarding.setup_contacts' => 'Configurer mes contacts',
+
+    // ============================================
+    // PAGE DE TRACKING PUBLIC
+    // ============================================
+    'track.title' => 'Suivi d\'urgence SHIELD',
+    'track.subtitle' => 'Suivi en temps réel',
+    'track.loading' => 'Chargement des données...',
+    'track.error_title' => 'Lien invalide',
+    'track.error_expired' => 'Ce lien de partage a expiré ou a été révoqué.',
+    'track.error_not_found' => 'Lien de partage introuvable.',
+    'track.error_loading' => 'Erreur de chargement des données.',
+    'track.back_to_app' => 'Retour à l\'application',
+    'track.person_in_danger' => 'Personne en danger',
+    'track.status' => 'Statut',
+    'track.status.active' => 'Alerte active',
+    'track.status.escalated' => 'Escaladé aux services d\'urgence',
+    'track.status.resolved' => 'Résolu',
+    'track.status.cancelled' => 'Annulé',
+    'track.triggered_at' => 'Déclenchée',
+    'track.elapsed' => ':minutes min écoulées',
+    'track.severity' => 'Niveau de gravité',
+    'track.severity.low' => 'Faible',
+    'track.severity.medium' => 'Moyen',
+    'track.severity.high' => 'Élevé',
+    'track.severity.critical' => 'Critique',
+    'track.location' => 'Position',
+    'track.location_unknown' => 'Position inconnue',
+    'track.location_updated' => 'Mise à jour',
+    'track.map_loading' => 'Chargement de la carte...',
+    'track.call_person' => 'Appeler :name',
+    'track.actions' => 'Actions',
+    'track.acknowledge' => 'J\'ai vu l\'alerte',
+    'track.acknowledge_desc' => 'Confirmez que vous avez reçu cette alerte',
+    'track.responding' => 'Je suis en route',
+    'track.responding_desc' => 'Signalez que vous vous dirigez vers la personne',
+    'track.arrived' => 'Je suis arrivé(e)',
+    'track.arrived_desc' => 'Confirmez votre arrivée sur place',
+    'track.enter_eta' => 'Temps estimé d\'arrivée (minutes)',
+    'track.acknowledged_success' => 'Merci, la personne a été notifiée',
+    'track.responding_success' => 'La personne sait que vous êtes en route',
+    'track.arrived_success' => 'Arrivée confirmée',
+    'track.other_contacts' => 'Autres contacts alertés',
+    'track.no_other_contacts' => 'Vous êtes le seul contact alerté',
+    'track.share_location' => 'Partager ma position',
+    'track.share_location_desc' => 'Permet à la personne en danger de voir votre position',
+    'track.location_shared' => 'Votre position est partagée',
+    'track.call_emergency' => 'Appeler les urgences',
+    'track.emergency_number' => 'Numéro d\'urgence local',
+    'track.refresh' => 'Actualiser',
+    'track.auto_refresh' => 'Actualisation auto. toutes les 10s',
+
+    // ============================================
+    // ERREURS HTTP
+    // ============================================
+    'error.400' => 'Requête invalide',
+    'error.401' => 'Non authentifié',
+    'error.403' => 'Accès interdit',
+    'error.404' => 'Page non trouvée',
+    'error.page_not_found' => 'Page non trouvée',
+    'error.419' => 'Session expirée',
+    'error.session_expired' => 'Session expirée',
+    'error.422' => 'Données invalides',
+    'error.429' => 'Trop de requêtes',
+    'error.500' => 'Erreur serveur',
+    'error.internal' => 'Erreur interne du serveur',
+    'error.503' => 'Service indisponible',
+    'error.network' => 'Erreur de connexion. Vérifiez votre connexion internet.',
+    'error.timeout' => 'La requête a expiré. Veuillez réessayer.',
+    'error.generic' => 'Une erreur est survenue. Veuillez réessayer.',
+    'error.save_failed' => 'Échec de l\'enregistrement',
+
+    // ============================================
+    // DATES ET HEURES
+    // ============================================
+    'date.today' => 'Aujourd\'hui',
+    'date.yesterday' => 'Hier',
+    'date.tomorrow' => 'Demain',
+    'date.now' => 'Maintenant',
+    'date.ago' => 'Il y a :time',
+    'date.in' => 'Dans :time',
+    'date.seconds' => ':count seconde|:count secondes',
+    'date.minutes' => ':count minute|:count minutes',
+    'date.hours' => ':count heure|:count heures',
+    'date.days' => ':count jour|:count jours',
+];

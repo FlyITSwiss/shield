@@ -1,0 +1,143 @@
+<?php
+/**
+ * SHIELD - Écran SOS Principal
+ *
+ * Critère CDC: Déclenchement < 2 secondes
+ */
+$pageTitle = 'SHIELD';
+$bodyClass = 'page-sos';
+$showNavigation = false; // Pas de nav sur l'écran SOS
+$pageScripts = ['app/sos-screen.js', 'app/alarm-trigger.js'];
+?>
+
+<div class="sos-container" id="sos-container">
+    <!-- État: En veille (défaut) -->
+    <div class="sos-state sos-state-idle active" id="state-idle">
+        <!-- Header avec infos utilisateur -->
+        <header class="sos-header">
+            <div class="user-greeting">
+                <span class="greeting-text"><?= __('sos.hello') ?>,</span>
+                <span class="user-name"><?= htmlspecialchars($userName ?? '') ?></span>
+            </div>
+            <button type="button" class="btn-settings" id="btn-settings" aria-label="<?= __('nav.settings') ?>">
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+        </header>
+
+        <!-- Bouton SOS principal -->
+        <div class="sos-button-wrapper">
+            <button type="button" class="sos-button" id="sos-button" aria-label="<?= __('sos.trigger_alert') ?>">
+                <div class="sos-pulse"></div>
+                <div class="sos-pulse delay-1"></div>
+                <div class="sos-pulse delay-2"></div>
+                <div class="sos-inner">
+                    <span class="sos-text">SOS</span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Instructions -->
+        <div class="sos-instructions">
+            <p class="instruction-main"><?= __('sos.tap_5_times') ?></p>
+            <p class="instruction-alt"><?= __('sos.or_hold_volume') ?></p>
+        </div>
+
+        <!-- Mode silencieux toggle -->
+        <div class="mode-toggle">
+            <label class="toggle-label">
+                <input type="checkbox" id="silent-mode" name="silent_mode">
+                <span class="toggle-switch"></span>
+                <span class="toggle-text"><?= __('sos.silent_mode') ?></span>
+            </label>
+            <span class="mode-info" id="mode-info">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- État: Déclenchement (compte à rebours) -->
+    <div class="sos-state sos-state-countdown" id="state-countdown">
+        <div class="countdown-container">
+            <div class="countdown-circle">
+                <svg class="countdown-svg" viewBox="0 0 100 100">
+                    <circle class="countdown-bg" cx="50" cy="50" r="45"/>
+                    <circle class="countdown-progress" cx="50" cy="50" r="45" id="countdown-progress"/>
+                </svg>
+                <span class="countdown-number" id="countdown-number">5</span>
+            </div>
+            <p class="countdown-text"><?= __('sos.sending_alert') ?></p>
+        </div>
+
+        <button type="button" class="btn-cancel" id="btn-cancel-countdown">
+            <?= __('sos.cancel') ?>
+        </button>
+    </div>
+
+    <!-- État: Alerte active -->
+    <div class="sos-state sos-state-active" id="state-active">
+        <!-- Alerte sonore active -->
+        <div class="alert-visual">
+            <div class="alert-pulse"></div>
+            <div class="alert-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+        </div>
+
+        <h2 class="alert-title"><?= __('sos.alert_active') ?></h2>
+        <p class="alert-status" id="alert-status"><?= __('sos.contacts_notified') ?></p>
+
+        <!-- Position GPS -->
+        <div class="location-info" id="location-info">
+            <svg class="location-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span class="location-text" id="location-text"><?= __('sos.locating') ?></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="alert-actions">
+            <button type="button" class="btn btn-safe" id="btn-safe">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span><?= __('sos.im_safe') ?></span>
+            </button>
+
+            <button type="button" class="btn btn-escalate" id="btn-escalate">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <span><?= __('sos.call_police') ?></span>
+            </button>
+
+            <button type="button" class="btn btn-cancel-alert" id="btn-cancel-alert">
+                <span><?= __('sos.false_alarm') ?></span>
+            </button>
+        </div>
+
+        <!-- Timer alerte -->
+        <div class="alert-timer">
+            <span class="timer-label"><?= __('sos.alert_duration') ?>:</span>
+            <span class="timer-value" id="alert-timer">00:00</span>
+        </div>
+    </div>
+
+    <!-- État: Résolu -->
+    <div class="sos-state sos-state-resolved" id="state-resolved">
+        <div class="resolved-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h2 class="resolved-title"><?= __('sos.youre_safe') ?></h2>
+        <p class="resolved-text"><?= __('sos.contacts_informed') ?></p>
+
+        <button type="button" class="btn btn-primary" id="btn-back-home">
+            <?= __('sos.back_to_home') ?>
+        </button>
+    </div>
+</div>
+
+<!-- Audio pour alarme sonore -->
+<audio id="alarm-audio" preload="auto" loop>
+    <source src="<?= asset_url('audio/alarm.mp3') ?>" type="audio/mpeg">
+</audio>
+
+<!-- Données incident actif (si existant) -->
+<?php if (!empty($activeIncident)): ?>
+<script>
+    window.ShieldActiveIncident = <?= json_encode($activeIncident) ?>;
+</script>
+<?php endif; ?>

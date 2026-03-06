@@ -1,0 +1,86 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.deploy
+
+# Build outputs
+dist/
+build/
+www/
+
+# Capacitor generated
+android/app/build/
+android/.gradle/
+android/local.properties
+ios/App/Pods/
+ios/DerivedData/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test outputs
+test-results/
+playwright-report/
+coverage/
+
+# PHP
+*.cache
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Uploads (keep structure, ignore content)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Compiled assets
+public/assets/css/*.min.css
+public/assets/js/*.min.js
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.keystore
+google-services.json
+GoogleService-Info.plist
+
+# Database
+*.sql.gz
+*.sql.bak
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# APK builds
+*.apk
+*.aab
+*.ipa
+
+# PHPStan cache
+.phpstan.cache/
+
+# Playwright
+/playwright/.cache/

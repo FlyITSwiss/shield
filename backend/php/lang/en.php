@@ -1,0 +1,480 @@
+<?php
+/**
+ * SHIELD - English Translations
+ *
+ * RULES:
+ * - Keep keys identical to fr.php
+ * - Format: 'module.action_description'
+ * - Parameters: ':param' for substitution
+ * - Sync with fr.php
+ */
+
+return [
+    // ============================================
+    // GENERAL APPLICATION
+    // ============================================
+    'app.name' => 'SHIELD',
+    'app.tagline' => 'Your safety, our priority',
+    'app.description' => 'Women\'s personal safety application',
+
+    // ============================================
+    // NAVIGATION
+    // ============================================
+    'nav.home' => 'Home',
+    'nav.sos' => 'SOS',
+    'nav.contacts' => 'Contacts',
+    'nav.settings' => 'Settings',
+    'nav.profile' => 'Profile',
+    'nav.history' => 'History',
+    'nav.help' => 'Help',
+    'nav.logout' => 'Logout',
+
+    // ============================================
+    // UI ELEMENTS
+    // ============================================
+    'ui.close' => 'Close',
+    'ui.open' => 'Open',
+    'ui.back_to_app' => 'Back to application',
+    'ui.loading' => 'Loading...',
+    'ui.error' => 'Error',
+    'ui.success' => 'Success',
+    'ui.warning' => 'Warning',
+    'ui.info' => 'Information',
+
+    // ============================================
+    // COMMON BUTTONS
+    // ============================================
+    'btn.save' => 'Save',
+    'btn.cancel' => 'Cancel',
+    'btn.confirm' => 'Confirm',
+    'btn.delete' => 'Delete',
+    'btn.edit' => 'Edit',
+    'btn.add' => 'Add',
+    'btn.close' => 'Close',
+    'btn.back' => 'Back',
+    'btn.next' => 'Next',
+    'btn.previous' => 'Previous',
+    'btn.submit' => 'Submit',
+    'btn.search' => 'Search',
+    'btn.filter' => 'Filter',
+    'btn.reset' => 'Reset',
+    'btn.retry' => 'Retry',
+    'btn.continue' => 'Continue',
+    'btn.skip' => 'Skip',
+    'btn.done' => 'Done',
+    'btn.enable' => 'Enable',
+    'btn.disable' => 'Disable',
+
+    // ============================================
+    // MESSAGES
+    // ============================================
+    'msg.success' => 'Operation successful',
+    'msg.error' => 'An error occurred',
+    'msg.loading' => 'Loading...',
+    'msg.saving' => 'Saving...',
+    'msg.deleting' => 'Deleting...',
+    'msg.saved' => 'Changes saved',
+    'msg.deleted' => 'Item deleted',
+    'msg.updated' => 'Update completed',
+    'msg.created' => 'Item created successfully',
+    'msg.no_results' => 'No results found',
+    'msg.confirm_delete' => 'Are you sure you want to delete this item?',
+    'msg.confirm_action' => 'Are you sure you want to perform this action?',
+    'msg.session_expired' => 'Your session has expired. Please log in again.',
+    'msg.network_error' => 'Connection error. Check your internet connection.',
+    'msg.permission_denied' => 'Access denied',
+    'msg.not_found' => 'Item not found',
+    'msg.back_online' => 'Connection restored',
+    'msg.offline' => 'Offline mode - Data will be synced',
+    'msg.copied_clipboard' => 'Link copied to clipboard',
+    'sos.synced' => 'Alerts synced successfully',
+
+    // ============================================
+    // VALIDATION
+    // ============================================
+    'validation.required' => 'This field is required',
+    'validation.email' => 'Please enter a valid email address',
+    'validation.email_required' => 'Email address is required',
+    'validation.email_invalid' => 'Invalid email format',
+    'validation.password_required' => 'Password is required',
+    'validation.phone' => 'Please enter a valid phone number',
+    'validation.min_length' => 'This field must contain at least :min characters',
+    'validation.max_length' => 'This field must not exceed :max characters',
+    'validation.password_mismatch' => 'Passwords do not match',
+    'validation.password_weak' => 'Password must contain at least 8 characters, one uppercase, one lowercase and one number',
+    'validation.invalid_format' => 'Invalid format',
+    'validation.file_too_large' => 'File is too large (max :size)',
+    'validation.invalid_file_type' => 'File type not allowed',
+
+    // ============================================
+    // AUTHENTICATION
+    // ============================================
+    'auth.login' => 'Login',
+    'auth.login_title' => 'Login',
+    'auth.login_button' => 'Sign in',
+    'auth.logout' => 'Logout',
+    'auth.register' => 'Register',
+    'auth.register_title' => 'Create an account',
+    'auth.register_link' => 'Sign up',
+    'auth.tagline' => 'Your safety, our priority',
+    'auth.email' => 'Email address',
+    'auth.email_placeholder' => 'your@email.com',
+    'auth.password' => 'Password',
+    'auth.password_placeholder' => '••••••••',
+    'auth.password_confirm' => 'Confirm password',
+    'auth.password_confirm_placeholder' => '••••••••',
+    'auth.show_password' => 'Show password',
+    'auth.hide_password' => 'Hide password',
+    'auth.remember_me' => 'Remember me',
+    'auth.forgot_password' => 'Forgot password?',
+    'auth.reset_password' => 'Reset password',
+    'auth.or_continue_with' => 'or continue with',
+    'auth.login_success' => 'Login successful',
+    'auth.login_failed' => 'Invalid email or password',
+    'auth.logout_success' => 'Logout successful',
+    'auth.register_success' => 'Account created successfully',
+    'auth.account_created' => 'Your account has been created. You can now log in.',
+    'auth.email_exists' => 'This email address is already in use',
+    'auth.password_reset_sent' => 'Password reset email sent',
+    'auth.password_changed' => 'Password changed successfully',
+    'auth.terms_accept' => 'I accept the terms of service',
+    'auth.privacy_accept' => 'I accept the privacy policy',
+    'auth.create_account' => 'Create account',
+    'auth.already_have_account' => 'Already have an account?',
+    'auth.no_account' => 'Don\'t have an account yet?',
+    'auth.first_name' => 'First name',
+    'auth.first_name_placeholder' => 'Your first name',
+    'auth.last_name' => 'Last name',
+    'auth.last_name_placeholder' => 'Your last name',
+    'auth.phone' => 'Phone',
+    'auth.phone_placeholder' => '6 12 34 56 78',
+
+    // ============================================
+    // OAUTH / SSO
+    // ============================================
+    'oauth.continue_with' => 'Continue with :provider',
+    'oauth.google' => 'Google',
+    'oauth.facebook' => 'Facebook',
+    'oauth.instagram' => 'Instagram',
+    'oauth.error' => 'Login error with :provider',
+    'auth.oauth_not_configured' => 'This login method is not available',
+    'auth.oauth_failed' => 'Login failed. Please try again.',
+    'auth.invalid_credentials' => 'Invalid email or password',
+    'auth.account_disabled' => 'This account has been disabled',
+
+    // ============================================
+    // SOS / EMERGENCY
+    // ============================================
+    'sos.button_label' => 'SOS',
+    'sos.tap_to_activate' => 'Tap to activate',
+    'sos.hold_to_cancel' => 'Hold to cancel',
+    'sos.activating' => 'Activating...',
+    'sos.activated' => 'SOS alert activated',
+    'sos.cancelled' => 'SOS alert cancelled',
+    'sos.countdown' => 'Triggering in :seconds seconds',
+    'sos.contacting_services' => 'Contacting emergency services...',
+    'sos.contacting_contacts' => 'Notifying trusted contacts...',
+    'sos.location_shared' => 'Your location has been shared',
+    'sos.ai_calling' => 'AI Agent online',
+    'sos.silent_mode' => 'Silent mode active',
+    'sos.silent_mode_info' => 'Audible alarm is disabled. Your contacts will be alerted discreetly.',
+    'sos.alarm_playing' => 'Alarm active',
+    'sos.help_on_way' => 'Help is on the way',
+    'sos.stay_calm' => 'Stay calm, we are with you',
+    'sos.false_alarm' => 'False alarm',
+    'sos.false_alarm_confirm' => 'Confirm this was a false alarm?',
+    'sos.incident_recorded' => 'Incident recorded',
+    'sos.tap_5_times' => 'Tap 5 times quickly',
+    'sos.hold_volume' => 'Hold volume button for 3 seconds',
+    'sos.share_title' => 'SHIELD Alert',
+    'sos.share_text' => 'I am in an emergency situation. Here is my live location:',
+    'sos.share_dialog' => 'Share my location',
+    'sos.current_location' => 'Current location:',
+    'sos.tracking_link' => 'Live tracking:',
+    'sos.share_success' => 'Location shared successfully',
+    'sos.share_failed' => 'Failed to share location',
+    'sos.share_revoked' => 'Share link revoked',
+
+    // ============================================
+    // TRUSTED CONTACTS
+    // ============================================
+    'contacts.title' => 'Trusted contacts',
+    'contacts.add' => 'Add contact',
+    'contacts.edit' => 'Edit contact',
+    'contacts.delete' => 'Delete contact',
+    'contacts.max_reached' => 'Maximum number of contacts reached (5)',
+    'contacts.name' => 'Name',
+    'contacts.phone' => 'Phone',
+    'contacts.email' => 'Email',
+    'contacts.relation' => 'Relationship',
+    'contacts.relation.family' => 'Family',
+    'contacts.relation.friend' => 'Friend',
+    'contacts.relation.partner' => 'Partner',
+    'contacts.relation.colleague' => 'Colleague',
+    'contacts.relation.other' => 'Other',
+    'contacts.priority' => 'Priority',
+    'contacts.priority.high' => 'High',
+    'contacts.priority.medium' => 'Medium',
+    'contacts.priority.low' => 'Low',
+    'contacts.notify_sms' => 'Notify by SMS',
+    'contacts.notify_call' => 'Call',
+    'contacts.notify_push' => 'Push notification',
+    'contacts.added' => 'Contact added successfully',
+    'contacts.updated' => 'Contact updated',
+    'contacts.deleted' => 'Contact deleted',
+    'contacts.empty' => 'No trusted contacts configured',
+    'contacts.empty_info' => 'Add contacts who will be alerted in case of emergency',
+    'contacts.test_alert' => 'Send test alert',
+    'contacts.test_sent' => 'Test alert sent',
+    'contacts.status.pending' => 'Pending',
+    'contacts.status.sending' => 'Sending',
+    'contacts.status.delivered' => 'Delivered',
+    'contacts.status.failed' => 'Failed',
+    'contacts.status.acknowledged' => 'Acknowledged',
+    'contacts.status.responding' => 'En route',
+    'contacts.status.arrived' => 'On site',
+    'contacts.all_notified' => 'All contacts have been notified',
+    'contacts.all_acknowledged' => 'All contacts have acknowledged',
+
+    // ============================================
+    // EMERGENCY SERVICES
+    // ============================================
+    'emergency.title' => 'Emergency services',
+    'emergency.police' => 'Police',
+    'emergency.ambulance' => 'Ambulance',
+    'emergency.fire' => 'Fire department',
+    'emergency.helpline' => 'Helpline',
+    'emergency.domestic_violence' => 'Domestic violence',
+    'emergency.call' => 'Call :number',
+    'emergency.calling' => 'Calling...',
+    'emergency.country' => 'Detected country: :country',
+    'emergency.local_services' => 'Local services',
+
+    // ============================================
+    // USER PROFILE
+    // ============================================
+    'profile.title' => 'My profile',
+    'profile.edit' => 'Edit profile',
+    'profile.first_name' => 'First name',
+    'profile.last_name' => 'Last name',
+    'profile.phone' => 'Phone',
+    'profile.email' => 'Email',
+    'profile.photo' => 'Profile photo',
+    'profile.change_photo' => 'Change photo',
+    'profile.remove_photo' => 'Remove photo',
+    'profile.blood_type' => 'Blood type',
+    'profile.allergies' => 'Allergies',
+    'profile.medications' => 'Medications',
+    'profile.medical_notes' => 'Medical notes',
+    'profile.emergency_info' => 'Emergency information',
+    'profile.updated' => 'Profile updated',
+
+    // ============================================
+    // SETTINGS
+    // ============================================
+    'settings.title' => 'Settings',
+    'settings.general' => 'General',
+    'settings.notifications' => 'Notifications',
+    'settings.privacy' => 'Privacy',
+    'settings.security' => 'Security',
+    'settings.language' => 'Language',
+    'settings.theme' => 'Theme',
+    'settings.theme.dark' => 'Dark',
+    'settings.theme.light' => 'Light',
+    'settings.theme.auto' => 'Automatic',
+    'settings.sound' => 'Sounds',
+    'settings.vibration' => 'Vibration',
+    'settings.location' => 'Location',
+    'settings.location_always' => 'Always enable location',
+    'settings.background_location' => 'Background location',
+    'settings.silent_mode' => 'Silent mode by default',
+    'settings.silent_mode_info' => 'Useful in domestic violence situations',
+    'settings.auto_call' => 'Auto-call emergency services',
+    'settings.countdown_duration' => 'Countdown duration',
+    'settings.countdown_5s' => '5 seconds',
+    'settings.countdown_10s' => '10 seconds',
+    'settings.countdown_15s' => '15 seconds',
+    'settings.alarm_type' => 'Alarm type',
+    'settings.alarm.siren' => 'Siren',
+    'settings.alarm.horn' => 'Horn',
+    'settings.alarm.voice' => 'Voice',
+    'settings.saved' => 'Settings saved',
+    'settings.change_password' => 'Change password',
+    'settings.delete_account' => 'Delete account',
+    'settings.delete_account_warning' => 'This action is irreversible. All your data will be deleted.',
+
+    // ============================================
+    // HISTORY
+    // ============================================
+    'history.title' => 'Alert history',
+    'history.empty' => 'No alerts recorded',
+    'history.incident' => 'Incident',
+    'history.date' => 'Date',
+    'history.duration' => 'Duration',
+    'history.location' => 'Location',
+    'history.location_unknown' => 'Unknown location',
+    'history.status' => 'Status',
+    'history.status_active' => 'Active',
+    'history.status_resolved' => 'Resolved',
+    'history.status_escalated' => 'Escalated',
+    'history.status_cancelled' => 'Cancelled',
+    'history.status.resolved' => 'Resolved',
+    'history.status.false_alarm' => 'False alarm',
+    'history.status.pending' => 'Pending',
+    'history.details' => 'Details',
+    'history.contacts_notified' => 'Contacts notified',
+    'history.services_called' => 'Services called',
+    'history.recording' => 'Audio recording',
+    'history.photos' => 'Photos',
+    'history.alert_triggered' => 'Alert triggered',
+    'history.contacts_alerted' => 'Contacts alerted',
+    'history.escalated_police' => 'Escalated to police',
+    'history.confirmed_safe' => 'Confirmed safe',
+    'history.alert_cancelled' => 'Alert cancelled',
+    'history.no_contacts_notified' => 'No contacts notified',
+    'history.acknowledged' => 'Acknowledged',
+    'history.notified' => 'Notified',
+
+    // ============================================
+    // AI AGENT
+    // ============================================
+    'ai.connecting' => 'Connecting to AI agent...',
+    'ai.connected' => 'AI agent connected',
+    'ai.speaking' => 'Agent speaking...',
+    'ai.listening' => 'Listening...',
+    'ai.processing' => 'Processing...',
+    'ai.error' => 'Agent connection error',
+    'ai.retry' => 'Reconnecting...',
+    'ai.end_call' => 'End call',
+    'ai.mute' => 'Mute',
+    'ai.unmute' => 'Unmute',
+    'ai.speaker' => 'Speaker',
+
+    // ============================================
+    // LOCATION
+    // ============================================
+    'location.title' => 'Location',
+    'location.current' => 'Current position',
+    'location.updating' => 'Updating position...',
+    'location.error' => 'Unable to get position',
+    'location.permission_required' => 'Location permission required',
+    'location.permission_denied' => 'Location permission denied',
+    'location.enable_gps' => 'Please enable GPS',
+    'location.accuracy' => 'Accuracy: :meters meters',
+    'location.share' => 'Share my location',
+    'location.shared' => 'Location shared',
+
+    // ============================================
+    // SUPPORTED COUNTRIES
+    // ============================================
+    'country.FR' => 'France',
+    'country.CH' => 'Switzerland',
+    'country.BE' => 'Belgium',
+    'country.DE' => 'Germany',
+    'country.ES' => 'Spain',
+    'country.IT' => 'Italy',
+    'country.NL' => 'Netherlands',
+    'country.PT' => 'Portugal',
+    'country.SE' => 'Sweden',
+    'country.PL' => 'Poland',
+
+    // ============================================
+    // ONBOARDING
+    // ============================================
+    'onboarding.welcome' => 'Welcome to SHIELD',
+    'onboarding.intro' => 'Your personal safety application',
+    'onboarding.step1_title' => 'Quick trigger',
+    'onboarding.step1_desc' => 'Tap 5 times quickly on the screen or hold the volume button to trigger the alert',
+    'onboarding.step2_title' => 'Trusted contacts',
+    'onboarding.step2_desc' => 'Add up to 5 people who will be alerted in case of emergency',
+    'onboarding.step3_title' => '24/7 AI Agent',
+    'onboarding.step3_desc' => 'An intelligent voice agent supports you during the crisis',
+    'onboarding.step4_title' => 'Silent mode',
+    'onboarding.step4_desc' => 'For domestic violence situations, the alarm can be disabled',
+    'onboarding.get_started' => 'Get started',
+    'onboarding.setup_contacts' => 'Set up my contacts',
+
+    // ============================================
+    // PUBLIC TRACKING PAGE
+    // ============================================
+    'track.title' => 'SHIELD Emergency Tracking',
+    'track.subtitle' => 'Live tracking',
+    'track.loading' => 'Loading data...',
+    'track.error_title' => 'Invalid link',
+    'track.error_expired' => 'This share link has expired or been revoked.',
+    'track.error_not_found' => 'Share link not found.',
+    'track.error_loading' => 'Error loading data.',
+    'track.back_to_app' => 'Back to application',
+    'track.person_in_danger' => 'Person in danger',
+    'track.status' => 'Status',
+    'track.status.active' => 'Active alert',
+    'track.status.escalated' => 'Escalated to emergency services',
+    'track.status.resolved' => 'Resolved',
+    'track.status.cancelled' => 'Cancelled',
+    'track.triggered_at' => 'Triggered',
+    'track.elapsed' => ':minutes min elapsed',
+    'track.severity' => 'Severity level',
+    'track.severity.low' => 'Low',
+    'track.severity.medium' => 'Medium',
+    'track.severity.high' => 'High',
+    'track.severity.critical' => 'Critical',
+    'track.location' => 'Location',
+    'track.location_unknown' => 'Location unknown',
+    'track.location_updated' => 'Updated',
+    'track.map_loading' => 'Loading map...',
+    'track.call_person' => 'Call :name',
+    'track.actions' => 'Actions',
+    'track.acknowledge' => 'I\'ve seen the alert',
+    'track.acknowledge_desc' => 'Confirm that you received this alert',
+    'track.responding' => 'I\'m on my way',
+    'track.responding_desc' => 'Signal that you\'re heading to the person',
+    'track.arrived' => 'I\'ve arrived',
+    'track.arrived_desc' => 'Confirm your arrival on site',
+    'track.enter_eta' => 'Estimated time of arrival (minutes)',
+    'track.acknowledged_success' => 'Thank you, the person has been notified',
+    'track.responding_success' => 'The person knows you\'re on your way',
+    'track.arrived_success' => 'Arrival confirmed',
+    'track.other_contacts' => 'Other alerted contacts',
+    'track.no_other_contacts' => 'You are the only alerted contact',
+    'track.share_location' => 'Share my location',
+    'track.share_location_desc' => 'Allows the person in danger to see your location',
+    'track.location_shared' => 'Your location is being shared',
+    'track.call_emergency' => 'Call emergency',
+    'track.emergency_number' => 'Local emergency number',
+    'track.refresh' => 'Refresh',
+    'track.auto_refresh' => 'Auto-refresh every 10s',
+
+    // ============================================
+    // HTTP ERRORS
+    // ============================================
+    'error.400' => 'Bad request',
+    'error.401' => 'Unauthorized',
+    'error.403' => 'Forbidden',
+    'error.404' => 'Page not found',
+    'error.page_not_found' => 'Page not found',
+    'error.419' => 'Session expired',
+    'error.session_expired' => 'Session expired',
+    'error.422' => 'Invalid data',
+    'error.429' => 'Too many requests',
+    'error.500' => 'Server error',
+    'error.internal' => 'Internal server error',
+    'error.503' => 'Service unavailable',
+    'error.network' => 'Connection error. Check your internet connection.',
+    'error.timeout' => 'Request timed out. Please try again.',
+    'error.generic' => 'An error occurred. Please try again.',
+    'error.save_failed' => 'Failed to save',
+
+    // ============================================
+    // DATES AND TIMES
+    // ============================================
+    'date.today' => 'Today',
+    'date.yesterday' => 'Yesterday',
+    'date.tomorrow' => 'Tomorrow',
+    'date.now' => 'Now',
+    'date.ago' => ':time ago',
+    'date.in' => 'In :time',
+    'date.seconds' => ':count second|:count seconds',
+    'date.minutes' => ':count minute|:count minutes',
+    'date.hours' => ':count hour|:count hours',
+    'date.days' => ':count day|:count days',
+];

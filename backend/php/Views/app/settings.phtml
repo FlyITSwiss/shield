@@ -1,0 +1,226 @@
+<?php
+/**
+ * SHIELD - Page des paramètres
+ */
+$pageTitle = __('settings.title') . ' - SHIELD';
+$bodyClass = 'page-settings';
+$showNavigation = true;
+$currentPage = 'settings';
+$pageScripts = ['app/settings.js'];
+?>
+
+<div class="settings-container">
+    <!-- Header -->
+    <header class="settings-header">
+        <button type="button" class="btn-back" id="btn-back" aria-label="<?= __('ui.back') ?>">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <h1 class="settings-title"><?= __('settings.title') ?></h1>
+    </header>
+
+    <!-- Profil -->
+    <section class="settings-section">
+        <h2 class="section-title"><?= __('settings.profile') ?></h2>
+
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <?php if (!empty($user['profile_picture_url'])): ?>
+                    <img src="<?= htmlspecialchars($user['profile_picture_url']) ?>" alt="<?= __('settings.profile_picture') ?>">
+                <?php else: ?>
+                    <div class="avatar-placeholder">
+                        <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="profile-info">
+                <span class="profile-name"><?= htmlspecialchars($user['first_name'] ?? '') ?></span>
+                <span class="profile-email"><?= htmlspecialchars($user['email'] ?? '') ?></span>
+            </div>
+            <button type="button" class="btn-edit" id="btn-edit-profile" aria-label="<?= __('settings.edit_profile') ?>">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Paramètres d'alerte -->
+    <section class="settings-section">
+        <h2 class="section-title"><?= __('settings.alert_settings') ?></h2>
+
+        <div class="settings-group">
+            <!-- Mode d'alerte par défaut -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.default_mode') ?></span>
+                    <span class="setting-description"><?= __('settings.default_mode_desc') ?></span>
+                </div>
+                <select id="alert-mode" name="alert_mode" class="setting-select">
+                    <option value="sonic" <?= ($alertPrefs['alert_mode'] ?? 'sonic') === 'sonic' ? 'selected' : '' ?>>
+                        <?= __('settings.mode_sonic') ?>
+                    </option>
+                    <option value="silent" <?= ($alertPrefs['alert_mode'] ?? '') === 'silent' ? 'selected' : '' ?>>
+                        <?= __('settings.mode_silent') ?>
+                    </option>
+                </select>
+            </div>
+
+            <!-- Délai de confirmation -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.confirmation_delay') ?></span>
+                    <span class="setting-description"><?= __('settings.confirmation_delay_desc') ?></span>
+                </div>
+                <select id="confirmation-delay" name="confirmation_delay" class="setting-select">
+                    <option value="0" <?= ($alertPrefs['confirmation_delay'] ?? 0) == 0 ? 'selected' : '' ?>>
+                        <?= __('settings.delay_immediate') ?>
+                    </option>
+                    <option value="3" <?= ($alertPrefs['confirmation_delay'] ?? 0) == 3 ? 'selected' : '' ?>>
+                        3 <?= __('settings.seconds') ?>
+                    </option>
+                    <option value="5" <?= ($alertPrefs['confirmation_delay'] ?? 0) == 5 ? 'selected' : '' ?>>
+                        5 <?= __('settings.seconds') ?>
+                    </option>
+                </select>
+            </div>
+
+            <!-- Déclenchement volume -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.volume_trigger') ?></span>
+                    <span class="setting-description"><?= __('settings.volume_trigger_desc') ?></span>
+                </div>
+                <label class="toggle-switch-setting">
+                    <input type="checkbox" id="volume-trigger" name="volume_trigger_enabled"
+                           <?= !empty($alertPrefs['volume_trigger_enabled']) ? 'checked' : '' ?>>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Durée appui volume -->
+            <div class="setting-item" id="volume-duration-setting">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.volume_duration') ?></span>
+                </div>
+                <select id="volume-duration" name="volume_trigger_duration" class="setting-select">
+                    <option value="2" <?= ($alertPrefs['volume_trigger_duration'] ?? 3) == 2 ? 'selected' : '' ?>>2s</option>
+                    <option value="3" <?= ($alertPrefs['volume_trigger_duration'] ?? 3) == 3 ? 'selected' : '' ?>>3s</option>
+                    <option value="5" <?= ($alertPrefs['volume_trigger_duration'] ?? 3) == 5 ? 'selected' : '' ?>>5s</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mots-codes -->
+    <section class="settings-section">
+        <h2 class="section-title"><?= __('settings.code_words') ?></h2>
+        <p class="section-description"><?= __('settings.code_words_desc') ?></p>
+
+        <div class="settings-group">
+            <div class="setting-item setting-item-input">
+                <label for="code-word-red" class="setting-label">
+                    <span class="code-indicator code-red"></span>
+                    <?= __('settings.code_red') ?>
+                </label>
+                <input type="text" id="code-word-red" name="code_word_red" class="setting-input"
+                       value="<?= htmlspecialchars($alertPrefs['code_word_red'] ?? '') ?>"
+                       placeholder="<?= __('settings.code_word_placeholder') ?>">
+            </div>
+
+            <div class="setting-item setting-item-input">
+                <label for="code-word-orange" class="setting-label">
+                    <span class="code-indicator code-orange"></span>
+                    <?= __('settings.code_orange') ?>
+                </label>
+                <input type="text" id="code-word-orange" name="code_word_orange" class="setting-input"
+                       value="<?= htmlspecialchars($alertPrefs['code_word_orange'] ?? '') ?>"
+                       placeholder="<?= __('settings.code_word_placeholder') ?>">
+            </div>
+
+            <div class="setting-item setting-item-input">
+                <label for="code-word-cancel" class="setting-label">
+                    <span class="code-indicator code-green"></span>
+                    <?= __('settings.code_cancel') ?>
+                </label>
+                <input type="text" id="code-word-cancel" name="code_word_cancel" class="setting-input"
+                       value="<?= htmlspecialchars($alertPrefs['code_word_cancel'] ?? '') ?>"
+                       placeholder="<?= __('settings.code_cancel_placeholder') ?>">
+            </div>
+        </div>
+    </section>
+
+    <!-- Langue et région -->
+    <section class="settings-section">
+        <h2 class="section-title"><?= __('settings.language_region') ?></h2>
+
+        <div class="settings-group">
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.language') ?></span>
+                </div>
+                <select id="language" name="preferred_language" class="setting-select">
+                    <option value="fr" <?= ($user['preferred_language'] ?? 'fr') === 'fr' ? 'selected' : '' ?>>Français</option>
+                    <option value="en" <?= ($user['preferred_language'] ?? '') === 'en' ? 'selected' : '' ?>>English</option>
+                    <option value="de" <?= ($user['preferred_language'] ?? '') === 'de' ? 'selected' : '' ?>>Deutsch</option>
+                    <option value="es" <?= ($user['preferred_language'] ?? '') === 'es' ? 'selected' : '' ?>>Español</option>
+                    <option value="it" <?= ($user['preferred_language'] ?? '') === 'it' ? 'selected' : '' ?>>Italiano</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.country') ?></span>
+                </div>
+                <select id="country" name="country_code" class="setting-select">
+                    <option value="FR" <?= ($user['country_code'] ?? 'FR') === 'FR' ? 'selected' : '' ?>>France</option>
+                    <option value="BE" <?= ($user['country_code'] ?? '') === 'BE' ? 'selected' : '' ?>>Belgique</option>
+                    <option value="CH" <?= ($user['country_code'] ?? '') === 'CH' ? 'selected' : '' ?>>Suisse</option>
+                    <option value="DE" <?= ($user['country_code'] ?? '') === 'DE' ? 'selected' : '' ?>>Allemagne</option>
+                    <option value="ES" <?= ($user['country_code'] ?? '') === 'ES' ? 'selected' : '' ?>>Espagne</option>
+                    <option value="IT" <?= ($user['country_code'] ?? '') === 'IT' ? 'selected' : '' ?>>Italie</option>
+                    <option value="NL" <?= ($user['country_code'] ?? '') === 'NL' ? 'selected' : '' ?>>Pays-Bas</option>
+                    <option value="PT" <?= ($user['country_code'] ?? '') === 'PT' ? 'selected' : '' ?>>Portugal</option>
+                    <option value="AT" <?= ($user['country_code'] ?? '') === 'AT' ? 'selected' : '' ?>>Autriche</option>
+                    <option value="LU" <?= ($user['country_code'] ?? '') === 'LU' ? 'selected' : '' ?>>Luxembourg</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos -->
+    <section class="settings-section">
+        <h2 class="section-title"><?= __('settings.about') ?></h2>
+
+        <div class="settings-group">
+            <a href="<?= base_url('about/privacy') ?>" class="setting-item setting-link">
+                <span class="setting-label"><?= __('settings.privacy_policy') ?></span>
+                <svg class="chevron" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </a>
+
+            <a href="<?= base_url('about/terms') ?>" class="setting-item setting-link">
+                <span class="setting-label"><?= __('settings.terms') ?></span>
+                <svg class="chevron" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </a>
+
+            <a href="<?= base_url('about/help') ?>" class="setting-item setting-link">
+                <span class="setting-label"><?= __('settings.help') ?></span>
+                <svg class="chevron" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </a>
+
+            <div class="setting-item">
+                <span class="setting-label"><?= __('settings.version') ?></span>
+                <span class="setting-value">1.0.0</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Déconnexion -->
+    <section class="settings-section">
+        <button type="button" class="btn btn-logout" id="btn-logout">
+            <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+            <span><?= __('settings.logout') ?></span>
+        </button>
+
+        <button type="button" class="btn btn-delete-account" id="btn-delete-account">
+            <?= __('settings.delete_account') ?>
+        </button>
+    </section>
+</div>

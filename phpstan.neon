@@ -1,0 +1,45 @@
+parameters:
+    level: 6
+    paths:
+        - backend/php
+    excludePaths:
+        - backend/php/vendor
+        - backend/php/Views
+        - backend/php/lang
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
+
+    # Ignore patterns specifiques SHIELD
+    ignoreErrors:
+        # Helpers globaux
+        - '#Function __ not found#'
+        - '#Function base_url not found#'
+        - '#Function asset_url not found#'
+        - '#Function api_url not found#'
+        - '#Function redirect_to not found#'
+        - '#Function app not found#'
+
+        # Variables globales
+        - '#Variable \$db might not be defined#'
+        - '#Variable \$config might not be defined#'
+
+        # PDO dynamique
+        - '#Call to an undefined method PDO::#'
+
+        # JSON encode/decode
+        - '#Parameter .* of function json_decode expects string#'
+
+    # Stubs pour types manquants
+    stubFiles:
+        - stubs/global-functions.stub
+
+    # Parallel processing
+    parallel:
+        maximumNumberOfProcesses: 4
+
+    # Memory limit
+    memoryLimitFile: 1G
+
+    # Cache
+    tmpDir: .phpstan.cache

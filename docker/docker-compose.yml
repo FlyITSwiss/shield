@@ -1,0 +1,121 @@
+services:
+  # Application PHP
+  shield-app:
+    container_name: shield-app-local
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8085:80"
+    volumes:
+      # Composer - bind mount
+      - ../composer.json:/var/www/shield/composer.json
+      - ../vendor:/var/www/shield/vendor
+      # Code source - bind mount
+      - ../backend/php:/var/www/shield/backend/php
+      - ../public:/var/www/shield/public
+      # Uploads - bind mount (JAMAIS named volume)
+      - ../public/uploads:/var/www/shield/public/uploads
+      # Storage
+      - ../storage:/var/www/shield/storage
+    environment:
+      - APP_ENV=development
+      - APP_DEBUG=true
+      - APP_URL=http://127.0.0.1:8085
+      - DB_HOST=shield-db
+      - DB_PORT=3306
+      - DB_DATABASE=shield
+      - DB_USERNAME=shield_user
+      - DB_PASSWORD=shield_password_dev
+      # Twilio (dev)
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER:-}
+      # Deepgram (dev)
+      - DEEPGRAM_API_KEY=${DEEPGRAM_API_KEY:-}
+      # ElevenLabs (dev)
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY:-}
+      # OpenAI (dev)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      # Firebase (dev)
+      - FIREBASE_SERVER_KEY=${FIREBASE_SERVER_KEY:-}
+    depends_on:
+      shield-db:
+        condition: service_healthy
+    networks:
+      - shield-network
+    restart: unless-stopped
+
+  # Base de donnees MySQL
+  shield-db:
+    container_name: shield-db-local
+    image: mysql:8.0
+    ports:
+      - "3311:3306"
+    volumes:
+      # Data MySQL - named volume OK pour BDD
+      - shield-db-data:/var/lib/mysql
+      # Migrations
+      - ../database/migrations:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=shield_root_password_dev
+      - MYSQL_DATABASE=shield
+      - MYSQL_USER=shield_user
+      - MYSQL_PASSWORD=shield_password_dev
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pshield_root_password_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - shield-network
+    restart: unless-stopped
+
+  # phpMyAdmin (dev only)
+  shield-phpmyadmin:
+    container_name: shield-phpmyadmin-local
+    image: phpmyadmin:latest
+    ports:
+      - "8087:80"
+    environment:
+      - PMA_HOST=shield-db
+      - PMA_PORT=3306
+      - PMA_USER=shield_user
+      - PMA_PASSWORD=shield_password_dev
+    depends_on:
+      - shield-db
+    networks:
+      - shield-network
+    profiles:
+      - dev
+
+  # Redis pour cache et sessions
+  shield-redis:
+    container_name: shield-redis-local
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - shield-redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - shield-network
+    restart: unless-stopped
+
+networks:
+  shield-network:
+    driver: bridge
+
+volumes:
+  # Named volumes pour donnees persistantes (PAS pour uploads)
+  shield-db-data:
+    driver: local
+  shield-redis-data:
+    driver: local

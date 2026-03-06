@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="<?= $lang ?? 'fr' ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8E24AA">
+
+    <title><?= $pageTitle ?? 'SHIELD' ?></title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="<?= versioned_asset('css/shield-core.css') ?>">
+
+    <style>
+        .minimal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-34) var(--spacing-21);
+        }
+        .minimal-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-13);
+            margin-bottom: var(--spacing-34);
+        }
+        .minimal-logo {
+            width: 40px;
+            height: 40px;
+        }
+        .minimal-title {
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .minimal-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .minimal-content h2 {
+            font-size: var(--text-xl);
+            color: var(--text-primary);
+            margin-top: var(--spacing-34);
+            margin-bottom: var(--spacing-13);
+        }
+        .minimal-content p {
+            margin-bottom: var(--spacing-13);
+        }
+        .minimal-content ul {
+            margin-bottom: var(--spacing-13);
+            padding-left: var(--spacing-21);
+        }
+        .minimal-content li {
+            margin-bottom: var(--spacing-8);
+        }
+        .minimal-footer {
+            margin-top: var(--spacing-55);
+            padding-top: var(--spacing-21);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+        .minimal-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="shield-minimal">
+    <div class="minimal-container">
+        <header class="minimal-header">
+            <svg class="minimal-logo" viewBox="0 0 100 100">
+                <path d="M50 5 L90 20 L90 45 C90 70 70 90 50 95 C30 90 10 70 10 45 L10 20 Z" fill="#8E24AA"/>
+            </svg>
+            <span class="minimal-title">SHIELD</span>
+        </header>
+
+        <article class="minimal-content">
+            <?= $content ?? '' ?>
+        </article>
+
+        <footer class="minimal-footer">
+            <a href="<?= base_url('/') ?>">&larr; <?= __('ui.back_to_app') ?></a>
+        </footer>
+    </div>
+</body>
+</html>

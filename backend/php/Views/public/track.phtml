@@ -1,0 +1,711 @@
+<?php
+/**
+ * SHIELD - Public Tracking Page
+ *
+ * Allows trusted contacts to:
+ * - See real-time location
+ * - Acknowledge receipt
+ * - Mark as responding/arrived
+ *
+ * No authentication required (token-based access)
+ */
+
+$pageTitle = __('sos.tracking_title') . ' - SHIELD';
+$bodyClass = 'tracking-page';
+
+// Get share data via API
+$shareId = $shareId ?? '';
+?>
+
+<div class="tracking-container" x-data="trackingPage('<?= htmlspecialchars($shareId) ?>')">
+    <!-- Loading State -->
+    <div class="tracking-loading" x-show="loading" x-cloak>
+        <div class="loading-spinner"></div>
+        <p><?= __('ui.loading') ?></p>
+    </div>
+
+    <!-- Error State -->
+    <div class="tracking-error" x-show="error && !loading" x-cloak>
+        <div class="error-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12" y2="16"/>
+            </svg>
+        </div>
+        <h2 x-text="errorMessage"><?= __('error.tracking_unavailable') ?></h2>
+        <p><?= __('error.tracking_expired_or_revoked') ?></p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="tracking-content" x-show="!loading && !error" x-cloak>
+        <!-- Header -->
+        <header class="tracking-header">
+            <div class="shield-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--primary)">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>SHIELD</span>
+            </div>
+            <div class="incident-status" :class="'status-' + incident.status">
+                <span class="status-dot"></span>
+                <span x-text="getStatusLabel(incident.status)"><?= __('sos.status_active') ?></span>
+            </div>
+        </header>
+
+        <!-- Alert Banner -->
+        <div class="alert-banner" :class="{ 'urgent': incident.status === 'active' }">
+            <div class="alert-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/>
+                </svg>
+            </div>
+            <div class="alert-text">
+                <strong x-text="incident.user_name || '<?= __('sos.someone') ?>'"><?= __('sos.someone') ?></strong>
+                <?= __('sos.needs_help') ?>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container">
+            <div id="tracking-map" class="tracking-map"></div>
+            <div class="map-overlay" x-show="!location.latitude">
+                <p><?= __('sos.waiting_location') ?></p>
+            </div>
+
+            <!-- Location Info -->
+            <div class="location-info" x-show="location.latitude">
+                <div class="info-row">
+                    <span class="label"><?= __('sos.last_update') ?>:</span>
+                    <span class="value" x-text="formatTime(location.updated_at)">--:--</span>
+                </div>
+                <div class="info-row" x-show="location.accuracy">
+                    <span class="label"><?= __('sos.accuracy') ?>:</span>
+                    <span class="value" x-text="Math.round(location.accuracy) + 'm'">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Incident Info -->
+        <div class="incident-info">
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <span class="label"><?= __('sos.duration') ?></span>
+                    <span class="value" x-text="formatDuration(incident.started_at)">00:00</span>
+                </div>
+            </div>
+
+            <div class="info-card" x-show="incident.trigger_method">
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <span class="label"><?= __('sos.trigger_method') ?></span>
+                    <span class="value" x-text="getTriggerLabel(incident.trigger_method)">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Actions -->
+        <div class="response-actions" x-show="canRespond">
+            <h3><?= __('sos.your_response') ?></h3>
+
+            <!-- Acknowledge Button -->
+            <button
+                class="btn btn-primary btn-large"
+                x-show="!hasAcknowledged"
+                @click="acknowledge()"
+                :disabled="responding"
+            >
+                <span x-show="!responding"><?= __('sos.confirm_received') ?></span>
+                <span x-show="responding"><?= __('ui.loading') ?></span>
+            </button>
+
+            <!-- Response Status -->
+            <div class="response-status" x-show="hasAcknowledged">
+                <div class="status-acknowledged">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <?= __('sos.you_acknowledged') ?>
+                </div>
+
+                <!-- Additional actions -->
+                <div class="action-buttons">
+                    <button
+                        class="btn btn-secondary"
+                        x-show="!isResponding"
+                        @click="markResponding()"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                        </svg>
+                        <?= __('sos.im_on_my_way') ?>
+                    </button>
+
+                    <button
+                        class="btn btn-success"
+                        x-show="isResponding && !hasArrived"
+                        @click="markArrived()"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <?= __('sos.i_arrived') ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Contacts -->
+        <div class="other-contacts" x-show="contacts.length > 1">
+            <h3><?= __('sos.other_contacts') ?></h3>
+            <div class="contacts-list">
+                <template x-for="contact in contacts" :key="contact.contact_id">
+                    <div class="contact-item" :class="'status-' + contact.status">
+                        <div class="contact-avatar" x-text="contact.contact_name?.charAt(0) || '?'"></div>
+                        <div class="contact-info">
+                            <span class="contact-name" x-text="contact.contact_name">Contact</span>
+                            <span class="contact-status" x-text="getContactStatusLabel(contact.status)">--</span>
+                        </div>
+                        <div class="contact-icon">
+                            <svg x-show="contact.status === 'acknowledged'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <svg x-show="contact.status === 'responding'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+                                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                            </svg>
+                            <svg x-show="contact.status === 'arrived'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Emergency Numbers -->
+        <div class="emergency-numbers">
+            <h3><?= __('emergency.call_help') ?></h3>
+            <div class="emergency-buttons">
+                <a href="tel:112" class="btn btn-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    112 <?= __('emergency.european') ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function trackingPage(shareId) {
+    return {
+        shareId: shareId,
+        loading: true,
+        error: false,
+        errorMessage: '',
+        incident: {},
+        location: {},
+        contacts: [],
+        myContactId: null,
+        responding: false,
+        pollInterval: null,
+        map: null,
+        marker: null,
+
+        // Computed
+        get hasAcknowledged() {
+            if (!this.myContactId) return false;
+            const me = this.contacts.find(c => c.contact_id === this.myContactId);
+            return me && ['acknowledged', 'responding', 'arrived'].includes(me.status);
+        },
+
+        get isResponding() {
+            if (!this.myContactId) return false;
+            const me = this.contacts.find(c => c.contact_id === this.myContactId);
+            return me && ['responding', 'arrived'].includes(me.status);
+        },
+
+        get hasArrived() {
+            if (!this.myContactId) return false;
+            const me = this.contacts.find(c => c.contact_id === this.myContactId);
+            return me && me.status === 'arrived';
+        },
+
+        get canRespond() {
+            return this.myContactId !== null;
+        },
+
+        async init() {
+            await this.fetchData();
+
+            if (!this.error) {
+                this.initMap();
+                this.startPolling();
+            }
+        },
+
+        async fetchData() {
+            try {
+                const response = await fetch(`/api/track.php?share_id=${this.shareId}`);
+                const data = await response.json();
+
+                if (!data.success) {
+                    this.error = true;
+                    this.errorMessage = data.error === 'expired' ?
+                        '<?= __('error.link_expired') ?>' :
+                        '<?= __('error.tracking_unavailable') ?>';
+                    return;
+                }
+
+                this.incident = data.incident || {};
+                this.location = data.location || {};
+                this.contacts = data.contacts || [];
+                this.myContactId = data.my_contact_id || null;
+
+                // Update map if exists
+                if (this.map && this.location.latitude) {
+                    this.updateMapPosition();
+                }
+
+            } catch (e) {
+                console.error('Fetch error:', e);
+                this.error = true;
+                this.errorMessage = '<?= __('error.network') ?>';
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        initMap() {
+            if (!this.location.latitude || !this.location.longitude) return;
+
+            // Use Leaflet for map
+            if (typeof L !== 'undefined') {
+                this.map = L.map('tracking-map').setView(
+                    [this.location.latitude, this.location.longitude],
+                    15
+                );
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap'
+                }).addTo(this.map);
+
+                this.marker = L.marker([this.location.latitude, this.location.longitude])
+                    .addTo(this.map)
+                    .bindPopup('<?= __('sos.person_location') ?>')
+                    .openPopup();
+            }
+        },
+
+        updateMapPosition() {
+            if (!this.map || !this.marker) return;
+            if (!this.location.latitude || !this.location.longitude) return;
+
+            const latlng = [this.location.latitude, this.location.longitude];
+            this.marker.setLatLng(latlng);
+            this.map.panTo(latlng);
+        },
+
+        startPolling() {
+            this.pollInterval = setInterval(() => {
+                this.fetchData();
+            }, 10000); // Poll every 10 seconds
+        },
+
+        stopPolling() {
+            if (this.pollInterval) {
+                clearInterval(this.pollInterval);
+            }
+        },
+
+        async acknowledge() {
+            if (!this.myContactId) return;
+            this.responding = true;
+
+            try {
+                const response = await fetch('/api/incidents.php?action=acknowledge-contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        incident_id: this.incident.uuid,
+                        contact_id: this.myContactId
+                    })
+                });
+
+                await this.fetchData();
+            } catch (e) {
+                console.error('Acknowledge error:', e);
+            } finally {
+                this.responding = false;
+            }
+        },
+
+        async markResponding() {
+            if (!this.myContactId) return;
+
+            try {
+                await fetch('/api/incidents.php?action=contact-responding', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        incident_id: this.incident.uuid,
+                        contact_id: this.myContactId
+                    })
+                });
+
+                await this.fetchData();
+            } catch (e) {
+                console.error('Responding error:', e);
+            }
+        },
+
+        async markArrived() {
+            if (!this.myContactId) return;
+
+            try {
+                await fetch('/api/incidents.php?action=contact-arrived', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        incident_id: this.incident.uuid,
+                        contact_id: this.myContactId
+                    })
+                });
+
+                await this.fetchData();
+            } catch (e) {
+                console.error('Arrived error:', e);
+            }
+        },
+
+        // Helpers
+        getStatusLabel(status) {
+            const labels = {
+                'active': '<?= __('sos.status_active') ?>',
+                'resolved': '<?= __('sos.status_resolved') ?>',
+                'cancelled': '<?= __('sos.status_cancelled') ?>',
+                'false_alarm': '<?= __('sos.status_false_alarm') ?>'
+            };
+            return labels[status] || status;
+        },
+
+        getTriggerLabel(method) {
+            const labels = {
+                'five_taps': '<?= __('sos.trigger_five_taps') ?>',
+                'volume_hold': '<?= __('sos.trigger_volume') ?>',
+                'voice_command': '<?= __('sos.trigger_voice') ?>',
+                'button': '<?= __('sos.trigger_button') ?>'
+            };
+            return labels[method] || method;
+        },
+
+        getContactStatusLabel(status) {
+            const labels = {
+                'pending': '<?= __('contacts.status.pending') ?>',
+                'notified': '<?= __('contacts.status.sending') ?>',
+                'delivered': '<?= __('contacts.status.delivered') ?>',
+                'acknowledged': '<?= __('contacts.status.acknowledged') ?>',
+                'responding': '<?= __('contacts.status.responding') ?>',
+                'arrived': '<?= __('contacts.status.arrived') ?>'
+            };
+            return labels[status] || status;
+        },
+
+        formatTime(timestamp) {
+            if (!timestamp) return '--:--';
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        },
+
+        formatDuration(startedAt) {
+            if (!startedAt) return '00:00';
+            const start = new Date(startedAt);
+            const now = new Date();
+            const diff = Math.floor((now - start) / 1000);
+            const mins = Math.floor(diff / 60);
+            const secs = diff % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        },
+
+        destroy() {
+            this.stopPolling();
+            if (this.map) {
+                this.map.remove();
+            }
+        }
+    };
+}
+</script>
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+/* Tracking Page Styles */
+.tracking-container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    padding: var(--spacing-13);
+}
+
+.tracking-loading,
+.tracking-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: var(--spacing-21);
+}
+
+.error-icon {
+    color: var(--danger);
+}
+
+.tracking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-21);
+}
+
+.shield-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-weight: bold;
+    font-size: var(--text-lg);
+}
+
+.incident-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    padding: var(--spacing-8) var(--spacing-13);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.incident-status.status-active {
+    background: rgba(var(--danger-rgb), 0.1);
+    color: var(--danger);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.alert-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-13);
+    padding: var(--spacing-13);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-21);
+}
+
+.alert-banner.urgent {
+    background: rgba(var(--danger-rgb), 0.1);
+    border: 1px solid var(--danger);
+}
+
+.alert-icon {
+    color: var(--danger);
+}
+
+.map-container {
+    position: relative;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--spacing-21);
+}
+
+.tracking-map {
+    width: 100%;
+    height: 100%;
+}
+
+.map-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.location-info {
+    position: absolute;
+    bottom: var(--spacing-8);
+    left: var(--spacing-8);
+    right: var(--spacing-8);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: var(--spacing-8) var(--spacing-13);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    display: flex;
+    justify-content: space-between;
+}
+
+.incident-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-13);
+    margin-bottom: var(--spacing-21);
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-13);
+    padding: var(--spacing-13);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.info-icon {
+    color: var(--text-secondary);
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-content .label {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+}
+
+.info-content .value {
+    font-size: var(--text-lg);
+    font-weight: 600;
+}
+
+.response-actions {
+    padding: var(--spacing-21);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-21);
+    text-align: center;
+}
+
+.response-actions h3 {
+    margin-bottom: var(--spacing-13);
+}
+
+.btn-large {
+    width: 100%;
+    padding: var(--spacing-21);
+    font-size: var(--text-lg);
+}
+
+.status-acknowledged {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    color: var(--success);
+    margin-bottom: var(--spacing-13);
+}
+
+.action-buttons {
+    display: flex;
+    gap: var(--spacing-13);
+    justify-content: center;
+}
+
+.other-contacts,
+.emergency-numbers {
+    margin-bottom: var(--spacing-21);
+}
+
+.other-contacts h3,
+.emergency-numbers h3 {
+    margin-bottom: var(--spacing-13);
+}
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-13);
+    padding: var(--spacing-13);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.contact-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-weight: 500;
+}
+
+.contact-status {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.emergency-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.emergency-buttons .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+}
+</style>
