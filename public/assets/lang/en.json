@@ -57,7 +57,8 @@
     "phone": "Please enter a valid phone number",
     "password_mismatch": "Passwords do not match",
     "name_required": "Name is required",
-    "phone_required": "Phone number is required"
+    "phone_required": "Phone number is required",
+    "check_fields": "Please check the form fields"
   },
   "auth": {
     "login": "Login",
@@ -75,7 +76,12 @@
     "register_success": "Account created successfully",
     "oauth_not_configured": "This login method is not available",
     "oauth_failed": "Login failed. Please try again.",
-    "account_disabled": "This account has been disabled"
+    "account_disabled": "This account has been disabled",
+    "password_weak": "Weak password",
+    "password_medium": "Medium password",
+    "password_strong": "Strong password",
+    "email_exists": "This email address is already in use",
+    "phone_exists": "This phone number is already in use"
   },
   "sos": {
     "button_label": "SOS",
@@ -357,7 +363,8 @@
     "generic": "An error occurred. Please try again.",
     "network": "Connection error. Check your internet connection.",
     "save_failed": "Save failed",
-    "invalid_password": "Invalid password"
+    "invalid_password": "Invalid password",
+    "timeout": "Request timed out. Please try again."
   },
   "date": {
     "today": "Today",

@@ -57,7 +57,8 @@
     "phone": "Veuillez entrer un numéro de téléphone valide",
     "password_mismatch": "Les mots de passe ne correspondent pas",
     "name_required": "Le nom est obligatoire",
-    "phone_required": "Le numéro de téléphone est obligatoire"
+    "phone_required": "Le numéro de téléphone est obligatoire",
+    "check_fields": "Veuillez vérifier les champs du formulaire"
   },
   "auth": {
     "login": "Connexion",
@@ -75,7 +76,12 @@
     "register_success": "Compte créé avec succès",
     "oauth_not_configured": "Cette méthode de connexion n'est pas disponible",
     "oauth_failed": "Échec de la connexion. Veuillez réessayer.",
-    "account_disabled": "Ce compte a été désactivé"
+    "account_disabled": "Ce compte a été désactivé",
+    "password_weak": "Mot de passe faible",
+    "password_medium": "Mot de passe moyen",
+    "password_strong": "Mot de passe fort",
+    "email_exists": "Cette adresse email est déjà utilisée",
+    "phone_exists": "Ce numéro de téléphone est déjà utilisé"
   },
   "sos": {
     "button_label": "SOS",
@@ -357,7 +363,8 @@
     "generic": "Une erreur est survenue. Veuillez réessayer.",
     "network": "Erreur de connexion. Vérifiez votre connexion internet.",
     "save_failed": "Échec de l'enregistrement",
-    "invalid_password": "Mot de passe incorrect"
+    "invalid_password": "Mot de passe incorrect",
+    "timeout": "La requête a expiré. Veuillez réessayer."
   },
   "date": {
     "today": "Aujourd'hui",
