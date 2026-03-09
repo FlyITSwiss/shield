@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG to PNG Converter</title>
+</head>
+<body>
+    <h1>Shield PWA Icon Generator</h1>
+    <div id="output"></div>
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const output = document.getElementById('output');
+
+        sizes.forEach(size => {
+            fetch('/assets/icons/icon-' + size + 'x' + size + '.svg')
+                .then(r => r.text())
+                .then(svg => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.drawImage(img, 0, 0, size, size);
+                        const link = document.createElement('a');
+                        link.download = 'icon-' + size + 'x' + size + '.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.textContent = 'Download ' + size + 'x' + size;
+                        output.appendChild(link);
+                        output.appendChild(document.createElement('br'));
+                    };
+                    img.src = 'data:image/svg+xml;base64,' + btoa(svg);
+                });
+        });
+    </script>
+</body>
+</html>
