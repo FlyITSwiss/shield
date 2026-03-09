@@ -6,6 +6,11 @@
 
 const I18n = {
     /**
+     * Version des traductions
+     */
+    cacheVersion: 'v2',
+
+    /**
      * Langue courante
      */
     locale: 'fr',
@@ -28,7 +33,8 @@ const I18n = {
      */
     async loadTranslations(locale) {
         try {
-            const response = await fetch(`${window.ShieldConfig?.basePath || ''}/assets/lang/${locale}.json`);
+            const cacheBust = `?v=${this.cacheVersion}`;
+            const response = await fetch(`${window.ShieldConfig?.basePath || ''}/assets/lang/${locale}.json${cacheBust}`);
             if (response.ok) {
                 this.translations = await response.json();
             }
