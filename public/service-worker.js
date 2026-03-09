@@ -3,7 +3,7 @@
  * PWA offline support and push notifications
  */
 
-const CACHE_VERSION = 'shield-v1.0.0';
+const CACHE_VERSION = 'shield-v1.1.0';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -12,13 +12,20 @@ const STATIC_ASSETS = [
     '/',
     '/login',
     '/assets/css/shield-core.css',
+    '/assets/css/shield-fixes.css',
+    '/assets/css/shield-tracking.css',
     '/assets/js/app.js',
+    '/assets/js/app/settings.js',
+    '/assets/js/app/sos.js',
     '/assets/lang/fr.json',
     '/assets/lang/en.json',
     '/manifest.json',
     // Add audio files for offline alarm
     '/assets/audio/alarm-siren.wav',
-    '/assets/audio/alarm-horn.wav'
+    '/assets/audio/alarm-horn.wav',
+    // Icons for offline
+    '/assets/icons/icon-192x192.png',
+    '/assets/icons/icon-512x512.png'
 ];
 
 // API endpoints that should always go to network

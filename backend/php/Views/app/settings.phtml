@@ -224,3 +224,32 @@ $pageScripts = ['app/settings.js'];
         </button>
     </section>
 </div>
+
+<!-- Modal confirmation suppression compte -->
+<div class="modal-overlay hidden" id="delete-account-modal">
+    <div class="modal-content modal-confirm modal-danger">
+        <div class="modal-icon modal-icon-danger">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <h2><?= __('settings.delete_account_title') ?></h2>
+        <p class="delete-warning"><?= __('settings.delete_account_warning') ?></p>
+        <ul class="delete-consequences">
+            <li><?= __('settings.delete_consequence_1') ?></li>
+            <li><?= __('settings.delete_consequence_2') ?></li>
+            <li><?= __('settings.delete_consequence_3') ?></li>
+        </ul>
+        <p class="delete-confirm-text"><?= __('settings.delete_confirm_text') ?></p>
+        <div class="delete-countdown" id="delete-countdown">
+            <span class="countdown-text"><?= __('settings.delete_wait') ?></span>
+            <span class="countdown-number" id="countdown-seconds">5</span>
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="btn-cancel-delete">
+                <?= __('ui.cancel') ?>
+            </button>
+            <button type="button" class="btn btn-danger" id="btn-confirm-delete" disabled>
+                <?= __('settings.delete_confirm_button') ?>
+            </button>
+        </div>
+    </div>
+</div>

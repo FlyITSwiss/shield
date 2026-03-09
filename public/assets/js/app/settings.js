@@ -13,7 +13,9 @@ const SettingsPage = {
      */
     state: {
         hasChanges: false,
-        originalValues: {}
+        originalValues: {},
+        deleteCountdownInterval: null,
+        deleteCountdownValue: 5
     },
 
     /**
@@ -49,7 +51,14 @@ const SettingsPage = {
 
             // Language & region
             language: document.getElementById('language'),
-            country: document.getElementById('country')
+            country: document.getElementById('country'),
+
+            // Delete account modal
+            deleteModal: document.getElementById('delete-account-modal'),
+            deleteCountdown: document.getElementById('delete-countdown'),
+            countdownSeconds: document.getElementById('countdown-seconds'),
+            btnCancelDelete: document.getElementById('btn-cancel-delete'),
+            btnConfirmDelete: document.getElementById('btn-confirm-delete')
         };
     },
 
@@ -95,6 +104,17 @@ const SettingsPage = {
 
         // Toggle volume duration visibility
         this.toggleVolumeDuration(this.elements.volumeTrigger?.checked);
+
+        // Delete account modal
+        this.elements.btnCancelDelete?.addEventListener('click', () => this.hideDeleteModal());
+        this.elements.btnConfirmDelete?.addEventListener('click', () => this.confirmDeleteAccount());
+
+        // Close modal on overlay click
+        this.elements.deleteModal?.addEventListener('click', (e) => {
+            if (e.target === this.elements.deleteModal) {
+                this.hideDeleteModal();
+            }
+        });
     },
 
     /**
@@ -217,14 +237,98 @@ const SettingsPage = {
     },
 
     /**
-     * Supprimer le compte
+     * Supprimer le compte - Affiche la modal de confirmation
      */
-    async deleteAccount() {
-        // Double confirmation
-        if (!confirm(window.__('settings.confirm_delete_1'))) {
-            return;
+    deleteAccount() {
+        this.showDeleteModal();
+    },
+
+    /**
+     * Afficher la modal de suppression
+     */
+    showDeleteModal() {
+        if (this.elements.deleteModal) {
+            this.elements.deleteModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            this.startCountdown();
+        }
+    },
+
+    /**
+     * Masquer la modal de suppression
+     */
+    hideDeleteModal() {
+        if (this.elements.deleteModal) {
+            this.elements.deleteModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            this.resetCountdown();
+        }
+    },
+
+    /**
+     * Démarrer le compte à rebours
+     */
+    startCountdown() {
+        this.state.deleteCountdownValue = 5;
+
+        if (this.elements.countdownSeconds) {
+            this.elements.countdownSeconds.textContent = this.state.deleteCountdownValue;
+        }
+        if (this.elements.btnConfirmDelete) {
+            this.elements.btnConfirmDelete.disabled = true;
+        }
+        if (this.elements.deleteCountdown) {
+            this.elements.deleteCountdown.style.display = 'flex';
         }
 
+        this.state.deleteCountdownInterval = setInterval(() => {
+            this.state.deleteCountdownValue--;
+
+            if (this.elements.countdownSeconds) {
+                this.elements.countdownSeconds.textContent = this.state.deleteCountdownValue;
+            }
+
+            if (this.state.deleteCountdownValue <= 0) {
+                this.endCountdown();
+            }
+        }, 1000);
+    },
+
+    /**
+     * Fin du compte à rebours
+     */
+    endCountdown() {
+        clearInterval(this.state.deleteCountdownInterval);
+        this.state.deleteCountdownInterval = null;
+
+        if (this.elements.deleteCountdown) {
+            this.elements.deleteCountdown.style.display = 'none';
+        }
+        if (this.elements.btnConfirmDelete) {
+            this.elements.btnConfirmDelete.disabled = false;
+        }
+    },
+
+    /**
+     * Réinitialiser le compte à rebours
+     */
+    resetCountdown() {
+        if (this.state.deleteCountdownInterval) {
+            clearInterval(this.state.deleteCountdownInterval);
+            this.state.deleteCountdownInterval = null;
+        }
+        this.state.deleteCountdownValue = 5;
+
+        if (this.elements.btnConfirmDelete) {
+            this.elements.btnConfirmDelete.disabled = true;
+        }
+    },
+
+    /**
+     * Confirmer la suppression du compte
+     */
+    async confirmDeleteAccount() {
+        // Demander le mot de passe
         const password = prompt(window.__('settings.enter_password'));
         if (!password) {
             return;
@@ -237,16 +341,19 @@ const SettingsPage = {
             });
 
             if (result.success) {
-                alert(window.__('settings.account_deleted'));
+                this.hideDeleteModal();
+                this.showToast(window.__('settings.account_deleted'), 'success');
                 localStorage.removeItem('shield_token');
                 localStorage.removeItem('shield_user');
-                window.location.href = window.ShieldConfig?.basePath + '/auth/login';
+                setTimeout(() => {
+                    window.location.href = window.ShieldConfig?.basePath + '/auth/login';
+                }, 1500);
             } else {
-                alert(window.__('error.invalid_password'));
+                this.showToast(window.__('error.invalid_password'), 'error');
             }
         } catch (error) {
             console.error('[Settings] Delete error:', error);
-            alert(window.__('error.generic'));
+            this.showToast(window.__('error.generic'), 'error');
         }
     },
 
