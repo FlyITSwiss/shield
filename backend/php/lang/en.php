@@ -562,6 +562,12 @@ return [
     'share.contacts' => 'contacts',
 
     // ============================================
+    // LEGAL PAGES
+    // ============================================
+    'legal.terms_title' => 'Terms of Service',
+    'legal.privacy_title' => 'Privacy Policy',
+
+    // ============================================
     // HTTP ERRORS
     // ============================================
     'error.400' => 'Bad request',

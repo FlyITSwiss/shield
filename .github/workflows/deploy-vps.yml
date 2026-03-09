@@ -77,6 +77,13 @@ jobs:
             sudo chown -R debian:debian ${{ env.VPS_PATH }}
           "
 
+      - name: Deploy composer files
+        run: |
+          rsync -avz composer.json ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/
+          if [ -f composer.lock ]; then
+            rsync -avz composer.lock ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/
+          fi
+
       - name: Deploy backend PHP
         run: |
           rsync -avz --delete \
@@ -125,7 +132,7 @@ jobs:
       - name: Install Composer dependencies
         run: |
           ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
-            cd ${{ env.VPS_PATH }}/backend/php
+            cd ${{ env.VPS_PATH }}
             if [ -f composer.json ]; then
               composer install --no-dev --optimize-autoloader
             fi

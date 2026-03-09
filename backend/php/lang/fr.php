@@ -562,6 +562,12 @@ return [
     'share.contacts' => 'contacts',
 
     // ============================================
+    // PAGES LÉGALES
+    // ============================================
+    'legal.terms_title' => 'Conditions d\'utilisation',
+    'legal.privacy_title' => 'Politique de confidentialité',
+
+    // ============================================
     // ERREURS HTTP
     // ============================================
     'error.400' => 'Requête invalide',
