@@ -59,6 +59,7 @@ $routes = [
     '/app/history' => ['view' => 'app/history', 'layout' => 'app', 'auth' => true],
     '/app/settings' => ['view' => 'app/settings', 'layout' => 'app', 'auth' => true],
     '/app/profile/edit' => ['view' => 'app/profile-edit', 'layout' => 'app', 'auth' => true],
+    '/app/location-share' => ['view' => 'app/location-share', 'layout' => 'app', 'auth' => true],
 
     // Legacy routes (redirect)
     '/dashboard' => ['redirect' => '/app'],
@@ -90,6 +91,11 @@ $route = $routes[$path] ?? null;
 // DYNAMIC ROUTES (patterns)
 // ============================================
 
+// Share page - /share/{token} (64-char hex token for Live Location)
+if ($route === null && preg_match('#^/share/([a-f0-9]{64})$#i', $path, $matches)) {
+    $route = ['view' => 'public/share', 'layout' => 'minimal', 'public' => true];
+    $shareToken = $matches[1];
+}
 // Track page - /track/{share_id}
 if ($route === null && preg_match('#^/track/([a-f0-9-]{36})$#i', $path, $matches)) {
     $route = ['view' => 'public/track', 'layout' => 'minimal', 'public' => true];

@@ -27,8 +27,8 @@ class Contact
     {
         $stmt = $this->db->prepare("
             SELECT * FROM {$this->table}
-            WHERE user_id = :user_id AND is_active = 1
-            ORDER BY priority_order ASC
+            WHERE user_id = :user_id
+            ORDER BY priority ASC
         ");
         $stmt->execute(['user_id' => $userId]);
 

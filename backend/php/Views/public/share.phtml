@@ -1,0 +1,562 @@
+<?php
+/**
+ * SHIELD - Public Location Share View
+ *
+ * Page publique pour voir la position partagee
+ * Accessible via /share/{token}
+ */
+
+// Recuperer le token depuis la route
+$token = $shareToken ?? '';
+
+// Charger les donnees du partage
+$share = null;
+$error = null;
+
+if (empty($token)) {
+    $error = 'invalid_token';
+} else {
+    try {
+        require_once SERVICES_PATH . '/LocationShareService.php';
+        $shareService = new \Shield\Services\LocationShareService(get_db());
+        $share = $shareService->getByToken($token);
+
+        if (!$share) {
+            $error = 'share_not_found';
+        }
+    } catch (Exception $e) {
+        error_log('Share view error: ' . $e->getMessage());
+        $error = 'server_error';
+    }
+}
+
+$pageTitle = $share ? ($share['user_name'] . ' - SHIELD') : 'SHIELD';
+$bodyClass = 'page-share-view';
+?>
+
+<?php if ($error): ?>
+<!-- Error State -->
+<div class="share-error">
+    <div class="error-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    </div>
+    <?php if ($error === 'share_not_found'): ?>
+        <h1>Partage expire ou introuvable</h1>
+        <p>Ce lien de partage n'est plus valide.</p>
+    <?php elseif ($error === 'invalid_token'): ?>
+        <h1>Lien invalide</h1>
+        <p>Le lien que vous avez utilise n'est pas valide.</p>
+    <?php else: ?>
+        <h1>Erreur</h1>
+        <p>Une erreur s'est produite.</p>
+    <?php endif; ?>
+</div>
+
+<?php else: ?>
+<!-- Share View -->
+<div class="share-view" id="share-view">
+    <!-- Header -->
+    <header class="share-header">
+        <div class="user-info">
+            <?php if ($share['user_avatar']): ?>
+                <img src="<?= htmlspecialchars($share['user_avatar']) ?>" alt="" class="user-avatar">
+            <?php else: ?>
+                <div class="user-avatar-placeholder">
+                    <?= strtoupper(substr($share['user_name'] ?? 'U', 0, 1)) ?>
+                </div>
+            <?php endif; ?>
+            <div class="user-details">
+                <span class="user-name"><?= htmlspecialchars($share['user_name'] ?? 'Utilisateur') ?></span>
+                <span class="share-status status-<?= $share['status'] ?>">
+                    <?php
+                    switch ($share['status']) {
+                        case 'active':
+                            echo 'En cours';
+                            break;
+                        case 'paused':
+                            echo 'En pause';
+                            break;
+                        case 'arrived':
+                            echo 'Arrive(e)';
+                            break;
+                        default:
+                            echo $share['status'];
+                    }
+                    ?>
+                </span>
+            </div>
+        </div>
+
+        <?php if ($share['share_type'] === 'journey' && $share['destination_name']): ?>
+        <div class="journey-info">
+            <span class="journey-label">Destination:</span>
+            <span class="journey-destination"><?= htmlspecialchars($share['destination_name']) ?></span>
+            <?php if ($share['expected_arrival_at']): ?>
+            <span class="journey-eta">
+                ETA: <?= date('H:i', strtotime($share['expected_arrival_at'])) ?>
+            </span>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+    </header>
+
+    <!-- Map -->
+    <div class="share-map" id="share-map"></div>
+
+    <!-- Location Info -->
+    <div class="location-details" id="location-details">
+        <?php if ($share['last_latitude'] && $share['last_longitude']): ?>
+        <div class="last-update">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>Derniere mise a jour: <time id="last-update-time"><?= $share['last_location_at'] ? date('H:i:s', strtotime($share['last_location_at'])) : '--:--' ?></time></span>
+        </div>
+
+        <?php if ($share['last_address']): ?>
+        <div class="current-address">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span id="current-address"><?= htmlspecialchars($share['last_address']) ?></span>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($share['battery_level']): ?>
+        <div class="battery-info">
+            <svg viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+            <span>Batterie: <span id="battery-level"><?= (int)$share['battery_level'] ?></span>%</span>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($share['last_speed']): ?>
+        <div class="speed-info">
+            <svg viewBox="0 0 24 24"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44z"/></svg>
+            <span>Vitesse: <span id="current-speed"><?= round($share['last_speed']) ?></span> km/h</span>
+        </div>
+        <?php endif; ?>
+        <?php else: ?>
+        <div class="no-location">
+            <p>En attente de la position...</p>
+        </div>
+        <?php endif; ?>
+    </div>
+
+    <!-- Actions -->
+    <div class="share-actions">
+        <a href="tel:<?= htmlspecialchars($share['phone'] ?? '') ?>" class="btn btn-call" id="btn-call">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>Appeler</span>
+        </a>
+
+        <?php if ($share['last_latitude'] && $share['last_longitude']): ?>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=<?= $share['last_latitude'] ?>,<?= $share['last_longitude'] ?>"
+           target="_blank" class="btn btn-directions">
+            <svg viewBox="0 0 24 24"><path d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+            <span>Itineraire</span>
+        </a>
+        <?php endif; ?>
+    </div>
+
+    <!-- SHIELD Branding -->
+    <div class="shield-branding">
+        <span>Protege par</span>
+        <strong>SHIELD</strong>
+    </div>
+</div>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Share Data -->
+<script>
+    window.ShieldShareData = <?= json_encode([
+        'token' => $token,
+        'latitude' => $share['last_latitude'] ? (float)$share['last_latitude'] : null,
+        'longitude' => $share['last_longitude'] ? (float)$share['last_longitude'] : null,
+        'destination_lat' => $share['destination_latitude'] ? (float)$share['destination_latitude'] : null,
+        'destination_lng' => $share['destination_longitude'] ? (float)$share['destination_longitude'] : null,
+        'status' => $share['status'],
+        'share_type' => $share['share_type']
+    ]) ?>;
+</script>
+
+<script>
+(function() {
+    const data = window.ShieldShareData;
+    let map, marker, destinationMarker;
+    let updateInterval;
+
+    function initMap() {
+        if (!data.latitude || !data.longitude) {
+            document.getElementById('share-map').innerHTML = '<div class="map-placeholder">En attente de la position...</div>';
+            return;
+        }
+
+        map = L.map('share-map').setView([data.latitude, data.longitude], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: ''
+        }).addTo(map);
+
+        // User marker with pulse effect
+        const pulseIcon = L.divIcon({
+            className: 'pulse-marker',
+            html: '<div class="pulse-ring"></div><div class="pulse-core"></div>',
+            iconSize: [40, 40],
+            iconAnchor: [20, 20]
+        });
+
+        marker = L.marker([data.latitude, data.longitude], { icon: pulseIcon }).addTo(map);
+
+        // Destination marker if journey mode
+        if (data.share_type === 'journey' && data.destination_lat && data.destination_lng) {
+            destinationMarker = L.marker([data.destination_lat, data.destination_lng], {
+                icon: L.divIcon({
+                    className: 'destination-marker',
+                    html: '<div class="destination-pin">D</div>',
+                    iconSize: [30, 40],
+                    iconAnchor: [15, 40]
+                })
+            }).addTo(map);
+
+            // Draw route line
+            L.polyline([
+                [data.latitude, data.longitude],
+                [data.destination_lat, data.destination_lng]
+            ], {
+                color: '#8E24AA',
+                weight: 3,
+                opacity: 0.7,
+                dashArray: '10, 10'
+            }).addTo(map);
+
+            // Fit bounds
+            map.fitBounds([
+                [data.latitude, data.longitude],
+                [data.destination_lat, data.destination_lng]
+            ], { padding: [50, 50] });
+        }
+    }
+
+    async function fetchUpdates() {
+        if (data.status !== 'active') return;
+
+        try {
+            const basePath = window.location.pathname.includes('/internal/shield')
+                ? '/internal/shield'
+                : '';
+            const response = await fetch(`${basePath}/api/location-share.php?action=view&token=${data.token}`);
+            const result = await response.json();
+
+            if (result.success && result.share) {
+                updateUI(result.share);
+            }
+        } catch (error) {
+            console.error('Update failed:', error);
+        }
+    }
+
+    function updateUI(share) {
+        // Update marker position
+        if (map && marker && share.last_latitude && share.last_longitude) {
+            marker.setLatLng([share.last_latitude, share.last_longitude]);
+            map.panTo([share.last_latitude, share.last_longitude]);
+        }
+
+        // Update time
+        const timeEl = document.getElementById('last-update-time');
+        if (timeEl && share.last_location_at) {
+            timeEl.textContent = new Date(share.last_location_at).toLocaleTimeString('fr-FR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        // Update address
+        const addressEl = document.getElementById('current-address');
+        if (addressEl && share.last_address) {
+            addressEl.textContent = share.last_address;
+        }
+
+        // Update battery
+        const batteryEl = document.getElementById('battery-level');
+        if (batteryEl && share.battery_level) {
+            batteryEl.textContent = share.battery_level;
+        }
+
+        // Update speed
+        const speedEl = document.getElementById('current-speed');
+        if (speedEl && share.last_speed) {
+            speedEl.textContent = Math.round(share.last_speed);
+        }
+
+        // Check status change
+        if (share.status !== data.status) {
+            window.location.reload();
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+
+        // Poll for updates every 10 seconds
+        if (data.status === 'active') {
+            updateInterval = setInterval(fetchUpdates, 10000);
+        }
+    });
+
+    // Cleanup
+    window.addEventListener('beforeunload', () => {
+        if (updateInterval) clearInterval(updateInterval);
+    });
+})();
+</script>
+
+<style>
+/* Public Share Page Styles */
+.share-view {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+}
+
+.share-header {
+    padding: var(--spacing-21);
+    background: var(--surface-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-13);
+}
+
+.user-avatar,
+.user-avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.share-status {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.share-status.status-active {
+    color: var(--success);
+}
+
+.share-status.status-arrived {
+    color: var(--primary);
+}
+
+.journey-info {
+    margin-top: var(--spacing-13);
+    padding: var(--spacing-13);
+    background: var(--surface-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+}
+
+.journey-label {
+    color: var(--text-secondary);
+}
+
+.journey-destination {
+    font-weight: 500;
+}
+
+.journey-eta {
+    display: block;
+    margin-top: var(--spacing-4);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.share-map {
+    flex: 1;
+    min-height: 300px;
+}
+
+.map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: var(--surface-secondary);
+    color: var(--text-secondary);
+}
+
+.location-details {
+    padding: var(--spacing-21);
+    background: var(--surface-elevated);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.location-details > div {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    margin-bottom: var(--spacing-8);
+}
+
+.location-details svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-secondary);
+}
+
+.share-actions {
+    display: flex;
+    gap: var(--spacing-13);
+    padding: var(--spacing-21);
+    background: var(--surface-elevated);
+}
+
+.share-actions .btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    padding: var(--spacing-13) var(--spacing-21);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-call {
+    background: var(--success);
+    color: white;
+}
+
+.btn-directions {
+    background: var(--primary);
+    color: white;
+}
+
+.btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.shield-branding {
+    text-align: center;
+    padding: var(--spacing-21);
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+}
+
+.shield-branding strong {
+    color: var(--primary);
+}
+
+/* Pulse marker animation */
+.pulse-marker {
+    position: relative;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(142, 36, 170, 0.3);
+    animation: pulse 2s ease-out infinite;
+}
+
+.pulse-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.destination-pin {
+    width: 30px;
+    height: 30px;
+    background: var(--danger);
+    color: white;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.destination-pin span {
+    transform: rotate(45deg);
+}
+
+/* Error state */
+.share-error {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-34);
+    background: var(--bg-primary);
+}
+
+.error-icon {
+    margin-bottom: var(--spacing-21);
+}
+
+.error-icon svg {
+    width: 80px;
+    height: 80px;
+    fill: var(--text-secondary);
+}
+
+.share-error h1 {
+    margin-bottom: var(--spacing-13);
+    font-size: 1.5rem;
+}
+
+.share-error p {
+    color: var(--text-secondary);
+}
+</style>
+<?php endif; ?>
