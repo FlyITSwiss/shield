@@ -107,16 +107,11 @@ jobs:
           rsync -avz \
             scripts/setup-database.sh ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/scripts/
 
-      - name: Setup database (first deploy only)
+      - name: Setup database
         run: |
           ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
-            # Check if database already exists
-            if ! sudo mysql -e \"USE shield\" 2>/dev/null; then
-              echo '→ First deploy: setting up database...'
-              sudo bash ${{ env.VPS_PATH }}/scripts/setup-database.sh
-            else
-              echo '→ Database already exists, skipping setup'
-            fi
+            echo '→ Running database setup...'
+            sudo bash ${{ env.VPS_PATH }}/scripts/setup-database.sh
           "
 
       - name: Deploy nginx snippet
