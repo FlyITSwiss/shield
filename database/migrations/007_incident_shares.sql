@@ -1,6 +1,13 @@
 -- SHIELD - Migration 007: Tables pour partage et tracking d'incidents
 -- Permet le partage de position en temps reel avec les contacts de confiance
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `contact_responses`;
+DROP TABLE IF EXISTS `incident_shares`;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- Table pour les liens de partage d'incident
 CREATE TABLE IF NOT EXISTS `incident_shares` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -34,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `incident_shares` (
     KEY `idx_incident_shares_token` (`token`),
     KEY `idx_incident_shares_contact` (`recipient_contact_id`),
     KEY `idx_incident_shares_expires` (`expires_at`),
+    KEY `idx_incident_shares_incident_active` (`incident_id`, `expires_at`, `revoked_at`),
     CONSTRAINT `fk_incident_shares_incident` FOREIGN KEY (`incident_id`) REFERENCES `incidents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_incident_shares_contact` FOREIGN KEY (`recipient_contact_id`) REFERENCES `trusted_contacts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -76,9 +84,3 @@ CREATE TABLE IF NOT EXISTS `contact_responses` (
     CONSTRAINT `fk_contact_responses_incident` FOREIGN KEY (`incident_id`) REFERENCES `incidents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_contact_responses_contact` FOREIGN KEY (`contact_id`) REFERENCES `trusted_contacts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Index pour recherche par UUID d'incident
-CREATE INDEX `idx_incident_shares_incident_active` ON `incident_shares` (`incident_id`, `expires_at`, `revoked_at`);
-
--- Ajouter colonne acknowledged_at a incident_notifications si elle n'existe pas
--- ALTER TABLE `incident_notifications` ADD COLUMN IF NOT EXISTS `acknowledged_at` TIMESTAMP NULL AFTER `delivered_at`;

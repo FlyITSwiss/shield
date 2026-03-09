@@ -1,6 +1,10 @@
 -- SHIELD - Migration 002: Table trusted_contacts
 -- Contacts de confiance pour alertes SOS
 
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `trusted_contacts`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE IF NOT EXISTS `trusted_contacts` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` INT UNSIGNED NOT NULL COMMENT 'Proprietaire du contact',

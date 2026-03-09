@@ -2,6 +2,14 @@
 -- Partage de position en temps réel HORS incidents
 -- Permet de partager sa localisation avec des contacts de confiance
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `location_share_history`;
+DROP TABLE IF EXISTS `location_share_contacts`;
+DROP TABLE IF EXISTS `location_shares`;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- Table principale pour les sessions de partage de position
 CREATE TABLE IF NOT EXISTS `location_shares` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -106,8 +114,6 @@ CREATE TABLE IF NOT EXISTS `location_share_history` (
     PRIMARY KEY (`id`),
     KEY `idx_location_share_history_share` (`share_id`),
     KEY `idx_location_share_history_time` (`share_id`, `recorded_at`),
+    KEY `idx_location_share_history_cleanup` (`recorded_at`),
     CONSTRAINT `fk_location_share_history_share` FOREIGN KEY (`share_id`) REFERENCES `location_shares` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Index pour nettoyage automatique des anciennes positions (garder 24h)
-CREATE INDEX `idx_location_share_history_cleanup` ON `location_share_history` (`recorded_at`);

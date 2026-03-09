@@ -1,6 +1,12 @@
 -- SHIELD - Migration 005: Table alert_preferences et tables Twilio
 -- Préférences d'alerte séparées de la table users
 
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `twilio_calls`;
+DROP TABLE IF EXISTS `twilio_logs`;
+DROP TABLE IF EXISTS `alert_preferences`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE IF NOT EXISTS `alert_preferences` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` INT UNSIGNED NOT NULL,

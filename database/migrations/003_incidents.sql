@@ -1,6 +1,13 @@
 -- SHIELD - Migration 003: Table incidents
 -- Historique des alertes SOS declenchees
 
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `incident_notifications`;
+DROP TABLE IF EXISTS `incident_photos`;
+DROP TABLE IF EXISTS `incident_locations`;
+DROP TABLE IF EXISTS `incidents`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE IF NOT EXISTS `incidents` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `user_id` INT UNSIGNED NOT NULL,

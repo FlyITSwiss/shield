@@ -1,6 +1,8 @@
 -- SHIELD - Migration 004: Table emergency_services
 -- Services d'urgence par pays (10 pays europeens supportes)
 
+DROP TABLE IF EXISTS `emergency_services`;
+
 CREATE TABLE IF NOT EXISTS `emergency_services` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `country_code` VARCHAR(2) NOT NULL COMMENT 'Code ISO 3166-1 alpha-2',

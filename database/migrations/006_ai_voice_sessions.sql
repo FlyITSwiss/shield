@@ -1,6 +1,13 @@
 -- SHIELD - Migration 006: Tables AI Voice Agent
 -- Sessions vocales IA et historique de conversation
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `ai_conversation_turns`;
+DROP TABLE IF EXISTS `ai_voice_sessions`;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 CREATE TABLE IF NOT EXISTS `ai_voice_sessions` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `session_id` VARCHAR(100) NOT NULL COMMENT 'ID unique de session',
@@ -45,8 +52,6 @@ CREATE TABLE IF NOT EXISTS `ai_conversation_turns` (
     KEY `idx_ai_turns_urgency` (`urgency_level`),
     KEY `idx_ai_turns_detected_code` (`detected_code`),
     KEY `idx_ai_turns_created` (`created_at`),
+    KEY `idx_ai_turns_analysis` (`session_id`, `turn_number`),
     CONSTRAINT `fk_ai_turns_session` FOREIGN KEY (`session_id`) REFERENCES `ai_voice_sessions` (`session_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Index pour analyse des conversations
-CREATE INDEX `idx_ai_turns_analysis` ON `ai_conversation_turns` (`session_id`, `turn_number`);
