@@ -1,54 +1,194 @@
-name: Deploy Shield to VPS
+name: Deploy SHIELD to VPS
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environnement de deploiement'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
 
 env:
-  VPS_HOST: '83.228.205.222'
+  APP_NAME: shield
+  VPS_HOST: stabilis-it.ch
   VPS_USER: 'debian'
-  REMOTE_PATH: '/var/www/shield'
-  DOMAIN: 'stabilis-it.ch'
+  VPS_PATH: /var/www/shield
+  PHP_VERSION: '8.4'
 
 jobs:
-  deploy:
+  # Phase 1: Validation
+  validate:
+    name: Validation PHP
     runs-on: ubuntu-latest
-    name: Deploy to VPS
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, xml, curl, zip, pdo_mysql, redis
+          tools: composer:v2
+
+      - name: Validate PHP syntax
+        run: |
+          find backend/php -name "*.php" -print0 | xargs -0 -n1 php -l
+
+      - name: Check i18n synchronization
+        run: |
+          if [ -f "scripts/i18n-validator.js" ]; then
+            node scripts/i18n-validator.js
+          fi
+
+  # Phase 2: Deploy Webapp
+  deploy-webapp:
+    name: Deploy Webapp
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known_hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          cat >> ~/.ssh/config << EOF
-          Host vps
-            HostName ${{ env.VPS_HOST }}
-            User ${{ env.VPS_USER }}
-            IdentityFile ~/.ssh/id_rsa
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
-          EOF
-          chmod 600 ~/.ssh/config
-          
-      - name: Deploy with rsync
-        run: |
-          rsync -avz --delete             --exclude='.git'             --exclude='.github'             --exclude='node_modules'             --exclude='vendor'             --exclude='tests'             --exclude='.env*'             -e ssh             ./ vps:${{ env.REMOTE_PATH }}/
-          
-      - name: Set permissions and restart
-        run: |
-          ssh vps "cd ${{ env.REMOTE_PATH }} && sudo chown -R www-data:www-data . && sudo chmod -R 755 ."
+          ssh-keyscan -H ${{ env.VPS_HOST }} >> ~/.ssh/known_hosts
 
-  verify:
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: Health check
+      - name: Create deployment directory
         run: |
-          sleep 5
-          STATUS=$(curl -sI https://${{ env.DOMAIN }}/internal/shield/auth/login | head -1 | cut -d" " -f2)
-          echo "Health check: HTTP $STATUS"
-          [ "$STATUS" = "200" ] || exit 1
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            sudo mkdir -p ${{ env.VPS_PATH }}/backend/php
+            sudo mkdir -p ${{ env.VPS_PATH }}/public/uploads
+            sudo mkdir -p ${{ env.VPS_PATH }}/storage/logs
+            sudo mkdir -p ${{ env.VPS_PATH }}/database/migrations
+            sudo mkdir -p ${{ env.VPS_PATH }}/scripts
+            sudo chown -R debian:debian ${{ env.VPS_PATH }}
+          "
+
+      - name: Deploy backend PHP
+        run: |
+          rsync -avz --delete \
+            --exclude='vendor' \
+            --exclude='*.log' \
+            backend/php/ ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/backend/php/
+
+      - name: Deploy public assets
+        run: |
+          rsync -avz --delete \
+            --exclude='uploads/*' \
+            public/ ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/public/
+
+      - name: Deploy database migrations
+        run: |
+          rsync -avz \
+            database/migrations/ ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/database/migrations/
+
+      - name: Deploy setup script
+        run: |
+          rsync -avz \
+            scripts/setup-database.sh ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/scripts/
+
+      - name: Setup database (first deploy only)
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            # Check if database already exists
+            if ! sudo mysql -e \"USE shield\" 2>/dev/null; then
+              echo '→ First deploy: setting up database...'
+              sudo bash ${{ env.VPS_PATH }}/scripts/setup-database.sh
+            else
+              echo '→ Database already exists, skipping setup'
+            fi
+          "
+
+      - name: Deploy nginx snippet
+        run: |
+          rsync -avz \
+            docker/nginx-shield.conf ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:/tmp/nginx-shield.conf
+
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            sudo mv /tmp/nginx-shield.conf /etc/nginx/snippets/shield.conf
+            sudo nginx -t && sudo systemctl reload nginx
+          "
+
+      - name: Install Composer dependencies
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            cd ${{ env.VPS_PATH }}/backend/php
+            if [ -f composer.json ]; then
+              composer install --no-dev --optimize-autoloader
+            fi
+          "
+
+      - name: Set permissions
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            sudo chown -R www-data:www-data ${{ env.VPS_PATH }}
+            sudo chmod -R 755 ${{ env.VPS_PATH }}
+            sudo chmod -R 775 ${{ env.VPS_PATH }}/public/uploads
+            sudo chmod -R 775 ${{ env.VPS_PATH }}/storage
+          "
+
+      - name: Clear cache
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
+            if [ -f ${{ env.VPS_PATH }}/storage/cache/app.cache ]; then
+              rm -f ${{ env.VPS_PATH }}/storage/cache/app.cache
+            fi
+          "
+
+  # Phase 3: Health Check
+  health-check:
+    name: Health Check
+    needs: deploy-webapp
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for deployment
+        run: sleep 10
+
+      - name: Check HTTP 200
+        run: |
+          response=$(curl -sI https://${{ env.VPS_HOST }}/internal/shield/health | head -n1)
+          if [[ "$response" != *"200"* ]]; then
+            echo "Health check failed: $response"
+            exit 1
+          fi
+          echo "Health check passed: $response"
+
+      - name: Check login page accessible
+        run: |
+          response=$(curl -sI https://${{ env.VPS_HOST }}/internal/shield/auth/login | head -n1)
+          if [[ "$response" != *"200"* ]]; then
+            echo "Login page check failed: $response"
+            exit 1
+          fi
+          echo "Login page accessible: $response"
+
+  # Phase 4: Notification
+  notify:
+    name: Notification
+    needs: health-check
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Send success notification
+        if: ${{ needs.health-check.result == 'success' }}
+        run: |
+          echo "SHIELD deployed successfully to ${{ env.VPS_HOST }}/internal/shield"
+
+      - name: Send failure notification
+        if: ${{ needs.health-check.result == 'failure' }}
+        run: |
+          echo "SHIELD deployment failed!"
+          exit 1
