@@ -133,8 +133,25 @@ jobs:
         run: |
           ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "
             cd ${{ env.VPS_PATH }}
+
+            # Install composer locally if not present
+            if [ ! -f /usr/local/bin/composer ] && [ ! -f ~/composer.phar ]; then
+              echo '→ Installing Composer locally...'
+              php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\"
+              php composer-setup.php
+              rm composer-setup.php
+              mv composer.phar ~/composer.phar
+            fi
+
+            # Determine composer command
+            if command -v composer &> /dev/null; then
+              COMPOSER_CMD=composer
+            else
+              COMPOSER_CMD='php ~/composer.phar'
+            fi
+
             if [ -f composer.json ]; then
-              composer install --no-dev --optimize-autoloader
+              \$COMPOSER_CMD install --no-dev --optimize-autoloader
             fi
           "
 
