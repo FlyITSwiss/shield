@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#8E24AA">
+    <meta name="theme-color" content="#9B6DA1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="csrf-token" content="<?= $csrfToken ?? '' ?>">
@@ -11,11 +11,13 @@
     <title><?= $pageTitle ?? 'SHIELD' ?></title>
 
     <!-- PWA -->
-    <link rel="manifest" href="<?= asset_url('manifest.json') ?>">
-    <link rel="apple-touch-icon" href="<?= asset_url('icons/icon-192.png') ?>">
+    <link rel="manifest" href="<?= base_url('manifest.php') ?>">
+    <link rel="apple-touch-icon" href="<?= asset_url('icons/icon-192x192.png') ?>">
 
     <!-- Styles -->
     <link rel="stylesheet" href="<?= versioned_asset('css/shield-core.css') ?>">
+    <link rel="stylesheet" href="<?= versioned_asset('css/shield-fixes.css') ?>">
+    <link rel="stylesheet" href="<?= versioned_asset('css/shield-premium.css') ?>">
 
     <!-- Config JS -->
     <script>
