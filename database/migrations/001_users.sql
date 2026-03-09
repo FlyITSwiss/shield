@@ -1,9 +1,18 @@
 -- SHIELD - Migration 001: Table users
 -- Table principale des utilisatrices
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 DROP TABLE IF EXISTS `phone_verifications`;
 DROP TABLE IF EXISTS `password_resets`;
+DROP TABLE IF EXISTS `incident_shares`;
+DROP TABLE IF EXISTS `location_shares`;
+DROP TABLE IF EXISTS `ai_voice_sessions`;
+DROP TABLE IF EXISTS `incidents`;
+DROP TABLE IF EXISTS `trusted_contacts`;
 DROP TABLE IF EXISTS `users`;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE IF NOT EXISTS `users` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
