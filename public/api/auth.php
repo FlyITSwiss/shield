@@ -13,6 +13,7 @@ declare(strict_types=1);
  * POST /api/auth/refresh-token
  * POST /api/auth/logout
  * GET  /api/auth/me
+ * GET  /api/auth/verify
  * PUT  /api/auth/profile
  * PUT  /api/auth/password
  * GET  /api/auth/alert-preferences
@@ -95,6 +96,37 @@ try {
             break;
 
         // ========== AUTHENTICATED ENDPOINTS ==========
+
+        case 'verify':
+            // Vérifie si le token JWT est valide (pour éviter les boucles de redirection)
+            if ($method !== 'GET') {
+                jsonError('method_not_allowed', 405);
+            }
+
+            $token = getBearerToken();
+            if (!$token) {
+                jsonResponse(['success' => false, 'valid' => false, 'error' => 'no_token']);
+                break;
+            }
+
+            try {
+                require_once __DIR__ . '/../../backend/php/Services/AuthService.php';
+                $authService = new \Shield\Services\AuthService($db);
+                $payload = $authService->validateToken($token);
+
+                if ($payload && isset($payload['user_id'])) {
+                    // Créer la session PHP pour éviter les boucles de redirection
+                    $_SESSION['user_id'] = (int)$payload['user_id'];
+                    session_write_close();
+
+                    jsonResponse(['success' => true, 'valid' => true, 'user_id' => (int)$payload['user_id']]);
+                } else {
+                    jsonResponse(['success' => false, 'valid' => false, 'error' => 'invalid_token']);
+                }
+            } catch (Exception $e) {
+                jsonResponse(['success' => false, 'valid' => false, 'error' => 'token_validation_failed']);
+            }
+            break;
 
         case 'verify-phone':
             if ($method !== 'POST') {
