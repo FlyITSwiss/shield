@@ -106,6 +106,31 @@ $pageScripts = ['app/settings.js'];
                     <option value="5" <?= ($alertPrefs['volume_trigger_duration'] ?? 3) == 5 ? 'selected' : '' ?>>5s</option>
                 </select>
             </div>
+
+            <!-- Déclenchement par tapotement dos du téléphone -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.back_tap_trigger') ?></span>
+                    <span class="setting-description"><?= __('settings.back_tap_trigger_desc') ?></span>
+                </div>
+                <label class="toggle-switch-setting">
+                    <input type="checkbox" id="back-tap-trigger" name="back_tap_enabled"
+                           <?= !empty($alertPrefs['back_tap_enabled']) ? 'checked' : '' ?>>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Sensibilité tapotement -->
+            <div class="setting-item" id="back-tap-sensitivity-setting">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.back_tap_sensitivity') ?></span>
+                </div>
+                <select id="back-tap-sensitivity" name="back_tap_sensitivity" class="setting-select">
+                    <option value="low" <?= ($alertPrefs['back_tap_sensitivity'] ?? 'medium') === 'low' ? 'selected' : '' ?>><?= __('settings.back_tap_low') ?></option>
+                    <option value="medium" <?= ($alertPrefs['back_tap_sensitivity'] ?? 'medium') === 'medium' ? 'selected' : '' ?>><?= __('settings.back_tap_medium') ?></option>
+                    <option value="high" <?= ($alertPrefs['back_tap_sensitivity'] ?? 'medium') === 'high' ? 'selected' : '' ?>><?= __('settings.back_tap_high') ?></option>
+                </select>
+            </div>
         </div>
     </section>
 

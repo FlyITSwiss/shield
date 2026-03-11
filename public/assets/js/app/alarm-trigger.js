@@ -8,6 +8,7 @@
  * - 5 taps rapides sur l'écran
  * - Maintien des boutons volume (configurable)
  * - Shake detection (optionnel)
+ * - Back tap detection (Capacitor - tapotement dos du téléphone)
  */
 
 const AlarmTrigger = {
@@ -26,7 +27,11 @@ const AlarmTrigger = {
 
         // Shake
         shakeThreshold: 15,
-        shakeEnabled: false
+        shakeEnabled: false,
+
+        // Back tap (tapotement dos du téléphone via Capacitor)
+        backTapEnabled: true,
+        backTapSensitivity: 'medium' // low, medium, high
     },
 
     /**
@@ -67,6 +72,11 @@ const AlarmTrigger = {
             this.initShakeDetection();
         }
 
+        // Initialiser la détection back tap si activée
+        if (this.config.backTapEnabled) {
+            this.initBackTapDetection();
+        }
+
         console.log('[AlarmTrigger] Initialized');
     },
 
@@ -81,6 +91,12 @@ const AlarmTrigger = {
         }
         if (prefs.volume_trigger_enabled !== undefined) {
             this.config.volumeEnabled = prefs.volume_trigger_enabled;
+        }
+        if (prefs.back_tap_enabled !== undefined) {
+            this.config.backTapEnabled = prefs.back_tap_enabled;
+        }
+        if (prefs.back_tap_sensitivity) {
+            this.config.backTapSensitivity = prefs.back_tap_sensitivity;
         }
     },
 
@@ -364,6 +380,73 @@ const AlarmTrigger = {
         });
     },
 
+    // ========== BACK TAP DETECTION ==========
+
+    /**
+     * Initialiser la détection de tapotement sur le dos du téléphone
+     * Utilise BackTapDetector qui fonctionne avec Capacitor ou Web API
+     */
+    async initBackTapDetection() {
+        if (!window.BackTapDetector) {
+            console.warn('[AlarmTrigger] BackTapDetector not available');
+            return;
+        }
+
+        // Configurer la sensibilité
+        const thresholds = {
+            low: 20,
+            medium: 15,
+            high: 10
+        };
+        const tapThreshold = thresholds[this.config.backTapSensitivity] || 15;
+
+        // Initialiser BackTapDetector
+        const isSupported = await window.BackTapDetector.init({
+            config: {
+                tapThreshold,
+                doubleTapWindow: 400,
+                debounceTime: 200,
+                requiredTaps: 2
+            },
+            onDoubleTap: () => {
+                if (this.state.isTriggering || this.state.isActive) {
+                    return;
+                }
+                console.log('[AlarmTrigger] Back tap detected!');
+                this.trigger('back_tap');
+            },
+            onTap: (count) => {
+                if (this.onProgress && count === 1) {
+                    this.onProgress({
+                        type: 'back_tap',
+                        current: count,
+                        total: 2,
+                        percent: 50
+                    });
+                }
+            },
+            onError: (error) => {
+                console.error('[AlarmTrigger] BackTap error:', error);
+            }
+        });
+
+        if (isSupported) {
+            await window.BackTapDetector.start();
+            console.log('[AlarmTrigger] BackTapDetector started');
+        } else {
+            console.warn('[AlarmTrigger] Back tap not supported on this device');
+        }
+    },
+
+    /**
+     * Arrêter la détection back tap
+     */
+    async stopBackTapDetection() {
+        if (window.BackTapDetector) {
+            await window.BackTapDetector.stop();
+        }
+    },
+
     // ========== TRIGGER ==========
 
     /**
@@ -415,6 +498,7 @@ const AlarmTrigger = {
      */
     destroy() {
         this.reset();
+        this.stopBackTapDetection();
         // Note: les event listeners persistent (pas de cleanup)
     }
 };

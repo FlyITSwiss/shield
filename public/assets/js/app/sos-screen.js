@@ -11,6 +11,7 @@
  */
 
 import AlarmTrigger from './alarm-trigger.js';
+// AlarmService est chargé globalement via window.AlarmService
 
 const SOSScreen = {
     /**
@@ -137,8 +138,15 @@ const SOSScreen = {
     /**
      * Initialiser l'audio
      */
-    initAudio() {
+    async initAudio() {
+        // Fallback: élément audio HTML
         this.alarmAudio = document.getElementById('alarm-audio');
+
+        // Initialiser AlarmService pour le son fort (sirène synthétique)
+        if (window.AlarmService) {
+            await window.AlarmService.init();
+            console.log('[SOSScreen] AlarmService initialized');
+        }
     },
 
     /**
@@ -292,7 +300,7 @@ const SOSScreen = {
 
             // Envoyer à l'API
             const result = await window.ApiService.incidents.trigger({
-                trigger_type: this.state.triggerMethod || 'five_taps',
+                trigger_method: this.state.triggerMethod || 'tap_5',
                 alert_mode: this.state.silentMode ? 'silent' : 'sonic',
                 latitude: position?.coords?.latitude,
                 longitude: position?.coords?.longitude,
@@ -501,9 +509,17 @@ const SOSScreen = {
     // ========== AUDIO ==========
 
     /**
-     * Jouer l'alarme sonore
+     * Jouer l'alarme sonore (sirène forte pour faire fuir l'agresseur)
      */
     playAlarm() {
+        // Utiliser AlarmService pour un son synthétique très fort
+        if (window.AlarmService) {
+            window.AlarmService.playPanicAlarm();
+            console.log('[SOSScreen] Panic alarm started via AlarmService');
+            return;
+        }
+
+        // Fallback: élément audio HTML
         if (this.alarmAudio) {
             this.alarmAudio.currentTime = 0;
             this.alarmAudio.play().catch(e => {
@@ -516,6 +532,12 @@ const SOSScreen = {
      * Arrêter l'alarme
      */
     stopAlarm() {
+        // Arrêter AlarmService
+        if (window.AlarmService) {
+            window.AlarmService.stop();
+        }
+
+        // Arrêter aussi l'audio HTML (fallback)
         if (this.alarmAudio) {
             this.alarmAudio.pause();
             this.alarmAudio.currentTime = 0;
