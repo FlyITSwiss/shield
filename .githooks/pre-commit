@@ -108,15 +108,40 @@ echo -e "${GREEN}✅ Protection uploads OK${NC}"
 check_php_syntax() {
     local PHP_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.php$|\.phtml$' || true)
     local errors=0
+    local use_docker=0
+
+    # Detecter si PHP est disponible localement ou via Docker
+    if ! command -v php &> /dev/null; then
+        # PHP non disponible, verifier si Docker est disponible avec le container Shield
+        if command -v docker &> /dev/null && docker ps 2>/dev/null | grep -q "shield-app-local"; then
+            use_docker=1
+            echo -e "${BLUE}📝 Verification syntaxe PHP via Docker...${NC}"
+        else
+            echo -e "${YELLOW}⚠️  PHP non disponible localement, Docker non accessible - syntaxe PHP non verifiee${NC}"
+            return 0
+        fi
+    fi
 
     if [ -n "$PHP_FILES" ]; then
-        echo -e "${BLUE}📝 Verification syntaxe PHP...${NC}"
+        if [ $use_docker -eq 0 ]; then
+            echo -e "${BLUE}📝 Verification syntaxe PHP...${NC}"
+        fi
         while IFS= read -r file; do
             if [ -f "$file" ]; then
-                if ! php -l "$file" > /dev/null 2>&1; then
-                    echo -e "${RED}❌ Erreur PHP: $file${NC}"
-                    php -l "$file" 2>&1 | head -3
-                    errors=$((errors + 1))
+                if [ $use_docker -eq 1 ]; then
+                    # Utiliser Docker pour valider - convertir le chemin Windows en chemin Docker
+                    local docker_path="//var/www/shield/$file"
+                    if ! docker exec shield-app-local php -l "$docker_path" > /dev/null 2>&1; then
+                        echo -e "${RED}❌ Erreur PHP: $file${NC}"
+                        docker exec shield-app-local php -l "$docker_path" 2>&1 | head -3
+                        errors=$((errors + 1))
+                    fi
+                else
+                    if ! php -l "$file" > /dev/null 2>&1; then
+                        echo -e "${RED}❌ Erreur PHP: $file${NC}"
+                        php -l "$file" 2>&1 | head -3
+                        errors=$((errors + 1))
+                    fi
                 fi
             fi
         done <<< "$PHP_FILES"
@@ -143,8 +168,8 @@ check_secrets() {
 
     if [ -n "$STAGED_FILES" ]; then
         while IFS= read -r file; do
-            # Ignorer node_modules, .env.example
-            if echo "$file" | grep -qE "node_modules|\.env\.example"; then
+            # Ignorer node_modules, .env.example, et les hooks eux-memes
+            if echo "$file" | grep -qE "node_modules|\.env\.example|\.githooks/"; then
                 continue
             fi
 

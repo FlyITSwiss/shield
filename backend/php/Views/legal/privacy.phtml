@@ -105,12 +105,25 @@ $bodyClass = 'page-legal';
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 50%;
     background: var(--surface, #1a1a2e);
     color: var(--text, #fff);
     text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-back:hover {
+    background: var(--surface-hover, #2a2a4e);
+}
+
+.btn-back:focus-visible {
+    outline: 2px solid var(--primary, #9b59b6);
+    outline-offset: 2px;
 }
 
 .legal-content section {
