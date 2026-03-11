@@ -918,3 +918,328 @@ textarea {
         animation: none !important;
     }
 }
+
+/* ============================================
+   UI/UX AUDIT FIXES - 2026-03-11
+   ============================================ */
+
+/* === CURSOR POINTER GLOBAL === */
+button,
+[role="button"],
+.btn,
+.clickable,
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"],
+input[type="button"],
+select,
+label[for],
+.toggle-label,
+.nav-item,
+.settings-item,
+.setting-item,
+.setting-link,
+.contact-card,
+.history-item,
+summary {
+    cursor: pointer;
+}
+
+/* === FOCUS VISIBLE STATES === */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+@supports selector(:focus-visible) {
+    :focus:not(:focus-visible) {
+        outline: none;
+    }
+}
+
+/* Focus states for specific elements */
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+}
+
+button:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+}
+
+.nav-item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+    background: rgba(var(--primary-rgb), 0.1);
+}
+
+/* === IMPROVED TEXT CONTRAST === */
+/* Amélioration du contraste pour texte secondaire */
+:root {
+    /* Override pour meilleur contraste */
+    --text-secondary-improved: #C8C8D8;
+}
+
+.text-secondary,
+.text-muted,
+p,
+.form-label,
+.instruction-main,
+.instruction-alt {
+    color: var(--text-secondary-improved, var(--text-secondary));
+}
+
+/* === CHECKBOX & RADIO IMPROVEMENTS === */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 24px;
+    height: 24px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/* Custom checkbox styling */
+.form-checkbox,
+.remember-checkbox input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+}
+
+/* Checkbox label alignment */
+.remember-me,
+.checkbox-label,
+label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    min-height: 44px;
+    cursor: pointer;
+}
+
+/* === TEXT LINKS TOUCH TARGETS === */
+/* Augmenter les touch targets des liens texte */
+.auth-footer a,
+.text-link,
+.form-link,
+a:not(.btn):not(.nav-item):not(.oauth-btn):not(.btn-back) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--spacing-8) var(--spacing-4);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.auth-footer a:hover,
+.text-link:hover,
+.form-link:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+/* === LEGAL PAGES BACK BUTTON FIX === */
+.legal-header .btn-back,
+.page-legal .btn-back,
+.btn-back {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.btn-back:hover {
+    background: var(--surface-light);
+    transform: translateX(-2px);
+}
+
+.btn-back svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* === ALERT CLOSE BUTTON FIX === */
+.alert-close,
+.btn-alert-close {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.alert-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* === PASSWORD STRENGTH INDICATOR === */
+#password-strength,
+.password-strength {
+    display: block;
+    margin-top: var(--spacing-8);
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--surface-light);
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width var(--transition-normal), background-color var(--transition-normal);
+}
+
+.strength-weak .password-strength-bar {
+    width: 33%;
+    background: var(--danger);
+}
+
+.strength-medium .password-strength-bar {
+    width: 66%;
+    background: var(--warning);
+}
+
+.strength-strong .password-strength-bar {
+    width: 100%;
+    background: var(--success);
+}
+
+/* === MICRO-INTERACTIONS === */
+/* Hover lift effect */
+.btn:not(:disabled):hover,
+.btn-primary:not(:disabled):hover,
+.btn-safe:not(:disabled):hover,
+.btn-escalate:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Active press effect */
+.btn:not(:disabled):active,
+.btn-primary:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Card hover effect */
+.contact-card:hover,
+.history-item:hover,
+.faq-item:hover {
+    background: var(--surface-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* === ERROR SHAKE ANIMATION === */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.form-input.error,
+.form-input.invalid {
+    border-color: var(--danger);
+    background-color: rgba(var(--danger-rgb), 0.05);
+    animation: shake 0.3s ease-in-out;
+}
+
+/* === SUCCESS FLASH ANIMATION === */
+@keyframes successFlash {
+    0% { background-color: rgba(var(--success-rgb), 0.2); }
+    100% { background-color: transparent; }
+}
+
+.success-flash {
+    animation: successFlash 1s ease-out;
+}
+
+/* === LOADING BUTTON STATE === */
+.btn.loading,
+.btn[disabled] {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn.loading .btn-text {
+    visibility: hidden;
+}
+
+.btn.loading .btn-spinner,
+.btn.loading .btn-loader {
+    display: flex !important;
+    position: absolute;
+}
+
+/* === LINK IN LEGAL PAGES === */
+.legal-content a,
+.help-content a,
+.faq-item a,
+.contact-section a,
+.emergency-section a {
+    color: var(--primary);
+    text-decoration: none;
+    padding: var(--spacing-4);
+    margin: calc(-1 * var(--spacing-4));
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.legal-content a:hover,
+.help-content a:hover {
+    color: var(--primary-light);
+    background: rgba(var(--primary-rgb), 0.1);
+    text-decoration: underline;
+}
+
+/* === SCROLLBAR STYLING === */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-muted) var(--surface);
+}
