@@ -50,6 +50,41 @@ const AlarmService = {
     },
 
     /**
+     * Configurations des sons d'alarme synthétiques
+     */
+    alarmTypes: {
+        siren: {
+            frequencies: [800, 1200],
+            oscillationSpeed: 2,
+            waveType: 'sawtooth',
+            distortion: 200
+        },
+        horn: {
+            frequencies: [400, 500],
+            oscillationSpeed: 0.5,
+            waveType: 'square',
+            distortion: 100
+        },
+        alarm: {
+            frequencies: [600, 900],
+            oscillationSpeed: 4,
+            waveType: 'triangle',
+            distortion: 50
+        },
+        whistle: {
+            frequencies: [2000, 2500],
+            oscillationSpeed: 8,
+            waveType: 'sine',
+            distortion: 0
+        },
+        voice: {
+            // La voix utilise un fichier audio
+            audioFile: '/assets/audio/help-voice.mp3',
+            useFile: true
+        }
+    },
+
+    /**
      * Initialiser le service
      */
     async init() {
@@ -327,6 +362,136 @@ const AlarmService = {
             osc.stop();
             osc.disconnect();
         }, duration);
+    },
+
+    /**
+     * Jouer l'alarme selon le type sélectionné par l'utilisateur
+     * @param {string} alarmType - Type d'alarme (siren, horn, alarm, whistle, voice)
+     */
+    playAlarm(alarmType = 'siren') {
+        const config = this.alarmTypes[alarmType];
+
+        if (!config) {
+            console.warn(`[AlarmService] Unknown alarm type: ${alarmType}, falling back to siren`);
+            this.playPanicAlarm();
+            return;
+        }
+
+        // Si c'est un fichier audio
+        if (config.useFile && config.audioFile) {
+            this.playSound(config.audioFile);
+            return;
+        }
+
+        // Sinon, générer le son synthétique
+        this.playSyntheticAlarm(config);
+    },
+
+    /**
+     * Jouer une alarme synthétique avec configuration personnalisée
+     */
+    playSyntheticAlarm(config) {
+        if (this.state.isPlaying) {
+            return;
+        }
+
+        this.ensureAudioContext();
+
+        const ctx = this.state.audioContext;
+        if (!ctx) {
+            console.error('[AlarmService] No audio context');
+            return;
+        }
+
+        try {
+            // Créer l'oscillateur principal
+            const oscillator = ctx.createOscillator();
+            oscillator.type = config.waveType || 'sawtooth';
+
+            // Créer le gain (volume)
+            const gainNode = ctx.createGain();
+            gainNode.gain.value = this.config.volume;
+
+            // Créer un LFO pour moduler la fréquence
+            const lfo = ctx.createOscillator();
+            lfo.frequency.value = config.oscillationSpeed || 2;
+
+            const lfoGain = ctx.createGain();
+            const freqRange = (config.frequencies[1] - config.frequencies[0]) / 2;
+            lfoGain.gain.value = freqRange;
+
+            // Connecter le LFO
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+
+            // Fréquence de base
+            const baseFreq = (config.frequencies[0] + config.frequencies[1]) / 2;
+            oscillator.frequency.value = baseFreq;
+
+            // Ajouter de la distorsion si configurée
+            if (config.distortion > 0) {
+                const distortion = ctx.createWaveShaper();
+                distortion.curve = this.makeDistortionCurve(config.distortion);
+                distortion.oversample = '4x';
+
+                oscillator.connect(distortion);
+                distortion.connect(gainNode);
+            } else {
+                oscillator.connect(gainNode);
+            }
+
+            gainNode.connect(ctx.destination);
+
+            // Démarrer
+            oscillator.start();
+            lfo.start();
+
+            // Sauvegarder les références
+            this.state.oscillator = oscillator;
+            this.state.gainNode = gainNode;
+            this.state.lfoNode = lfo;
+            this.state.isPlaying = true;
+
+            // Vibration continue
+            this.startVibration();
+
+            // Auto-stop après durée max
+            if (this.config.maxDuration > 0) {
+                this.state.stopTimeout = setTimeout(() => {
+                    this.stop();
+                }, this.config.maxDuration);
+            }
+
+            console.log('[AlarmService] Synthetic alarm started');
+        } catch (e) {
+            console.error('[AlarmService] Failed to play synthetic alarm:', e);
+        }
+    },
+
+    /**
+     * Prévisualiser un son d'alarme (durée limitée)
+     * @param {string} alarmType - Type d'alarme
+     * @param {number} duration - Durée en ms (défaut 3000)
+     */
+    previewAlarmSound(alarmType = 'siren', duration = 3000) {
+        this.playAlarm(alarmType);
+
+        // Arrêter après la durée spécifiée
+        setTimeout(() => {
+            this.stop();
+        }, duration);
+    },
+
+    /**
+     * Obtenir le type d'alarme depuis les préférences utilisateur
+     */
+    getUserAlarmType() {
+        try {
+            const prefs = JSON.parse(localStorage.getItem('shield_alert_prefs') || '{}');
+            return prefs.alarm_sound || 'siren';
+        } catch {
+            return 'siren';
+        }
     }
 };
 

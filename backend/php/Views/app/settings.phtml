@@ -63,6 +63,36 @@ $pageScripts = ['app/settings.js'];
                 </select>
             </div>
 
+            <!-- Son d'alarme -->
+            <div class="setting-item" id="alarm-sound-setting">
+                <div class="setting-info">
+                    <span class="setting-label"><?= __('settings.alarm_sound') ?></span>
+                    <span class="setting-description"><?= __('settings.alarm_sound_desc') ?></span>
+                </div>
+                <div class="setting-sound-selector">
+                    <select id="alarm-sound" name="alarm_sound" class="setting-select">
+                        <option value="siren" <?= ($alertPrefs['alarm_sound'] ?? 'siren') === 'siren' ? 'selected' : '' ?>>
+                            <?= __('settings.sound_siren') ?>
+                        </option>
+                        <option value="horn" <?= ($alertPrefs['alarm_sound'] ?? '') === 'horn' ? 'selected' : '' ?>>
+                            <?= __('settings.sound_horn') ?>
+                        </option>
+                        <option value="alarm" <?= ($alertPrefs['alarm_sound'] ?? '') === 'alarm' ? 'selected' : '' ?>>
+                            <?= __('settings.sound_alarm') ?>
+                        </option>
+                        <option value="whistle" <?= ($alertPrefs['alarm_sound'] ?? '') === 'whistle' ? 'selected' : '' ?>>
+                            <?= __('settings.sound_whistle') ?>
+                        </option>
+                        <option value="voice" <?= ($alertPrefs['alarm_sound'] ?? '') === 'voice' ? 'selected' : '' ?>>
+                            <?= __('settings.sound_voice') ?>
+                        </option>
+                    </select>
+                    <button type="button" class="btn-preview-sound" id="btn-preview-sound" aria-label="<?= __('settings.preview_sound') ?>">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+            </div>
+
             <!-- Délai de confirmation -->
             <div class="setting-item">
                 <div class="setting-info">

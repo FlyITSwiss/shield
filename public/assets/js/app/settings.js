@@ -39,6 +39,9 @@ const SettingsPage = {
 
             // Alert settings
             alertMode: document.getElementById('alert-mode'),
+            alarmSound: document.getElementById('alarm-sound'),
+            alarmSoundSetting: document.getElementById('alarm-sound-setting'),
+            btnPreviewSound: document.getElementById('btn-preview-sound'),
             confirmationDelay: document.getElementById('confirmation-delay'),
             volumeTrigger: document.getElementById('volume-trigger'),
             volumeDuration: document.getElementById('volume-duration'),
@@ -82,8 +85,16 @@ const SettingsPage = {
         this.elements.btnDeleteAccount?.addEventListener('click', () => this.deleteAccount());
 
         // Alert settings changes
-        this.elements.alertMode?.addEventListener('change', () => this.saveAlertPreferences());
+        this.elements.alertMode?.addEventListener('change', (e) => {
+            this.toggleAlarmSoundSetting(e.target.value === 'sonic');
+            this.saveAlertPreferences();
+        });
+        this.elements.alarmSound?.addEventListener('change', () => this.saveAlertPreferences());
+        this.elements.btnPreviewSound?.addEventListener('click', () => this.previewSound());
         this.elements.confirmationDelay?.addEventListener('change', () => this.saveAlertPreferences());
+
+        // Toggle alarm sound visibility based on alert mode
+        this.toggleAlarmSoundSetting(this.elements.alertMode?.value === 'sonic');
         this.elements.volumeTrigger?.addEventListener('change', (e) => {
             this.toggleVolumeDuration(e.target.checked);
             this.saveAlertPreferences();
@@ -136,6 +147,7 @@ const SettingsPage = {
     saveOriginalValues() {
         this.state.originalValues = {
             alertMode: this.elements.alertMode?.value,
+            alarmSound: this.elements.alarmSound?.value,
             confirmationDelay: this.elements.confirmationDelay?.value,
             volumeTrigger: this.elements.volumeTrigger?.checked,
             volumeDuration: this.elements.volumeDuration?.value,
@@ -147,6 +159,44 @@ const SettingsPage = {
             language: this.elements.language?.value,
             country: this.elements.country?.value
         };
+    },
+
+    /**
+     * Toggle alarm sound setting visibility
+     */
+    toggleAlarmSoundSetting(show) {
+        if (this.elements.alarmSoundSetting) {
+            this.elements.alarmSoundSetting.style.display = show ? 'flex' : 'none';
+        }
+    },
+
+    /**
+     * Preview the selected alarm sound
+     */
+    async previewSound() {
+        const soundType = this.elements.alarmSound?.value || 'siren';
+
+        // Arrêter tout son en cours
+        if (this.previewAudio) {
+            this.previewAudio.pause();
+            this.previewAudio = null;
+        }
+
+        // Si AlarmService est disponible, l'utiliser
+        if (window.AlarmService) {
+            await window.AlarmService.init();
+            window.AlarmService.previewAlarmSound(soundType, 3000); // 3 secondes
+        } else {
+            // Fallback sur audio direct
+            console.warn('[Settings] AlarmService not available');
+        }
+
+        // Animation du bouton
+        const btn = this.elements.btnPreviewSound;
+        if (btn) {
+            btn.classList.add('playing');
+            setTimeout(() => btn.classList.remove('playing'), 3000);
+        }
     },
 
     /**
@@ -173,6 +223,7 @@ const SettingsPage = {
     async saveAlertPreferences() {
         const data = {
             alert_mode: this.elements.alertMode?.value,
+            alarm_sound: this.elements.alarmSound?.value || 'siren',
             confirmation_delay: parseInt(this.elements.confirmationDelay?.value || '0', 10),
             volume_trigger_enabled: this.elements.volumeTrigger?.checked ? 1 : 0,
             volume_trigger_duration: parseInt(this.elements.volumeDuration?.value || '3', 10),
