@@ -11,7 +11,7 @@
 .sos-map-wrapper {
     position: relative;
     width: 100%;
-    height: 180px;
+    height: 144px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--surface);
@@ -21,7 +21,7 @@
 }
 
 .sos-map-wrapper.expanded {
-    height: 280px;
+    height: 233px;
 }
 
 .sos-map-wrapper.loading {
@@ -34,7 +34,7 @@
     content: '';
     width: 34px;
     height: 34px;
-    border: 3px solid var(--border-light);
+    border: 2px solid var(--border-light);
     border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -119,8 +119,8 @@
 }
 
 .map-accuracy-dot {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     background: var(--success);
     border-radius: 50%;
     animation: pulse-dot 1.5s ease-in-out infinite;
@@ -286,12 +286,12 @@
 
 @media (max-width: 518px) {
     .sos-map-wrapper {
-        height: 150px;
+        height: 144px;
         border-radius: var(--radius-md);
     }
 
     .sos-map-wrapper.expanded {
-        height: 220px;
+        height: 233px;
     }
 
     .map-overlay {
