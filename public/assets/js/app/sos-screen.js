@@ -54,6 +54,14 @@ const SOSScreen = {
     alarmAudio: null,
 
     /**
+     * Cartes
+     */
+    maps: {
+        idle: null,
+        active: null
+    },
+
+    /**
      * Initialiser
      */
     init() {
@@ -61,9 +69,114 @@ const SOSScreen = {
         this.bindEvents();
         this.initAlarmTrigger();
         this.initAudio();
+        this.initMaps();
         this.checkActiveIncident();
 
         console.log('[SOSScreen] Initialized');
+    },
+
+    /**
+     * Initialiser les cartes Leaflet
+     */
+    async initMaps() {
+        // Carte état idle (petite)
+        if (document.getElementById('sos-map')) {
+            this.maps.idle = new window.ShieldMap('sos-map', {
+                interactive: false,
+                darkMode: true
+            }).init();
+        }
+
+        // Carte état actif (grande)
+        if (document.getElementById('sos-map-active')) {
+            this.maps.active = new window.ShieldMap('sos-map-active', {
+                interactive: true,
+                darkMode: true
+            }).init();
+        }
+
+        // Obtenir la position initiale
+        await this.initCurrentLocation();
+    },
+
+    /**
+     * Obtenir et afficher la position actuelle
+     */
+    async initCurrentLocation() {
+        try {
+            if (!window.GeoLocationService?.isSupported()) {
+                console.warn('[SOSScreen] Geolocation not supported');
+                this.updateAddressDisplay(window.__?.('sos.location_unavailable') || 'Position non disponible');
+                return;
+            }
+
+            // Afficher "Localisation..."
+            this.updateAddressDisplay(window.__?.('sos.locating') || 'Localisation...', true);
+
+            // Obtenir la position
+            const location = await window.GeoLocationService.getCurrentPosition();
+
+            if (location) {
+                // Mettre à jour les cartes
+                if (this.maps.idle) {
+                    this.maps.idle.centerOn(location.lat, location.lng, 16);
+                    this.maps.idle.updateUserMarker(location.lat, location.lng, location.accuracy);
+                }
+                if (this.maps.active) {
+                    this.maps.active.centerOn(location.lat, location.lng, 16);
+                    this.maps.active.updateUserMarker(location.lat, location.lng, location.accuracy);
+                }
+
+                // Reverse geocoding pour l'adresse
+                const address = await window.GeoLocationService.reverseGeocode(location.lat, location.lng);
+                this.updateAddressDisplay(address.shortName || address.displayName);
+
+                // Mettre à jour la précision GPS
+                this.updateAccuracyDisplay(location.accuracy);
+
+                console.log('[SOSScreen] Location initialized:', location.lat, location.lng);
+            }
+        } catch (error) {
+            console.warn('[SOSScreen] Could not get initial location:', error.message);
+            this.updateAddressDisplay(window.__?.('sos.location_error') || 'Erreur de localisation');
+        }
+    },
+
+    /**
+     * Mettre à jour l'affichage de l'adresse
+     */
+    updateAddressDisplay(text, isLoading = false) {
+        const addressEl = document.getElementById('map-address');
+        const addressActiveEl = document.getElementById('map-address-active');
+
+        if (addressEl) {
+            addressEl.textContent = text;
+            addressEl.classList.toggle('loading', isLoading);
+        }
+        if (addressActiveEl) {
+            addressActiveEl.textContent = text;
+            addressActiveEl.classList.toggle('loading', isLoading);
+        }
+    },
+
+    /**
+     * Mettre à jour l'affichage de la précision GPS
+     */
+    updateAccuracyDisplay(accuracy) {
+        const accuracyEl = document.getElementById('map-accuracy');
+        const valueEl = document.getElementById('accuracy-value');
+
+        if (accuracyEl && valueEl) {
+            accuracyEl.style.display = 'inline-flex';
+
+            if (accuracy < 10) {
+                valueEl.textContent = 'GPS précis';
+            } else if (accuracy < 50) {
+                valueEl.textContent = `± ${Math.round(accuracy)}m`;
+            } else {
+                valueEl.textContent = `± ${Math.round(accuracy)}m (imprécis)`;
+            }
+        }
     },
 
     /**
@@ -203,6 +316,32 @@ const SOSScreen = {
 
         // Mettre à jour AlarmTrigger
         AlarmTrigger.setActive(stateName === 'active');
+
+        // Gérer les cartes selon l'état
+        this.handleMapState(stateName);
+    },
+
+    /**
+     * Gérer l'état des cartes
+     */
+    handleMapState(stateName) {
+        // Mode SOS actif = carte en danger (rouge)
+        if (this.maps.idle) {
+            this.maps.idle.setSOSMode(stateName === 'active');
+        }
+        if (this.maps.active) {
+            this.maps.active.setSOSMode(stateName === 'active');
+        }
+
+        // Invalider les tailles après transition
+        setTimeout(() => {
+            if (stateName === 'idle' && this.maps.idle) {
+                this.maps.idle.invalidateSize();
+            }
+            if (stateName === 'active' && this.maps.active) {
+                this.maps.active.invalidateSize();
+            }
+        }, 300);
     },
 
     // ========== TRIGGER HANDLERS ==========
@@ -458,16 +597,35 @@ const SOSScreen = {
             const position = await this.getCurrentPosition();
             if (!position) return;
 
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+
+            // Mettre à jour les cartes
+            if (this.maps.active) {
+                this.maps.active.updateUserMarker(lat, lng, accuracy);
+                this.maps.active.centerOn(lat, lng);
+            }
+
+            // Reverse geocoding local
+            if (window.GeoLocationService) {
+                const address = await window.GeoLocationService.reverseGeocode(lat, lng);
+                this.updateAddressDisplay(address.shortName || address.displayName);
+            }
+
+            // Envoyer à l'API pour historisation
             const result = await window.ApiService.incidents.updateLocation(
                 this.state.incidentId,
-                position.coords.latitude,
-                position.coords.longitude,
-                position.coords.accuracy
+                lat,
+                lng,
+                accuracy
             );
 
             if (result.success && result.address && this.elements.locationText) {
                 this.elements.locationText.textContent = result.address;
             }
+
+            console.log('[SOSScreen] Location updated:', lat, lng);
         } catch (error) {
             console.warn('[SOSScreen] Location update error:', error);
         }

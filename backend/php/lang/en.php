@@ -224,6 +224,12 @@ return [
     'sos.share_success' => 'Location shared successfully',
     'sos.share_failed' => 'Failed to share location',
     'sos.share_revoked' => 'Share link revoked',
+    'sos.your_location' => 'Your location',
+    'sos.position_shared' => 'Position shared',
+    'sos.location_unavailable' => 'Location unavailable',
+    'sos.location_error' => 'Location error',
+    'sos.confirm_false_alarm' => 'Are you sure this is a false alarm?',
+    'sos.police_contacted' => 'Police contacted',
 
     // ============================================
     // TRUSTED CONTACTS

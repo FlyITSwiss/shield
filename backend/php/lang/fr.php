@@ -224,6 +224,12 @@ return [
     'sos.share_success' => 'Position partagée avec succès',
     'sos.share_failed' => 'Échec du partage de position',
     'sos.share_revoked' => 'Lien de partage révoqué',
+    'sos.your_location' => 'Votre position',
+    'sos.position_shared' => 'Position partagée',
+    'sos.location_unavailable' => 'Position non disponible',
+    'sos.location_error' => 'Erreur de localisation',
+    'sos.confirm_false_alarm' => 'Êtes-vous sûr qu\'il s\'agit d\'une fausse alerte ?',
+    'sos.police_contacted' => 'Police contactée',
 
     // ============================================
     // CONTACTS DE CONFIANCE

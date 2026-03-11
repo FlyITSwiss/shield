@@ -1,0 +1,327 @@
+/**
+ * SHIELD - Map Styles
+ * Carte SOS avec design dark theme
+ * Fibonacci spacing system
+ */
+
+/* ============================================
+   MAP CONTAINER
+   ============================================ */
+
+.sos-map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface);
+    margin-bottom: var(--spacing-21);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.sos-map-wrapper.expanded {
+    height: 280px;
+}
+
+.sos-map-wrapper.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sos-map-wrapper.loading::after {
+    content: '';
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--border-light);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#sos-map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* ============================================
+   MAP OVERLAY INFO
+   ============================================ */
+
+.map-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(26, 26, 46, 0.95));
+    padding: var(--spacing-13);
+    padding-top: var(--spacing-34);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.map-address {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-8);
+}
+
+.map-address-icon {
+    width: 21px;
+    height: 21px;
+    fill: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.map-address-text {
+    flex: 1;
+}
+
+.map-address-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--spacing-2);
+}
+
+.map-address-value {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-normal);
+}
+
+.map-address-value.loading {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.map-accuracy {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-8);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: rgba(233, 30, 140, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: var(--accent-light);
+}
+
+.map-accuracy-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* ============================================
+   USER MARKER
+   ============================================ */
+
+.shield-marker-container {
+    background: transparent !important;
+    border: none !important;
+}
+
+.shield-user-marker {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shield-user-marker .marker-dot {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 3px solid var(--text-primary);
+    box-shadow: 0 0 8px rgba(233, 30, 140, 0.6);
+    z-index: 2;
+}
+
+.shield-user-marker .marker-pulse {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    background: rgba(233, 30, 140, 0.3);
+    border-radius: 50%;
+    animation: marker-pulse 2s ease-out infinite;
+}
+
+@keyframes marker-pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* SOS Active Mode - Marqueur en danger */
+.shield-user-marker.sos-active .marker-dot {
+    background: var(--danger);
+    animation: sos-glow 0.5s ease-in-out infinite alternate;
+}
+
+.shield-user-marker.sos-active .marker-pulse {
+    background: rgba(244, 67, 54, 0.4);
+    animation: sos-pulse 0.8s ease-out infinite;
+}
+
+@keyframes sos-glow {
+    from { box-shadow: 0 0 8px rgba(244, 67, 54, 0.6); }
+    to { box-shadow: 0 0 21px rgba(244, 67, 54, 1); }
+}
+
+@keyframes sos-pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   LOCATION CARD (Alternative simple)
+   ============================================ */
+
+.location-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-13);
+    margin-bottom: var(--spacing-21);
+    border: 1px solid var(--border-color);
+}
+
+.location-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-13);
+}
+
+.location-card-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.location-card-title svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--accent);
+}
+
+.location-card-refresh {
+    padding: var(--spacing-4);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.location-card-refresh svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text-muted);
+    transition: var(--transition-fast);
+}
+
+.location-card-refresh:hover svg,
+.location-card-refresh:active svg {
+    fill: var(--accent);
+}
+
+.location-card-refresh.spinning svg {
+    animation: spin 0.6s linear infinite;
+}
+
+.location-card-address {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--spacing-8);
+}
+
+.location-card-coords {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 518px) {
+    .sos-map-wrapper {
+        height: 150px;
+        border-radius: var(--radius-md);
+    }
+
+    .sos-map-wrapper.expanded {
+        height: 220px;
+    }
+
+    .map-overlay {
+        padding: var(--spacing-8);
+        padding-top: var(--spacing-21);
+    }
+
+    .map-address-value {
+        font-size: var(--text-xs);
+    }
+}
+
+/* ============================================
+   LEAFLET OVERRIDES (Dark Theme)
+   ============================================ */
+
+.leaflet-container {
+    background: var(--surface) !important;
+    font-family: var(--font-sans) !important;
+}
+
+.leaflet-control-zoom {
+    display: none !important;
+}
+
+.leaflet-control-attribution {
+    display: none !important;
+}
+
+/* Fix pour les tuiles manquantes */
+.leaflet-tile-pane {
+    filter: brightness(0.95) contrast(1.05);
+}

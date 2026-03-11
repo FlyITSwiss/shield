@@ -3,11 +3,13 @@
  * SHIELD - Écran SOS Principal
  *
  * Critère CDC: Déclenchement < 2 secondes
+ * Carte avec géolocalisation intégrée
  */
 $pageTitle = 'SHIELD';
 $bodyClass = 'page-sos';
 $showNavigation = false; // Pas de nav sur l'écran SOS
 $pageScripts = ['app/sos-screen.js', 'app/alarm-trigger.js'];
+$pageStyles = ['shield-map.css'];
 ?>
 
 <div class="sos-container" id="sos-container">
@@ -40,6 +42,24 @@ $pageScripts = ['app/sos-screen.js', 'app/alarm-trigger.js'];
         <div class="sos-instructions">
             <p class="instruction-main"><?= __('sos.tap_5_times') ?></p>
             <p class="instruction-alt"><?= __('sos.or_hold_volume') ?></p>
+        </div>
+
+        <!-- Carte avec position actuelle -->
+        <div class="sos-map-wrapper" id="sos-map-wrapper">
+            <div id="sos-map"></div>
+            <div class="map-overlay">
+                <div class="map-address">
+                    <svg class="map-address-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <div class="map-address-text">
+                        <span class="map-address-label"><?= __('sos.your_location') ?></span>
+                        <span class="map-address-value loading" id="map-address"><?= __('sos.locating') ?></span>
+                    </div>
+                </div>
+                <div class="map-accuracy" id="map-accuracy" style="display: none;">
+                    <span class="map-accuracy-dot"></span>
+                    <span id="accuracy-value">GPS</span>
+                </div>
+            </div>
         </div>
 
         <!-- Mode silencieux toggle -->
@@ -86,10 +106,18 @@ $pageScripts = ['app/sos-screen.js', 'app/alarm-trigger.js'];
         <h2 class="alert-title"><?= __('sos.alert_active') ?></h2>
         <p class="alert-status" id="alert-status"><?= __('sos.contacts_notified') ?></p>
 
-        <!-- Position GPS -->
-        <div class="location-info" id="location-info">
-            <svg class="location-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span class="location-text" id="location-text"><?= __('sos.locating') ?></span>
+        <!-- Carte agrandie en mode SOS -->
+        <div class="sos-map-wrapper expanded" id="sos-map-active-wrapper">
+            <div id="sos-map-active"></div>
+            <div class="map-overlay">
+                <div class="map-address">
+                    <svg class="map-address-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <div class="map-address-text">
+                        <span class="map-address-label"><?= __('sos.position_shared') ?></span>
+                        <span class="map-address-value" id="map-address-active"><?= __('sos.locating') ?></span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Actions -->
@@ -132,8 +160,16 @@ $pageScripts = ['app/sos-screen.js', 'app/alarm-trigger.js'];
 
 <!-- Audio pour alarme sonore -->
 <audio id="alarm-audio" preload="auto" loop>
-    <source src="<?= asset_url('audio/alarm.mp3') ?>" type="audio/mpeg">
+    <source src="<?= asset_url('audio/alarm.wav') ?>" type="audio/wav">
 </audio>
+
+<!-- Leaflet CSS et JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<!-- Services carte et geoloc -->
+<script src="<?= versioned_asset('js/core/geolocation-service.js') ?>"></script>
+<script src="<?= versioned_asset('js/core/shield-map.js') ?>"></script>
 
 <!-- Données incident actif (si existant) -->
 <?php if (!empty($activeIncident)): ?>
