@@ -11,7 +11,7 @@
 .sos-map-wrapper {
     position: relative;
     width: 100%;
-    height: 144px;
+    height: 233px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--surface);
@@ -21,7 +21,7 @@
 }
 
 .sos-map-wrapper.expanded {
-    height: 233px;
+    height: 377px;
 }
 
 .sos-map-wrapper.loading {
@@ -142,8 +142,8 @@
 
 .shield-user-marker {
     position: relative;
-    width: 34px;
-    height: 34px;
+    width: 55px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,20 +151,20 @@
 
 .shield-user-marker .marker-dot {
     position: relative;
-    width: 14px;
-    height: 14px;
+    width: 21px;
+    height: 21px;
     background: var(--accent);
     border-radius: 50%;
-    border: 3px solid var(--text-primary);
-    box-shadow: 0 0 8px rgba(233, 30, 140, 0.6);
+    border: 4px solid var(--text-primary);
+    box-shadow: 0 0 13px rgba(233, 30, 140, 0.8), 0 0 34px rgba(233, 30, 140, 0.4);
     z-index: 2;
 }
 
 .shield-user-marker .marker-pulse {
     position: absolute;
-    width: 34px;
-    height: 34px;
-    background: rgba(233, 30, 140, 0.3);
+    width: 55px;
+    height: 55px;
+    background: rgba(233, 30, 140, 0.4);
     border-radius: 50%;
     animation: marker-pulse 2s ease-out infinite;
 }
@@ -286,12 +286,12 @@
 
 @media (max-width: 518px) {
     .sos-map-wrapper {
-        height: 144px;
+        height: 200px;
         border-radius: var(--radius-md);
     }
 
     .sos-map-wrapper.expanded {
-        height: 233px;
+        height: 300px;
     }
 
     .map-overlay {

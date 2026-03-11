@@ -115,15 +115,15 @@ class ShieldMap {
             this.map.removeLayer(this.accuracyCircle);
         }
 
-        // Icone personnalisee pulsante
+        // Icone personnalisee pulsante - GRANDE ET VISIBLE
         const userIcon = L.divIcon({
             html: `<div class="shield-user-marker">
                 <span class="marker-pulse"></span>
                 <span class="marker-dot"></span>
             </div>`,
             className: 'shield-marker-container',
-            iconSize: [34, 34],
-            iconAnchor: [17, 17]
+            iconSize: [55, 55],
+            iconAnchor: [27, 27]
         });
 
         this.userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(this.map);
