@@ -1,0 +1,190 @@
+<?php
+/**
+ * SHIELD - Page d'aide
+ */
+$pageTitle = __('nav.help') . ' - SHIELD';
+$bodyClass = 'page-legal';
+?>
+
+<div class="legal-container">
+    <header class="legal-header">
+        <a href="<?= base_url('app/settings') ?>" class="btn-back">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </a>
+        <h1><?= __('nav.help') ?></h1>
+    </header>
+
+    <article class="legal-content help-content">
+        <section class="help-intro">
+            <p>Bienvenue dans le centre d'aide SHIELD. Trouvez ici les réponses à vos questions.</p>
+        </section>
+
+        <section class="faq-section">
+            <h2>Questions fréquentes</h2>
+
+            <div class="faq-item">
+                <h3>Comment déclencher une alerte SOS ?</h3>
+                <p>Vous pouvez déclencher une alerte de plusieurs façons :</p>
+                <ul>
+                    <li><strong>Bouton SOS :</strong> Appuyez sur le grand bouton au centre de l'écran principal</li>
+                    <li><strong>Volume :</strong> Maintenez les boutons volume enfoncés pendant 3 secondes</li>
+                    <li><strong>Taps rapides :</strong> Tapez 5 fois rapidement sur l'écran</li>
+                </ul>
+            </div>
+
+            <div class="faq-item">
+                <h3>Qu'est-ce que le mode silencieux ?</h3>
+                <p>Le mode silencieux permet de déclencher une alerte sans activer l'alarme sonore. C'est particulièrement utile dans les situations de violence conjugale où le son pourrait mettre l'utilisatrice en danger.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Comment ajouter des contacts de confiance ?</h3>
+                <p>Allez dans <strong>Paramètres</strong> puis <strong>Contacts de confiance</strong>. Vous pouvez ajouter jusqu'à 5 contacts qui seront alertés en cas d'urgence.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Comment fonctionne le partage de position ?</h3>
+                <p>Lorsqu'une alerte est déclenchée, votre position GPS est automatiquement partagée avec vos contacts de confiance via un lien de suivi en temps réel.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Que sont les mots-codes ?</h3>
+                <p>Les mots-codes sont des mots secrets que vous définissez. Si vous les prononcez lors d'un appel avec notre agent IA, celui-ci déclenchera automatiquement une alerte.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Comment annuler une fausse alerte ?</h3>
+                <p>Si vous déclenchez une alerte par erreur, vous avez quelques secondes pour l'annuler pendant le compte à rebours. Après le déclenchement, appuyez sur "Fausse alerte" et confirmez.</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>Besoin d'aide supplémentaire ?</h2>
+            <p>Contactez notre support :</p>
+            <ul>
+                <li>Email : <a href="mailto:support@shield-app.com">support@shield-app.com</a></li>
+            </ul>
+        </section>
+
+        <section class="emergency-section">
+            <h2>Numéros d'urgence</h2>
+            <p>En cas d'urgence réelle, contactez directement les services d'urgence :</p>
+            <ul>
+                <li><strong>Suisse :</strong> 112 (urgences), 117 (police), 144 (ambulance)</li>
+                <li><strong>France :</strong> 112, 15 (SAMU), 17 (police), 18 (pompiers)</li>
+                <li><strong>Belgique :</strong> 112, 101 (police), 100 (ambulance/pompiers)</li>
+            </ul>
+        </section>
+    </article>
+</div>
+
+<style>
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.legal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+
+.legal-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface, #1a1a2e);
+    color: var(--text, #fff);
+    text-decoration: none;
+}
+
+.help-intro {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(155, 89, 182, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary, #9b59b6);
+}
+
+.help-intro p {
+    margin: 0;
+    color: var(--text, #fff);
+}
+
+.faq-section,
+.contact-section,
+.emergency-section {
+    margin-bottom: 2rem;
+}
+
+.legal-content h2 {
+    font-size: 1.2rem;
+    color: var(--primary, #9b59b6);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+
+.faq-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--surface, #1a1a2e);
+    border-radius: 8px;
+}
+
+.faq-item h3 {
+    font-size: 1rem;
+    color: var(--text, #fff);
+    margin: 0 0 0.5rem 0;
+}
+
+.faq-item p,
+.faq-item li {
+    color: var(--text-secondary, #aaa);
+    line-height: 1.6;
+    margin: 0.5rem 0;
+}
+
+.faq-item ul {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.contact-section p,
+.contact-section li,
+.emergency-section p,
+.emergency-section li {
+    color: var(--text-secondary, #aaa);
+    line-height: 1.6;
+}
+
+.contact-section ul,
+.emergency-section ul {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.legal-content a {
+    color: var(--primary, #9b59b6);
+}
+
+.emergency-section {
+    padding: 1rem;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #e74c3c;
+}
+</style>

@@ -76,6 +76,12 @@ $routes = [
     // Legal (public)
     '/legal/terms' => ['view' => 'legal/terms', 'layout' => 'minimal'],
     '/legal/privacy' => ['view' => 'legal/privacy', 'layout' => 'minimal'],
+    '/legal/help' => ['view' => 'legal/help', 'layout' => 'minimal'],
+
+    // About redirections (alias vers legal)
+    '/about/terms' => ['redirect' => '/legal/terms'],
+    '/about/privacy' => ['redirect' => '/legal/privacy'],
+    '/about/help' => ['redirect' => '/legal/help'],
 
     // Health check
     '/health' => ['action' => 'health'],
