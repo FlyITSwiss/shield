@@ -86,6 +86,9 @@
   "sos": {
     "button_label": "SOS",
     "hello": "Hello",
+    "your_location": "Your location",
+    "location_error": "Location unavailable",
+    "location_unavailable": "Geolocation not available",
     "trigger_alert": "Trigger SOS alert",
     "tap_to_activate": "Tap to activate",
     "hold_to_cancel": "Hold to cancel",

@@ -84,3 +84,6 @@ temp/
 
 # Playwright
 /playwright/.cache/
+
+# Test config with credentials
+tests/playwright/config.prod.js
