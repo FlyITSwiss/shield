@@ -19,6 +19,7 @@ class AuthService
     private TwilioService $twilioService;
     private string $jwtSecret;
     private int $jwtExpiry = 86400; // 24 heures
+    private int $jwtExpiryRemember = 2592000; // 30 jours pour "Se souvenir de moi"
 
     public function __construct(PDO $db, ?TwilioService $twilioService = null)
     {
@@ -83,8 +84,12 @@ class AuthService
 
     /**
      * Connexion par email/mot de passe
+     *
+     * @param string $email
+     * @param string $password
+     * @param bool $remember Se souvenir de moi (token 30 jours)
      */
-    public function login(string $email, string $password): array
+    public function login(string $email, string $password, bool $remember = false): array
     {
         $user = $this->userModel->findByEmail($email);
 
@@ -103,13 +108,15 @@ class AuthService
         // Mettre à jour la dernière connexion
         $this->userModel->updateLastLogin($user['id']);
 
-        // Générer le token
-        $token = $this->generateToken($user['id']);
+        // Générer le token (30 jours si remember, 24h sinon)
+        $token = $this->generateToken($user['id'], $remember);
 
         return [
             'success' => true,
             'user' => $this->sanitizeUser($user),
-            'token' => $token
+            'token' => $token,
+            'remember' => $remember,
+            'expires_in' => $remember ? $this->jwtExpiryRemember : $this->jwtExpiry
         ];
     }
 
@@ -351,18 +358,23 @@ class AuthService
 
     /**
      * Générer un token JWT
+     *
+     * @param int $userId
+     * @param bool $remember Utiliser une expiration longue (30 jours)
      */
-    private function generateToken(int $userId): string
+    private function generateToken(int $userId, bool $remember = false): string
     {
         $issuedAt = time();
-        $expiresAt = $issuedAt + $this->jwtExpiry;
+        $expiry = $remember ? $this->jwtExpiryRemember : $this->jwtExpiry;
+        $expiresAt = $issuedAt + $expiry;
 
         $payload = [
             'iss' => 'shield-app',
             'aud' => 'shield-mobile',
             'iat' => $issuedAt,
             'exp' => $expiresAt,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'remember' => $remember
         ];
 
         return JWT::encode($payload, $this->jwtSecret, 'HS256');
@@ -394,6 +406,22 @@ class AuthService
         }
 
         return $errors;
+    }
+
+    /**
+     * Renvoyer le code de vérification SMS (appelé depuis Controller)
+     */
+    public function resendPhoneVerification(int $userId, array $user): array
+    {
+        $phone = $user['phone'];
+        $language = $user['preferred_language'] ?? 'fr';
+
+        try {
+            $this->sendPhoneVerification($userId, $phone, $language);
+            return ['success' => true, 'message' => 'verification_sent'];
+        } catch (\Exception $e) {
+            return ['success' => false, 'error' => 'sms_send_failed'];
+        }
     }
 
     /**

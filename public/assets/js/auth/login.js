@@ -74,11 +74,35 @@ const LoginPage = {
     /**
      * Vérifier session existante
      */
-    checkExistingSession() {
+    async checkExistingSession() {
         const token = localStorage.getItem('shield_token');
-        if (token) {
-            // Rediriger vers l'app si déjà connecté
-            window.location.href = window.ShieldConfig?.basePath + '/app';
+        if (!token) return;
+
+        try {
+            // Valider le token côté serveur
+            const response = await fetch(window.ShieldConfig?.apiUrl + '/auth.php?action=verify', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+
+            if (result.success && result.valid) {
+                // Token valide, rediriger vers l'app
+                window.location.href = window.ShieldConfig?.basePath + '/app';
+            } else {
+                // Token invalide, le supprimer
+                localStorage.removeItem('shield_token');
+                localStorage.removeItem('shield_user');
+            }
+        } catch (error) {
+            // Erreur réseau, supprimer le token par sécurité
+            console.warn('[Login] Token validation failed:', error);
+            localStorage.removeItem('shield_token');
+            localStorage.removeItem('shield_user');
         }
     },
 
@@ -96,9 +120,12 @@ const LoginPage = {
         this.setLoading(true);
 
         try {
+            const remember = this.elements.remember?.checked || false;
+
             const result = await window.ApiService.auth.login(
                 this.elements.email.value.trim(),
-                this.elements.password.value
+                this.elements.password.value,
+                remember
             );
 
             if (result.success) {

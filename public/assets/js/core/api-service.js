@@ -23,20 +23,33 @@ const ApiService = {
     },
 
     /**
-     * Obtenir le token JWT
+     * Obtenir le token JWT (vérifie localStorage puis sessionStorage)
      */
     getAuthToken() {
-        return localStorage.getItem('shield_token') || '';
+        return localStorage.getItem('shield_token') ||
+               sessionStorage.getItem('shield_token') || '';
     },
 
     /**
      * Sauvegarder le token JWT
+     * @param {string|null} token - Le token JWT
+     * @param {boolean} remember - Si true, utilise localStorage (persistent), sinon sessionStorage
      */
-    setAuthToken(token) {
+    setAuthToken(token, remember = true) {
+        // Nettoyer les deux storages pour éviter les conflits
+        localStorage.removeItem('shield_token');
+        sessionStorage.removeItem('shield_token');
+
         if (token) {
-            localStorage.setItem('shield_token', token);
+            if (remember) {
+                localStorage.setItem('shield_token', token);
+                localStorage.setItem('shield_remember', 'true');
+            } else {
+                sessionStorage.setItem('shield_token', token);
+                localStorage.removeItem('shield_remember');
+            }
         } else {
-            localStorage.removeItem('shield_token');
+            localStorage.removeItem('shield_remember');
         }
     },
 
@@ -156,6 +169,7 @@ const ApiService = {
     handleUnauthorized() {
         this.setAuthToken(null);
         localStorage.removeItem('shield_user');
+        sessionStorage.removeItem('shield_user');
 
         // Rediriger vers login si pas déjà sur la page
         if (!window.location.pathname.includes('/auth/')) {
@@ -169,11 +183,22 @@ const ApiService = {
      * Authentification
      */
     auth: {
-        async login(email, password) {
-            const result = await ApiService.post('auth.php?action=login', { email, password }, { auth: false });
+        /**
+         * Connexion utilisateur
+         * @param {string} email
+         * @param {string} password
+         * @param {boolean} remember - Se souvenir de moi (token 30 jours)
+         */
+        async login(email, password, remember = false) {
+            const result = await ApiService.post('auth.php?action=login', { email, password, remember }, { auth: false });
             if (result.success && result.token) {
-                ApiService.setAuthToken(result.token);
-                localStorage.setItem('shield_user', JSON.stringify(result.user));
+                ApiService.setAuthToken(result.token, remember);
+                if (remember) {
+                    localStorage.setItem('shield_user', JSON.stringify(result.user));
+                } else {
+                    sessionStorage.setItem('shield_user', JSON.stringify(result.user));
+                    localStorage.removeItem('shield_user');
+                }
             }
             return result;
         },
@@ -201,6 +226,7 @@ const ApiService = {
             } finally {
                 ApiService.setAuthToken(null);
                 localStorage.removeItem('shield_user');
+                sessionStorage.removeItem('shield_user');
             }
         },
 

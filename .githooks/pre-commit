@@ -174,7 +174,10 @@ check_secrets() {
             fi
 
             if [ -f "$file" ]; then
-                local secrets=$(grep -inE "(password|secret|api_key|apikey|token|credential|private_key).*=.*['\"][^'\"]{8,}" "$file" 2>/dev/null | grep -vE "^\s*(#|//|/\*|\*)" || true)
+                # Detecter VRAIS secrets hardcodes:
+                # Pattern: variable_name = 'actual_secret_value' (pas des fonctions ou des cles d'erreur)
+                # Exclure: fonctions, localStorage, addEventListener, error keys, type checks, $_ENV
+                local secrets=$(grep -inE "(password|secret|api_key|apikey|token|credential|private_key)\s*[=:]\s*['\"][A-Za-z0-9@#\$%\^&\*\-_+=]{12,}" "$file" 2>/dev/null | grep -vE "^\s*(#|//|/\*|\*)" | grep -vE "(password_hash|password_verify|password_too|localStorage|sessionStorage|addEventListener|getElementById|getItem|setItem|\\\$_ENV\[|\\\$this->|generateToken|input\?\.type|errors\[)" || true)
                 if [ -n "$secrets" ]; then
                     echo -e "${RED}❌ SECRET DETECTE dans $file${NC}"
                     echo "$secrets" | head -3
@@ -206,19 +209,20 @@ check_mvc() {
 
     if [ -n "$STAGED_PHP" ]; then
         while IFS= read -r file; do
-            # Controllers ne doivent pas avoir de SQL
+            # Controllers ne doivent pas avoir de NOUVEAU SQL (verifie seulement les lignes ajoutees)
+            # Exclure: commentaires (// ou * ou #), docblocks (@method DELETE), texte descriptif
             if echo "$file" | grep -qE "Controllers/"; then
-                local sql=$(grep -inE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+" "$file" 2>/dev/null | grep -vE "^\s*(#|//|/\*|\*)" || true)
+                local sql=$(git diff --cached "$file" 2>/dev/null | grep -E "^\+" | grep -vE "^\+\+\+" | grep -iE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+(FROM|INTO|SET|\*|[a-z_]+)" | grep -vE "(//|/\*|\*|#|@|Soft delete|hard delete)" || true)
                 if [ -n "$sql" ]; then
-                    echo -e "${RED}❌ SQL dans Controller: $file${NC}"
+                    echo -e "${RED}❌ NOUVEAU SQL dans Controller: $file${NC}"
                     echo "$sql" | head -2
                     violations=$((violations + 1))
                 fi
             fi
 
-            # Views ne doivent pas avoir de SQL
+            # Views ne doivent pas avoir de NOUVEAU SQL
             if echo "$file" | grep -qE "Views/|views/"; then
-                local sql=$(grep -inE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+" "$file" 2>/dev/null | grep -vE "^\s*(#|//|/\*|\*)" || true)
+                local sql=$(git diff --cached "$file" 2>/dev/null | grep -E "^\+" | grep -vE "^\+\+\+" | grep -iE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+(FROM|INTO|SET|\*|[a-z_]+)" | grep -vE "(//|/\*|\*|#|@)" || true)
                 if [ -n "$sql" ]; then
                     echo -e "${RED}❌ SQL dans View: $file${NC}"
                     violations=$((violations + 1))

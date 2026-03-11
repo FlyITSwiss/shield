@@ -43,7 +43,9 @@ class AuthController
             return ['success' => false, 'error' => 'missing_credentials'];
         }
 
-        return $this->authService->login($data['email'], $data['password']);
+        $remember = !empty($data['remember']) && $data['remember'] === true;
+
+        return $this->authService->login($data['email'], $data['password'], $remember);
     }
 
     /**
@@ -252,29 +254,7 @@ class AuthController
             return ['success' => false, 'error' => 'no_phone_number'];
         }
 
-        // Générer un nouveau code de vérification
-        $code = sprintf('%06d', random_int(0, 999999));
-        $expiresAt = date('Y-m-d H:i:s', strtotime('+10 minutes'));
-
-        $stmt = $this->db->prepare("
-            INSERT INTO phone_verifications (user_id, phone, code, expires_at)
-            VALUES (:user_id, :phone, :code, :expires_at)
-        ");
-        $stmt->execute([
-            'user_id' => $userId,
-            'phone' => $user['phone'],
-            'code' => $code,
-            'expires_at' => $expiresAt
-        ]);
-
-        // Envoyer via Twilio
-        $language = $user['preferred_language'] ?? 'fr';
-        $result = $this->twilioService->sendVerificationSMS($user['phone'], $code, $language);
-
-        if (!$result['success']) {
-            return ['success' => false, 'error' => 'sms_send_failed'];
-        }
-
-        return ['success' => true, 'message' => 'verification_sent'];
+        // Déléguer à AuthService (évite SQL dans Controller)
+        return $this->authService->resendPhoneVerification($userId, $user);
     }
 }
