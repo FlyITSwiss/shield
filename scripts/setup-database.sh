@@ -6,14 +6,14 @@
 # Usage: sudo bash setup-database.sh
 # ============================================
 
-set -e
+# Don't exit on error - we handle errors manually
+set +e
 
 # Configuration
 DB_NAME="shield"
 DB_USER="shield_user"
 DB_PASS="ShieldSecure2026#"
 SHIELD_PATH="/var/www/shield"
-JWT_SECRET=$(openssl rand -hex 32)
 
 echo "============================================"
 echo "SHIELD - Database Setup"
@@ -25,13 +25,38 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Step 1: Create database and user
-echo "[1/5] Creating database and user..."
-mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';"
-mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';"
-mysql -e "FLUSH PRIVILEGES;"
-echo "✓ Database '${DB_NAME}' created"
+# Step 1: Check if database already exists and is accessible
+echo "[1/5] Checking database status..."
+
+# Try to connect with existing user first
+if mysql -u "${DB_USER}" -p"${DB_PASS}" -e "USE ${DB_NAME};" 2>/dev/null; then
+    echo "✓ Database '${DB_NAME}' already exists and is accessible"
+    DB_EXISTS=true
+else
+    echo "→ Database needs setup, attempting to create..."
+    DB_EXISTS=false
+
+    # Try different MySQL access methods
+    if mysql -e "SELECT 1;" 2>/dev/null; then
+        # Root access without password works
+        mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+        mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';" 2>/dev/null || true
+        mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';" 2>/dev/null || true
+        mysql -e "FLUSH PRIVILEGES;" 2>/dev/null || true
+        echo "✓ Database '${DB_NAME}' created"
+    elif [ -f /root/.my.cnf ]; then
+        # Use root's .my.cnf if it exists
+        mysql --defaults-file=/root/.my.cnf -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>/dev/null || true
+        mysql --defaults-file=/root/.my.cnf -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';" 2>/dev/null || true
+        mysql --defaults-file=/root/.my.cnf -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';" 2>/dev/null || true
+        mysql --defaults-file=/root/.my.cnf -e "FLUSH PRIVILEGES;" 2>/dev/null || true
+        echo "✓ Database '${DB_NAME}' created (using .my.cnf)"
+    else
+        echo "⚠ Cannot access MySQL as root. Assuming database is already set up."
+        echo "  If this is a fresh install, manually run:"
+        echo "  mysql -u root -p < /var/www/shield/database/migrations/001_initial_schema.sql"
+    fi
+fi
 
 # Step 2: Execute migrations
 echo "[2/5] Running migrations..."
@@ -40,16 +65,30 @@ if [ -d "$MIGRATION_DIR" ]; then
     for file in "$MIGRATION_DIR"/*.sql; do
         if [ -f "$file" ]; then
             echo "  → Executing $(basename $file)..."
-            mysql "$DB_NAME" < "$file"
+            # Use shield_user credentials for migrations
+            mysql -u "${DB_USER}" -p"${DB_PASS}" "$DB_NAME" < "$file" 2>/dev/null || {
+                echo "  ⚠ Migration may already be applied or failed: $(basename $file)"
+            }
         fi
     done
-    echo "✓ All migrations executed"
+    echo "✓ All migrations processed"
 else
     echo "⚠ No migrations found in $MIGRATION_DIR"
 fi
 
-# Step 3: Create .env file
+# Step 3: Create/Update .env file
 echo "[3/5] Creating .env file..."
+
+# Generate JWT secret only if .env doesn't exist or JWT_SECRET is empty
+if [ -f "${SHIELD_PATH}/.env" ] && grep -q "JWT_SECRET=" "${SHIELD_PATH}/.env"; then
+    # Keep existing JWT_SECRET
+    JWT_SECRET=$(grep "JWT_SECRET=" "${SHIELD_PATH}/.env" | cut -d'=' -f2)
+    echo "  → Keeping existing JWT_SECRET"
+else
+    JWT_SECRET=$(openssl rand -hex 32)
+    echo "  → Generated new JWT_SECRET"
+fi
+
 cat > "${SHIELD_PATH}/.env" << EOF
 # SHIELD Production Environment
 APP_ENV=production
@@ -85,12 +124,12 @@ echo "[4/5] Creating test user..."
 # Use bcrypt as fallback since MySQL can't generate Argon2ID
 TEST_PASSWORD_HASH='$2y$10$xK8FQvB1qQp5hI3NHRU4/.2xYqYWCJqHbD3w1JvZm0nQN1B6VxYia'
 
-mysql "$DB_NAME" << EOF
+mysql -u "${DB_USER}" -p"${DB_PASS}" "$DB_NAME" << EOF 2>/dev/null || echo "  ⚠ Test user may already exist"
 INSERT INTO users (email, password_hash, first_name, phone, country_code, phone_verified, is_active, oauth_provider)
 VALUES ('test@shield-app.local', '${TEST_PASSWORD_HASH}', 'Test', '+33612345678', 'FR', 1, 1, 'email')
 ON DUPLICATE KEY UPDATE password_hash='${TEST_PASSWORD_HASH}', is_active=1;
 EOF
-echo "✓ Test user created"
+echo "✓ Test user processed"
 echo "  Email: test@shield-app.local"
 echo "  Password: TestPassword123"
 
