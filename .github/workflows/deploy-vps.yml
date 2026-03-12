@@ -148,6 +148,9 @@ jobs:
 
       - name: Create production .env
         run: |
+          # Ensure debian can write to directory first
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "sudo chown -R debian:debian ${{ env.VPS_PATH }}"
+
           cat > /tmp/shield.env << EOF
           APP_ENV=production
           APP_DEBUG=false
