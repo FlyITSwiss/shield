@@ -1,0 +1,686 @@
+{
+  "startTime": 1772987494146,
+  "endTime": 1772987543670,
+  "summary": {
+    "total": 85,
+    "passed": 72,
+    "failed": 13,
+    "warnings": 0
+  },
+  "categories": {
+    "auth": {
+      "tests": [
+        {
+          "name": "Page login accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.745Z"
+        },
+        {
+          "name": "Champ email",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.807Z"
+        },
+        {
+          "name": "Champ password",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.809Z"
+        },
+        {
+          "name": "Bouton submit",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.810Z"
+        },
+        {
+          "name": "Lien forgot password",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.812Z"
+        },
+        {
+          "name": "Lien inscription",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.814Z"
+        },
+        {
+          "name": "Toggle password visibility",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.815Z"
+        },
+        {
+          "name": "Checkbox remember me",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.817Z"
+        },
+        {
+          "name": "Bouton OAuth Google",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.821Z"
+        },
+        {
+          "name": "Bouton OAuth Facebook",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.821Z"
+        },
+        {
+          "name": "Page register accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.392Z"
+        },
+        {
+          "name": "Champ register: first_name",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.451Z"
+        },
+        {
+          "name": "Champ register: last_name",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.453Z"
+        },
+        {
+          "name": "Champ register: email",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.455Z"
+        },
+        {
+          "name": "Champ register: phone",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.457Z"
+        },
+        {
+          "name": "Champ register: password",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:36.458Z"
+        },
+        {
+          "name": "Page forgot-password accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:37.038Z"
+        },
+        {
+          "name": "Protection CSRF présente",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:37.097Z"
+        },
+        {
+          "name": "Validation formulaire vide",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:38.234Z"
+        },
+        {
+          "name": "Login fonctionnel",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.339Z"
+        }
+      ],
+      "issues": []
+    },
+    "sos": {
+      "tests": [
+        {
+          "name": "Bouton SOS visible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.956Z"
+        },
+        {
+          "name": "Bouton SOS taille tactile (>100px)",
+          "passed": null,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.976Z"
+        },
+        {
+          "name": "Animation pulse présente",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.977Z"
+        },
+        {
+          "name": "Toggle mode silencieux",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.979Z"
+        },
+        {
+          "name": "Instructions présentes",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.980Z"
+        },
+        {
+          "name": "État idle présent",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.987Z"
+        },
+        {
+          "name": "État countdown présent",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.987Z"
+        },
+        {
+          "name": "État active présent",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.987Z"
+        },
+        {
+          "name": "État resolved présent",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.987Z"
+        },
+        {
+          "name": "Audio alarme présent",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.989Z"
+        },
+        {
+          "name": "Bouton settings accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.991Z"
+        },
+        {
+          "name": "Bouton SOS couleur danger (rouge)",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.993Z"
+        },
+        {
+          "name": "Bouton SOS centré",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:41.995Z"
+        }
+      ],
+      "issues": []
+    },
+    "contacts": {
+      "tests": [
+        {
+          "name": "Page contacts accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:42.676Z"
+        },
+        {
+          "name": "Bouton ajout contact",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:42.678Z"
+        },
+        {
+          "name": "Zone liste contacts",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:42.681Z"
+        },
+        {
+          "name": "Modal ajout contact",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.216Z"
+        },
+        {
+          "name": "Champ modal: contact-name",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.248Z"
+        },
+        {
+          "name": "Champ modal: contact-phone",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.250Z"
+        },
+        {
+          "name": "Champ modal: contact-relationship",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.251Z"
+        },
+        {
+          "name": "Info box explicative",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.264Z"
+        },
+        {
+          "name": "Préfixe +41 (Suisse) par défaut",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.274Z"
+        }
+      ],
+      "issues": []
+    },
+    "history": {
+      "tests": [
+        {
+          "name": "Page historique accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.895Z"
+        },
+        {
+          "name": "Zone historique présente",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.899Z"
+        },
+        {
+          "name": "Header avec navigation",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:43.900Z"
+        }
+      ],
+      "issues": []
+    },
+    "settings": {
+      "tests": [
+        {
+          "name": "Page paramètres accessible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.561Z"
+        },
+        {
+          "name": "Sections paramètres présentes",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.563Z"
+        },
+        {
+          "name": "Section profil",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.565Z"
+        },
+        {
+          "name": "Préférences alertes",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.567Z"
+        },
+        {
+          "name": "Paramètres langue",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.568Z"
+        },
+        {
+          "name": "Bouton déconnexion",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:44.570Z"
+        }
+      ],
+      "issues": []
+    },
+    "i18n": {
+      "tests": [
+        {
+          "name": "Aucune clé i18n brute visible",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.135Z"
+        },
+        {
+          "name": "Accents français présents",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.135Z"
+        },
+        {
+          "name": "Attribut lang sur HTML",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.139Z"
+        },
+        {
+          "name": "Fichier fr.php existe",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.139Z"
+        },
+        {
+          "name": "Fichier en.php existe",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.139Z"
+        },
+        {
+          "name": "Fichier fr.json existe",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.139Z"
+        },
+        {
+          "name": "Fichier en.json existe",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:35.139Z"
+        }
+      ],
+      "issues": []
+    },
+    "responsive": {
+      "tests": [
+        {
+          "name": "mobile-sm - /auth/login - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:45.252Z"
+        },
+        {
+          "name": "mobile-sm - /auth/login - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:45.263Z"
+        },
+        {
+          "name": "mobile-sm - /auth/register - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:45.864Z"
+        },
+        {
+          "name": "mobile-sm - /auth/register - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:45.876Z"
+        },
+        {
+          "name": "mobile-lg - /auth/login - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:46.636Z"
+        },
+        {
+          "name": "mobile-lg - /auth/login - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:46.650Z"
+        },
+        {
+          "name": "mobile-lg - /auth/register - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:47.271Z"
+        },
+        {
+          "name": "mobile-lg - /auth/register - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:47.285Z"
+        },
+        {
+          "name": "tablet - /auth/login - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:48.077Z"
+        },
+        {
+          "name": "tablet - /auth/login - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:48.089Z"
+        },
+        {
+          "name": "tablet - /auth/register - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:48.705Z"
+        },
+        {
+          "name": "tablet - /auth/register - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:48.721Z"
+        },
+        {
+          "name": "desktop - /auth/login - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:49.536Z"
+        },
+        {
+          "name": "desktop - /auth/login - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:49.549Z"
+        },
+        {
+          "name": "desktop - /auth/register - Pas de scroll horizontal",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:50.163Z"
+        },
+        {
+          "name": "desktop - /auth/register - Contenu visible",
+          "passed": false,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:50.177Z"
+        }
+      ],
+      "issues": []
+    },
+    "accessibility": {
+      "tests": [
+        {
+          "name": "Tous les inputs ont des labels",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.064Z"
+        },
+        {
+          "name": "Contraste texte/fond suffisant",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.067Z"
+        },
+        {
+          "name": "Styles focus personnalisés",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.069Z"
+        },
+        {
+          "name": "Boutons avec texte ou aria-label",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.071Z"
+        },
+        {
+          "name": "Images avec attribut alt",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.072Z"
+        },
+        {
+          "name": "Structure HTML sémantique",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.074Z"
+        }
+      ],
+      "issues": []
+    },
+    "performance": {
+      "tests": [
+        {
+          "name": "Temps chargement login (646ms < 3000ms)",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:51.720Z"
+        },
+        {
+          "name": "Aucune requête en erreur (4xx/5xx)",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:52.319Z"
+        },
+        {
+          "name": "Taille assets raisonnable (1KB < 2MB)",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:52.323Z"
+        },
+        {
+          "name": "Pas d'erreurs console",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:52.928Z"
+        }
+      ],
+      "issues": []
+    },
+    "security": {
+      "tests": [
+        {
+          "name": "Protection CSRF active",
+          "passed": true,
+          "details": "",
+          "timestamp": "2026-03-08T16:31:53.665Z"
+        }
+      ],
+      "issues": []
+    },
+    "capacitor": {
+      "tests": [],
+      "issues": []
+    }
+  },
+  "screenshots": [
+    {
+      "name": "login-page",
+      "category": "auth",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\auth-login-page-1772987495745.png",
+      "timestamp": "2026-03-08T16:31:35.804Z"
+    },
+    {
+      "name": "register-page",
+      "category": "auth",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\auth-register-page-1772987496392.png",
+      "timestamp": "2026-03-08T16:31:36.450Z"
+    },
+    {
+      "name": "forgot-password",
+      "category": "auth",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\auth-forgot-password-1772987497038.png",
+      "timestamp": "2026-03-08T16:31:37.089Z"
+    },
+    {
+      "name": "login-validation",
+      "category": "auth",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\auth-login-validation-1772987498234.png",
+      "timestamp": "2026-03-08T16:31:38.288Z"
+    },
+    {
+      "name": "sos-main",
+      "category": "sos",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\sos-sos-main-1772987501918.png",
+      "timestamp": "2026-03-08T16:31:41.955Z"
+    },
+    {
+      "name": "contacts-main",
+      "category": "contacts",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\contacts-contacts-main-1772987502638.png",
+      "timestamp": "2026-03-08T16:31:42.675Z"
+    },
+    {
+      "name": "contacts-modal",
+      "category": "contacts",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\contacts-contacts-modal-1772987503216.png",
+      "timestamp": "2026-03-08T16:31:43.246Z"
+    },
+    {
+      "name": "history-main",
+      "category": "history",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\history-history-main-1772987503857.png",
+      "timestamp": "2026-03-08T16:31:43.895Z"
+    },
+    {
+      "name": "settings-main",
+      "category": "settings",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\settings-settings-main-1772987504505.png",
+      "timestamp": "2026-03-08T16:31:44.561Z"
+    },
+    {
+      "name": "mobile-sm-auth-login",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-mobile-sm-auth-login-1772987505263.png",
+      "timestamp": "2026-03-08T16:31:45.304Z"
+    },
+    {
+      "name": "mobile-sm-auth-register",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-mobile-sm-auth-register-1772987505876.png",
+      "timestamp": "2026-03-08T16:31:45.969Z"
+    },
+    {
+      "name": "mobile-lg-auth-login",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-mobile-lg-auth-login-1772987506650.png",
+      "timestamp": "2026-03-08T16:31:46.689Z"
+    },
+    {
+      "name": "mobile-lg-auth-register",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-mobile-lg-auth-register-1772987507285.png",
+      "timestamp": "2026-03-08T16:31:47.367Z"
+    },
+    {
+      "name": "tablet-auth-login",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-tablet-auth-login-1772987508089.png",
+      "timestamp": "2026-03-08T16:31:48.134Z"
+    },
+    {
+      "name": "tablet-auth-register",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-tablet-auth-register-1772987508721.png",
+      "timestamp": "2026-03-08T16:31:48.885Z"
+    },
+    {
+      "name": "desktop-auth-login",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-desktop-auth-login-1772987509549.png",
+      "timestamp": "2026-03-08T16:31:49.599Z"
+    },
+    {
+      "name": "desktop-auth-register",
+      "category": "responsive",
+      "filepath": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\screenshots-audit-complete\\responsive-desktop-auth-register-1772987510177.png",
+      "timestamp": "2026-03-08T16:31:50.388Z"
+    }
+  ],
+  "capacitorReadiness": {
+    "score": 0,
+    "maxScore": 100,
+    "issues": [],
+    "recommendations": []
+  }
+}

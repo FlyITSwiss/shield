@@ -1,0 +1,86 @@
+{
+  "totalTests": 54,
+  "passed": 54,
+  "failed": 0,
+  "warnings": 0,
+  "screenshots": [
+    {
+      "name": "login-initial",
+      "filename": "1772968497615-login-initial.png",
+      "description": "Page de connexion initiale"
+    },
+    {
+      "name": "login-validation",
+      "filename": "1772968498997-login-validation.png",
+      "description": "Validation formulaire vide"
+    },
+    {
+      "name": "register-initial",
+      "filename": "1772968500251-register-initial.png",
+      "description": "Page inscription initiale"
+    },
+    {
+      "name": "forgot-password",
+      "filename": "1772968501746-forgot-password.png",
+      "description": "Page mot de passe oublié"
+    },
+    {
+      "name": "sos-auth-redirect",
+      "filename": "1772968503190-sos-auth-redirect.png",
+      "description": "Redirection authentification"
+    },
+    {
+      "name": "login-mobile",
+      "filename": "1772968510516-login-mobile.png",
+      "description": "login @ 375x667"
+    },
+    {
+      "name": "login-mobileLarge",
+      "filename": "1772968511914-login-mobileLarge.png",
+      "description": "login @ 414x896"
+    },
+    {
+      "name": "login-tablet",
+      "filename": "1772968513445-login-tablet.png",
+      "description": "login @ 768x1024"
+    },
+    {
+      "name": "login-desktop",
+      "filename": "1772968515964-login-desktop.png",
+      "description": "login @ 1366x768"
+    },
+    {
+      "name": "register-mobile",
+      "filename": "1772968517731-register-mobile.png",
+      "description": "register @ 375x667"
+    },
+    {
+      "name": "register-mobileLarge",
+      "filename": "1772968518781-register-mobileLarge.png",
+      "description": "register @ 414x896"
+    },
+    {
+      "name": "register-tablet",
+      "filename": "1772968519819-register-tablet.png",
+      "description": "register @ 768x1024"
+    },
+    {
+      "name": "register-desktop",
+      "filename": "1772968522201-register-desktop.png",
+      "description": "register @ 1366x768"
+    },
+    {
+      "name": "theme-dark",
+      "filename": "1772968525437-theme-dark.png",
+      "description": "Thème sombre (défaut)"
+    },
+    {
+      "name": "theme-light",
+      "filename": "1772968526018-theme-light.png",
+      "description": "Thème clair"
+    }
+  ],
+  "issues": [],
+  "startTime": 1772968493203,
+  "endTime": 1772968527148
+}

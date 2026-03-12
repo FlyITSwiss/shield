@@ -77,6 +77,8 @@ const config: CapacitorConfig = {
             keystoreAlias: process.env.KEYSTORE_ALIAS,
             keystoreAliasPassword: process.env.KEYSTORE_ALIAS_PASSWORD,
         },
+        // Deep Links / App Links
+        appendUrlToDeepLink: true,
     },
 
     // Configuration iOS
@@ -85,7 +87,25 @@ const config: CapacitorConfig = {
         backgroundColor: '#1A1A2E',
         // Scheme pour deep links
         scheme: 'shield',
+        // Universal Links
+        limitsNavigationsToAppBoundDomains: true,
     },
 };
+
+/**
+ * Deep Links documentation:
+ *
+ * Custom URL Scheme (fonctionne immediat):
+ * - shield://track/abc123 -> Page de tracking
+ * - shield://sos -> Declenchement SOS
+ * - shield://contacts -> Liste contacts
+ *
+ * Universal Links / App Links (necessite config serveur):
+ * - https://stabilis-it.ch/internal/shield/track/abc123
+ *
+ * Pour activer les Universal Links:
+ * 1. Android: Creer /.well-known/assetlinks.json sur le serveur
+ * 2. iOS: Creer /.well-known/apple-app-site-association sur le serveur
+ */
 
 export default config;

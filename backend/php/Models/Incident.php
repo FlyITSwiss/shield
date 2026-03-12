@@ -40,20 +40,20 @@ class Incident
 
         $sql = "
             INSERT INTO {$this->table} (
-                id, user_id, trigger_type, status, alert_mode,
-                latitude, longitude, country_code, created_at
+                uuid, user_id, trigger_method, status, silent_mode,
+                latitude, longitude, country_code
             ) VALUES (
-                :id, :user_id, :trigger_type, 'active', :alert_mode,
-                :latitude, :longitude, :country_code, NOW()
+                :uuid, :user_id, :trigger_method, 'active', :silent_mode,
+                :latitude, :longitude, :country_code
             )
         ";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
-            'id' => $uuid,
+            'uuid' => $uuid,
             'user_id' => $data['user_id'],
-            'trigger_type' => $data['trigger_type'] ?? 'five_taps',
-            'alert_mode' => $data['alert_mode'] ?? 'sonic',
+            'trigger_method' => $data['trigger_method'] ?? 'button',
+            'silent_mode' => (int)($data['silent_mode'] ?? false),
             'latitude' => $data['latitude'] ?? null,
             'longitude' => $data['longitude'] ?? null,
             'country_code' => $data['country_code'] ?? null
@@ -71,9 +71,9 @@ class Incident
             SELECT i.*, u.first_name, u.phone, u.email
             FROM {$this->table} i
             JOIN users u ON i.user_id = u.id
-            WHERE i.id = :id
+            WHERE i.uuid = :uuid
         ");
-        $stmt->execute(['id' => $id]);
+        $stmt->execute(['uuid' => $id]);
         $incident = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $incident ?: null;
@@ -87,7 +87,7 @@ class Incident
         $stmt = $this->db->prepare("
             SELECT * FROM {$this->table}
             WHERE user_id = :user_id AND status = 'active'
-            ORDER BY created_at DESC
+            ORDER BY started_at DESC
             LIMIT 1
         ");
         $stmt->execute(['user_id' => $userId]);
@@ -114,10 +114,10 @@ class Incident
             $sql .= ", resolved_at = NOW()";
         }
 
-        $sql .= " WHERE id = :id";
+        $sql .= " WHERE uuid = :uuid";
 
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute(['id' => $id, 'status' => $status]);
+        return $stmt->execute(['uuid' => $id, 'status' => $status]);
     }
 
     /**
@@ -129,13 +129,13 @@ class Incident
             UPDATE {$this->table} SET
                 latitude = :latitude,
                 longitude = :longitude,
-                address_resolved = :address,
+                address = :address,
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
         return $stmt->execute([
-            'id' => $id,
+            'uuid' => $id,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'address' => $address
@@ -151,7 +151,7 @@ class Incident
             INSERT INTO incident_location_updates (
                 incident_id, latitude, longitude, accuracy, recorded_at
             ) VALUES (
-                :incident_id, :latitude, :longitude, :accuracy, NOW()
+                :incident_id, :latitude, :longitude, :accuracy
             )
         ");
 
@@ -188,10 +188,10 @@ class Incident
             UPDATE {$this->table} SET
                 risk_score = :score,
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
-        return $stmt->execute(['id' => $id, 'score' => min(100, max(0, $score))]);
+        return $stmt->execute(['uuid' => $id, 'score' => min(100, max(0, $score))]);
     }
 
     /**
@@ -206,10 +206,10 @@ class Incident
                 police_service_id = :service_id,
                 escalated_at = NOW(),
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
-        return $stmt->execute(['id' => $id, 'service_id' => $serviceId]);
+        return $stmt->execute(['uuid' => $id, 'service_id' => $serviceId]);
     }
 
     /**
@@ -222,11 +222,11 @@ class Incident
                 ai_session_id = :session_id,
                 twilio_call_sid = :call_sid,
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
         return $stmt->execute([
-            'id' => $id,
+            'uuid' => $id,
             'session_id' => $sessionId,
             'call_sid' => $callSid
         ]);
@@ -242,11 +242,11 @@ class Incident
                 ai_transcript = :transcript,
                 ai_summary = :summary,
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
         return $stmt->execute([
-            'id' => $id,
+            'uuid' => $id,
             'transcript' => $transcript,
             'summary' => $summary
         ]);
@@ -261,10 +261,10 @@ class Incident
             UPDATE {$this->table} SET
                 audio_recording_path = :path,
                 updated_at = NOW()
-            WHERE id = :id
+            WHERE uuid = :uuid
         ");
 
-        return $stmt->execute(['id' => $id, 'path' => $path]);
+        return $stmt->execute(['uuid' => $id, 'path' => $path]);
     }
 
     /**
@@ -275,12 +275,12 @@ class Incident
         $stmt = $this->db->prepare("
             SELECT
                 id, trigger_type, status, alert_mode,
-                latitude, longitude, address_resolved, country_code,
+                latitude, longitude, address, country_code,
                 risk_score, escalated_to_police,
                 created_at, resolved_at, cancelled_at
             FROM {$this->table}
             WHERE user_id = :user_id
-            ORDER BY created_at DESC
+            ORDER BY started_at DESC
             LIMIT :limit OFFSET :offset
         ");
 
@@ -317,7 +317,7 @@ class Incident
             FROM {$this->table} i
             JOIN users u ON i.user_id = u.id
             WHERE i.status IN ('active', 'escalated')
-            ORDER BY i.created_at DESC
+            ORDER BY i.started_at DESC
             LIMIT :limit
         ");
 
@@ -363,7 +363,7 @@ class Incident
         $stmt = $this->db->prepare("
             SELECT * FROM {$this->table}
             WHERE country_code = :country_code
-            ORDER BY created_at DESC
+            ORDER BY started_at DESC
             LIMIT :limit
         ");
 

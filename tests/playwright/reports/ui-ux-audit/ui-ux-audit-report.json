@@ -1,0 +1,2758 @@
+{
+  "pages": [
+    {
+      "name": "login",
+      "url": "https://stabilis-it.ch/internal/shield/auth/login",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:14:42.509Z",
+      "elements": {
+        "buttons": 5,
+        "inputs": 4,
+        "links": 2,
+        "images": 6,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(184, 141, 192)",
+          "rgba(255, 255, 255, 0.05)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px",
+          "12px"
+        ]
+      }
+    },
+    {
+      "name": "register",
+      "url": "https://stabilis-it.ch/internal/shield/auth/register",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:14:44.729Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 9,
+        "links": 2,
+        "images": 4,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "SELECT#phone_prefix",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#terms",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(24, 21, 37)",
+          "rgb(61, 54, 84)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(232, 139, 132)",
+          "rgb(184, 141, 192)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "forgot-password",
+      "url": "https://stabilis-it.ch/internal/shield/auth/forgot-password",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:14:46.526Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 2,
+        "links": 1,
+        "images": 3,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(200, 200, 216)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(184, 141, 192)",
+          "rgb(129, 199, 132)",
+          "rgba(76, 175, 80, 0.15)",
+          "rgb(255, 255, 255)",
+          "rgba(229, 115, 115, 0.9)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "login",
+      "url": "https://stabilis-it.ch/internal/shield/auth/login",
+      "viewport": "tablet",
+      "timestamp": "2026-03-11T19:14:48.401Z",
+      "elements": {
+        "buttons": 5,
+        "inputs": 4,
+        "links": 2,
+        "images": 6,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(184, 141, 192)",
+          "rgba(255, 255, 255, 0.05)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px",
+          "12px"
+        ]
+      }
+    },
+    {
+      "name": "register",
+      "url": "https://stabilis-it.ch/internal/shield/auth/register",
+      "viewport": "tablet",
+      "timestamp": "2026-03-11T19:14:50.666Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 9,
+        "links": 2,
+        "images": 4,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "SELECT#phone_prefix",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#terms",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(24, 21, 37)",
+          "rgb(61, 54, 84)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(232, 139, 132)",
+          "rgb(184, 141, 192)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "forgot-password",
+      "url": "https://stabilis-it.ch/internal/shield/auth/forgot-password",
+      "viewport": "tablet",
+      "timestamp": "2026-03-11T19:14:52.517Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 2,
+        "links": 1,
+        "images": 3,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(200, 200, 216)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(184, 141, 192)",
+          "rgb(129, 199, 132)",
+          "rgba(76, 175, 80, 0.15)",
+          "rgb(255, 255, 255)",
+          "rgba(229, 115, 115, 0.9)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "login",
+      "url": "https://stabilis-it.ch/internal/shield/auth/login",
+      "viewport": "desktop",
+      "timestamp": "2026-03-11T19:14:54.464Z",
+      "elements": {
+        "buttons": 5,
+        "inputs": 4,
+        "links": 2,
+        "images": 6,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(184, 141, 192)",
+          "rgba(255, 255, 255, 0.05)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px",
+          "12px"
+        ]
+      }
+    },
+    {
+      "name": "register",
+      "url": "https://stabilis-it.ch/internal/shield/auth/register",
+      "viewport": "desktop",
+      "timestamp": "2026-03-11T19:14:56.792Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 9,
+        "links": 2,
+        "images": 4,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "SELECT#phone_prefix",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#terms",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "BUTTON",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(24, 21, 37)",
+          "rgb(61, 54, 84)",
+          "rgba(0, 0, 0, 0.3)",
+          "rgb(232, 139, 132)",
+          "rgb(184, 141, 192)",
+          "rgba(229, 115, 115, 0.9)",
+          "rgb(255, 255, 255)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "13.3333px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "forgot-password",
+      "url": "https://stabilis-it.ch/internal/shield/auth/forgot-password",
+      "viewport": "desktop",
+      "timestamp": "2026-03-11T19:14:58.722Z",
+      "elements": {
+        "buttons": 3,
+        "inputs": 2,
+        "links": 1,
+        "images": 3,
+        "headings": 1
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "INPUT",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "BUTTON.alert-close",
+          "message": "Touch target trop petit: 0x0px (min 44x44px)"
+        },
+        {
+          "type": "accessibility",
+          "severity": "medium",
+          "element": "INPUT#no-id",
+          "message": "Input sans label associé (utilise placeholder uniquement)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "SPAN",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "P",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(248, 245, 255)",
+          "rgb(138, 131, 158)",
+          "rgb(200, 200, 216)",
+          "rgb(196, 190, 212)",
+          "rgba(0, 0, 0, 0.2)",
+          "rgb(229, 115, 115)",
+          "rgb(184, 141, 192)",
+          "rgb(129, 199, 132)",
+          "rgba(76, 175, 80, 0.15)",
+          "rgb(255, 255, 255)",
+          "rgba(229, 115, 115, 0.9)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system",
+          "Arial"
+        ],
+        "fontSizes": [
+          "16px",
+          "39.808px",
+          "13.328px",
+          "11.104px",
+          "23.04px"
+        ],
+        "spacings": [
+          "21px",
+          "34px",
+          "13px",
+          "8px",
+          "4px"
+        ]
+      }
+    },
+    {
+      "name": "privacy",
+      "url": "https://stabilis-it.ch/internal/shield/legal/privacy",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:15:00.732Z",
+      "elements": {
+        "buttons": 0,
+        "inputs": 0,
+        "links": 3,
+        "images": 2,
+        "headings": 7
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A.btn-back",
+          "message": "Touch target trop petit: 36x40px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A",
+          "message": "Touch target trop petit: 168x21px (min 44x44px)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "rgb(26, 26, 46)",
+          "rgb(176, 176, 192)",
+          "rgb(42, 42, 78)",
+          "rgb(142, 36, 170)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system"
+        ],
+        "fontSizes": [
+          "16px",
+          "27.648px",
+          "24px",
+          "17.6px",
+          "13.6px"
+        ],
+        "spacings": [
+          "34px",
+          "16px",
+          "32px",
+          "24px",
+          "8px",
+          "13px",
+          "55px",
+          "21px"
+        ]
+      }
+    },
+    {
+      "name": "terms",
+      "url": "https://stabilis-it.ch/internal/shield/legal/terms",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:15:02.854Z",
+      "elements": {
+        "buttons": 0,
+        "inputs": 0,
+        "links": 3,
+        "images": 2,
+        "headings": 7
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A.btn-back",
+          "message": "Touch target trop petit: 40x40px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A",
+          "message": "Touch target trop petit: 168x21px (min 44x44px)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "rgb(26, 26, 46)",
+          "rgb(176, 176, 192)",
+          "rgb(42, 42, 78)",
+          "rgb(142, 36, 170)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system"
+        ],
+        "fontSizes": [
+          "16px",
+          "27.648px",
+          "24px",
+          "17.6px",
+          "13.6px"
+        ],
+        "spacings": [
+          "34px",
+          "16px",
+          "32px",
+          "24px",
+          "8px",
+          "13px",
+          "55px",
+          "21px"
+        ]
+      }
+    },
+    {
+      "name": "help",
+      "url": "https://stabilis-it.ch/internal/shield/legal/help",
+      "viewport": "mobile",
+      "timestamp": "2026-03-11T19:15:04.559Z",
+      "elements": {
+        "buttons": 0,
+        "inputs": 0,
+        "links": 3,
+        "images": 2,
+        "headings": 10
+      },
+      "issues": [
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A.btn-back",
+          "message": "Touch target trop petit: 40x40px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A",
+          "message": "Touch target trop petit: 179x21px (min 44x44px)"
+        },
+        {
+          "type": "touch-target",
+          "severity": "high",
+          "element": "A",
+          "message": "Touch target trop petit: 168x21px (min 44x44px)"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "H2",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        },
+        {
+          "type": "contrast",
+          "severity": "medium",
+          "element": "A",
+          "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+        }
+      ],
+      "suggestions": [],
+      "cssAnalysis": {
+        "colors": [
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "rgb(26, 26, 46)",
+          "rgb(176, 176, 192)",
+          "rgb(42, 42, 78)",
+          "rgba(155, 89, 182, 0.1)",
+          "rgb(142, 36, 170)",
+          "rgba(231, 76, 60, 0.1)"
+        ],
+        "fonts": [
+          "Times New Roman",
+          "-apple-system"
+        ],
+        "fontSizes": [
+          "16px",
+          "27.648px",
+          "24px",
+          "19.2px"
+        ],
+        "spacings": [
+          "34px",
+          "16px",
+          "32px",
+          "8px",
+          "24px",
+          "13px",
+          "55px",
+          "21px"
+        ]
+      }
+    }
+  ],
+  "issues": [],
+  "improvements": [],
+  "screenshots": [
+    {
+      "name": "login-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\login-mobile.png"
+    },
+    {
+      "name": "register-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\register-mobile.png"
+    },
+    {
+      "name": "forgot-password-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\forgot-password-mobile.png"
+    },
+    {
+      "name": "login-tablet",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\login-tablet.png"
+    },
+    {
+      "name": "register-tablet",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\register-tablet.png"
+    },
+    {
+      "name": "forgot-password-tablet",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\forgot-password-tablet.png"
+    },
+    {
+      "name": "login-desktop",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\login-desktop.png"
+    },
+    {
+      "name": "register-desktop",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\register-desktop.png"
+    },
+    {
+      "name": "forgot-password-desktop",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\forgot-password-desktop.png"
+    },
+    {
+      "name": "privacy-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\privacy-mobile.png"
+    },
+    {
+      "name": "terms-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\terms-mobile.png"
+    },
+    {
+      "name": "help-mobile",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\ui-ux-audit\\help-mobile.png"
+    }
+  ],
+  "cssAnalysis": {
+    "stylesheets": [
+      {
+        "href": "https://stabilis-it.ch/internal/shield/assets/css/shield-core.css?v=e079327c",
+        "rules": 350
+      },
+      {
+        "href": "https://stabilis-it.ch/internal/shield/assets/css/shield-fixes.css?v=55a36c8e",
+        "rules": 151
+      },
+      {
+        "href": "https://stabilis-it.ch/internal/shield/assets/css/shield-premium.css?v=3e1ca7a7",
+        "rules": 223
+      }
+    ],
+    "cssVariables": [
+      {
+        "name": "--primary",
+        "value": "#9B6DA1"
+      },
+      {
+        "name": "--primary-light",
+        "value": "#B88DC0"
+      },
+      {
+        "name": "--primary-dark",
+        "value": "#7A4D82"
+      },
+      {
+        "name": "--accent",
+        "value": "#E88B84"
+      },
+      {
+        "name": "--background",
+        "value": "#1E1B2E"
+      },
+      {
+        "name": "--surface",
+        "value": "#2D2842"
+      },
+      {
+        "name": "--text-secondary",
+        "value": "#C4BED4"
+      },
+      {
+        "name": "--text-muted",
+        "value": "#8A839E"
+      },
+      {
+        "name": "--success",
+        "value": "#81C784"
+      },
+      {
+        "name": "--warning",
+        "value": "#FF9800"
+      },
+      {
+        "name": "--info",
+        "value": "#2196F3"
+      },
+      {
+        "name": "--border-color",
+        "value": "rgba(255, 255, 255, 0.1)"
+      },
+      {
+        "name": "--spacing-8",
+        "value": "8px"
+      },
+      {
+        "name": "--spacing-13",
+        "value": "13px"
+      },
+      {
+        "name": "--spacing-21",
+        "value": "21px"
+      },
+      {
+        "name": "--spacing-34",
+        "value": "34px"
+      }
+    ],
+    "mediaQueries": [],
+    "animations": []
+  },
+  "startTime": "2026-03-11T19:14:42.158Z",
+  "endTime": "2026-03-11T19:15:07.644Z",
+  "recommendations": {
+    "critical": [],
+    "high": [
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "INPUT",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "BUTTON.alert-close",
+        "message": "Touch target trop petit: 0x0px (min 44x44px)"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A.btn-back",
+        "message": "Touch target trop petit: 36x40px (min 44x44px)"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A",
+        "message": "Touch target trop petit: 168x21px (min 44x44px)"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A.btn-back",
+        "message": "Touch target trop petit: 40x40px (min 44x44px)"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A",
+        "message": "Touch target trop petit: 168x21px (min 44x44px)"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A.btn-back",
+        "message": "Touch target trop petit: 40x40px (min 44x44px)"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A",
+        "message": "Touch target trop petit: 179x21px (min 44x44px)"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "touch-target",
+        "severity": "high",
+        "element": "A",
+        "message": "Touch target trop petit: 168x21px (min 44x44px)"
+      }
+    ],
+    "medium": [
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "SELECT#phone_prefix",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#terms",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "SELECT#phone_prefix",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#terms",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "tablet",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "login",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "SELECT#phone_prefix",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#terms",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "BUTTON",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "register",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "accessibility",
+        "severity": "medium",
+        "element": "INPUT#no-id",
+        "message": "Input sans label associé (utilise placeholder uniquement)"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "SPAN",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "P",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "forgot-password",
+        "viewport": "desktop",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "privacy",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "terms",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "H2",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      },
+      {
+        "page": "help",
+        "viewport": "mobile",
+        "type": "contrast",
+        "severity": "medium",
+        "element": "A",
+        "message": "Contraste potentiellement faible: texte gris sur fond sombre"
+      }
+    ],
+    "low": [],
+    "suggestions": []
+  },
+  "summary": {
+    "totalPages": 12,
+    "totalScreenshots": 12,
+    "totalIssues": 142,
+    "criticalIssues": 0,
+    "highIssues": 34,
+    "mediumIssues": 108,
+    "lowIssues": 0
+  }
+}

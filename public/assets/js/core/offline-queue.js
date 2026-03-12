@@ -107,7 +107,7 @@ const OfflineQueue = {
      */
     queueSOSTrigger(triggerData) {
         return this.add('sos_trigger', {
-            trigger_type: triggerData.trigger_type || 'button',
+            trigger_method: triggerData.trigger_method || 'button',
             latitude: triggerData.latitude,
             longitude: triggerData.longitude,
             accuracy: triggerData.accuracy,
@@ -219,7 +219,7 @@ const OfflineQueue = {
      */
     async processSOS(data) {
         const result = await window.ApiService?.incidents?.trigger(
-            data.trigger_type,
+            data.trigger_method,
             data.latitude,
             data.longitude,
             {

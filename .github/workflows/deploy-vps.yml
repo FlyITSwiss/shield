@@ -146,6 +146,30 @@ jobs:
             fi
           "
 
+      - name: Create production .env
+        run: |
+          cat > /tmp/shield.env << EOF
+          APP_ENV=production
+          APP_DEBUG=false
+          BASE_PATH=/internal/shield
+          DB_HOST=localhost
+          DB_PORT=3306
+          DB_DATABASE=shield
+          DB_USERNAME=shield
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          SMTP_HOST=smtp.office365.com
+          SMTP_PORT=587
+          SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          EOF
+
+          scp /tmp/shield.env ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.VPS_PATH }}/.env
+          rm /tmp/shield.env
+
+          # Create production marker
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "touch ${{ env.VPS_PATH }}/.production"
+
       - name: Set permissions
         run: |
           ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} "

@@ -1,0 +1,83 @@
+{
+  "tests": [
+    {
+      "name": "Page chargee correctement",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Section nouveau partage presente",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Bouton temps reel selectionnable",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Bouton je rentre selectionnable",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Options destination visibles",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Toutes les durees selectionnables",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "1 contact(s) disponible(s)",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Contact deselectionnable",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Contact selectionnable",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Bouton actif avec contact(s)",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Bouton desactive sans contact",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Endpoint /active accessible",
+      "passed": true,
+      "details": "HTTP 200"
+    },
+    {
+      "name": "Page erreur pour token invalide",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Carte visible en mode journey",
+      "passed": true,
+      "details": ""
+    }
+  ],
+  "screenshots": [
+    "1773068604785-location-share-page.png",
+    "1773068605439-journey-mode-options.png",
+    "1773068607308-contacts-selection.png",
+    "1773068608216-public-share-page.png",
+    "1773068611505-map-with-geolocation.png"
+  ],
+  "startTime": 1773068601159,
+  "endTime": 1773068611564
+}

@@ -1,0 +1,30 @@
+{
+  "passed": 5,
+  "failed": 1,
+  "tests": [
+    {
+      "name": "Touch targets login",
+      "passed": true
+    },
+    {
+      "name": "Test connexion",
+      "passed": true
+    },
+    {
+      "name": "Touch targets navigation",
+      "passed": true
+    },
+    {
+      "name": "Touch targets contacts",
+      "passed": false
+    },
+    {
+      "name": "Touch targets settings",
+      "passed": true
+    },
+    {
+      "name": "Input font-size >= 16px",
+      "passed": true
+    }
+  ]
+}

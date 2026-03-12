@@ -36,13 +36,13 @@ class IncidentController
     public function trigger(int $userId, array $data): array
     {
         // Valider les données minimales
-        if (!isset($data['trigger_type'])) {
-            $data['trigger_type'] = 'five_taps';
+        if (!isset($data['trigger_method'])) {
+            $data['trigger_method'] = 'button';
         }
 
-        $validTriggers = ['five_taps', 'volume_hold', 'shake', 'voice_command', 'code_word'];
-        if (!in_array($data['trigger_type'], $validTriggers, true)) {
-            return ['success' => false, 'error' => 'invalid_trigger_type'];
+        $validTriggers = ['button', 'tap_5', 'volume_hold', 'voice', 'api'];
+        if (!in_array($data['trigger_method'], $validTriggers, true)) {
+            return ['success' => false, 'error' => 'invalid_trigger_method'];
         }
 
         return $this->incidentService->triggerSOS($userId, $data);

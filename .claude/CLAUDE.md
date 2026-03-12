@@ -2,6 +2,22 @@
 
 ---
 
+## 🔴 RÈGLE ABSOLUE - ISOLATION DES PROJETS
+
+**Tu ne dois JAMAIS sous aucune raison altérer les autres projets. Chaque projet est TOTALEMENT INDÉPENDANT.**
+
+| ❌ STRICTEMENT INTERDIT | ✅ OBLIGATOIRE |
+|-------------------------|----------------|
+| Modifier des fichiers d'autres projets (Helios, TripSalama, etc.) | Rester dans le dossier SHIELD uniquement |
+| Toucher aux configs/code d'autres projets | Modifier UNIQUEMENT les fichiers SHIELD |
+| Créer des dépendances entre projets | Chaque projet = isolé et autonome |
+| Partager du code entre projets sans autorisation explicite | Dupliquer le code si nécessaire |
+| Modifier les snippets nginx d'autres projets | Modifier UNIQUEMENT `/etc/nginx/snippets/shield.conf` |
+
+**Cette règle est NON-NÉGOCIABLE. Pas d'exception. Pas de bypass.**
+
+---
+
 ## 🛑 STOP - AVANT D'ÉCRIRE LA MOINDRE LIGNE DE CODE
 
 **JE LIS CETTE SECTION EN ENTIER AVANT CHAQUE MODIFICATION. C'est une obligation, pas une suggestion.**
@@ -832,3 +848,19 @@ npm run test:coverage  # Script à ajouter
 □ Login page accessible
 □ Tests Playwright passent
 ```
+
+---
+
+## TESTS - IDENTIFIANTS DE TEST (LOCAL)
+
+| Environnement | Valeur |
+|---------------|--------|
+| **URL Base** | `http://127.0.0.1:8085` |
+| **URL API** | `http://127.0.0.1:8085/api` |
+| **Email test** | `test@shield-app.local` |
+| **Password test** | `TestPassword123` |
+| **Prénom** | Test |
+| **Nom** | User |
+| **Téléphone** | +33612345678 |
+
+**Note :** Ces credentials sont définis dans `tests/playwright/helpers/test-auth.ts` et peuvent être surchargés via les variables d'environnement `TEST_USER_EMAIL` et `TEST_USER_PASSWORD`.

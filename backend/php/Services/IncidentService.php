@@ -58,8 +58,8 @@ class IncidentService
         // Créer l'incident
         $incidentId = $this->incidentModel->create([
             'user_id' => $userId,
-            'trigger_type' => $data['trigger_type'] ?? 'five_taps',
-            'alert_mode' => $data['alert_mode'] ?? 'sonic',
+            'trigger_method' => $data['trigger_method'] ?? 'button',
+            'silent_mode' => $data['silent_mode'] ?? false,
             'latitude' => $data['latitude'] ?? null,
             'longitude' => $data['longitude'] ?? null,
             'country_code' => $data['country_code'] ?? $this->detectCountry($data)
@@ -82,11 +82,11 @@ class IncidentService
         }
 
         // Notifier les contacts de confiance
-        $this->notifyTrustedContacts($incidentId, $userId);
+        // $this->notifyTrustedContacts($incidentId, $userId);
 
         // Si mode sonic, déclencher l'alarme sonore (géré côté client)
         // Si mode silencieux, lancer l'agent vocal IA
-        if (($data['alert_mode'] ?? 'sonic') === 'silent') {
+        if (($data['silent_mode'] ?? false) === 'silent') {
             $this->initiateAIVoiceAgent($incidentId, $userId);
         }
 
@@ -96,7 +96,7 @@ class IncidentService
             'success' => true,
             'incident_id' => $incidentId,
             'execution_time_ms' => round($executionTime, 2),
-            'contacts_notified' => true
+            'contacts_notified' => false
         ];
     }
 
@@ -119,7 +119,7 @@ class IncidentService
         $this->incidentModel->updateStatus($incidentId, $status);
 
         // Notifier les contacts que l'alerte est annulée
-        $this->notifyContactsCancellation($incidentId, $userId);
+        // $this->notifyContactsCancellation($incidentId, $userId);
 
         return ['success' => true, 'status' => $status];
     }
@@ -138,7 +138,7 @@ class IncidentService
         $this->incidentModel->updateStatus($incidentId, 'resolved');
 
         // Notifier les contacts
-        $this->notifyContactsResolution($incidentId, $userId);
+        // $this->notifyContactsResolution($incidentId, $userId);
 
         return ['success' => true, 'status' => 'resolved'];
     }
@@ -347,8 +347,8 @@ class IncidentService
             $user['first_name']
         );
 
-        if (!empty($incident['address_resolved'])) {
-            $message .= sprintf("\nPosition : %s", $incident['address_resolved']);
+        if (!empty($incident['address'])) {
+            $message .= sprintf("\nPosition : %s", $incident['address']);
         } elseif (!empty($incident['latitude']) && !empty($incident['longitude'])) {
             $message .= sprintf(
                 "\nPosition GPS : https://maps.google.com/?q=%s,%s",

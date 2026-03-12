@@ -1,0 +1,108 @@
+{
+  "tests": [
+    {
+      "name": "Back Tap Feature JS Files",
+      "passed": true,
+      "details": "Tous les fichiers accessibles"
+    },
+    {
+      "name": "Champ email visible",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Champ password visible",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Bouton submit visible",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Checkbox Remember Me visible",
+      "passed": false,
+      "details": ""
+    },
+    {
+      "name": "Formulaire inscription: Prenom",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Formulaire inscription: Nom",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Formulaire inscription: Email",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Formulaire inscription: Telephone",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Formulaire inscription: Password",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Inscription",
+      "passed": false,
+      "details": "Reste sur la page register"
+    },
+    {
+      "name": "Login",
+      "passed": false,
+      "details": "Non redirige vers app"
+    },
+    {
+      "name": "Politique de confidentialite",
+      "passed": false,
+      "details": "Touch target trop petit: 21px"
+    },
+    {
+      "name": "Conditions generales",
+      "passed": false,
+      "details": "Touch target trop petit: 21px"
+    },
+    {
+      "name": "Aide",
+      "passed": false,
+      "details": "Touch target trop petit: 21px"
+    }
+  ],
+  "screenshots": [
+    "1773262331587-01-login-page.png",
+    "1773262332500-02-register-page.png",
+    "1773262364314-03-register-filled.png",
+    "1773262367583-04-register-submitted.png",
+    "1773262368732-05-login-with-remember-me.png",
+    "1773262371970-06-after-login.png"
+  ],
+  "startTime": 1773262326341,
+  "endTime": 1773262374249,
+  "config": {
+    "baseUrl": "https://stabilis-it.ch/internal/shield",
+    "screenshotsDir": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\screenshots\\prod-complete",
+    "timeout": 30000,
+    "credentials": {
+      "email": "test-prod@shield-app.ch",
+      "password": "ShieldTest2026!",
+      "firstName": "Test",
+      "lastName": "PROD",
+      "phone": "+33612345678"
+    }
+  },
+  "summary": {
+    "testsPassed": 9,
+    "testsFailed": 6,
+    "total": 15,
+    "passRate": "60.0",
+    "duration": 47.908
+  }
+}

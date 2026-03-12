@@ -1,0 +1,264 @@
+{
+  "total": 29,
+  "passed": 26,
+  "failed": 1,
+  "warnings": 1,
+  "tests": [
+    {
+      "name": "Formulaire de login présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.443Z"
+    },
+    {
+      "name": "Champ email présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.455Z"
+    },
+    {
+      "name": "Champ mot de passe présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.459Z"
+    },
+    {
+      "name": "Bouton connexion présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.463Z"
+    },
+    {
+      "name": "Lien mot de passe oublié présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.467Z"
+    },
+    {
+      "name": "Lien inscription présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.471Z"
+    },
+    {
+      "name": "Bouton OAuth Google présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.474Z"
+    },
+    {
+      "name": "Bouton OAuth Facebook présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.478Z"
+    },
+    {
+      "name": "Toggle visibilité mot de passe",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:13.481Z"
+    },
+    {
+      "name": "Message erreur affiché",
+      "status": "pass",
+      "details": "Message erreur après bad credentials",
+      "timestamp": "2026-03-11T18:46:17.665Z"
+    },
+    {
+      "name": "Formulaire inscription présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.536Z"
+    },
+    {
+      "name": "Champ prénom présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.545Z"
+    },
+    {
+      "name": "Champ nom présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.549Z"
+    },
+    {
+      "name": "Champ téléphone présent",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.554Z"
+    },
+    {
+      "name": "Sélecteur préfixe téléphone",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.559Z"
+    },
+    {
+      "name": "Champ confirmation mot de passe",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.564Z"
+    },
+    {
+      "name": "Checkbox CGU présente",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.569Z"
+    },
+    {
+      "name": "Indicateur force mot de passe",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:18.573Z"
+    },
+    {
+      "name": "Formulaire récupération présent",
+      "status": "fail",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:19.325Z"
+    },
+    {
+      "name": "Accès pages protégées",
+      "status": "skip",
+      "details": "Login requis",
+      "timestamp": "2026-03-11T18:46:24.004Z"
+    },
+    {
+      "name": "Page confidentialité accessible",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:26.085Z"
+    },
+    {
+      "name": "Page CGU accessible",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:27.839Z"
+    },
+    {
+      "name": "Affichage Mobile Portrait",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:31.481Z"
+    },
+    {
+      "name": "Affichage Mobile Landscape",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:33.447Z"
+    },
+    {
+      "name": "Affichage Tablet",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:35.503Z"
+    },
+    {
+      "name": "Affichage Desktop",
+      "status": "pass",
+      "details": "",
+      "timestamp": "2026-03-11T18:46:37.602Z"
+    },
+    {
+      "name": "GET /health",
+      "status": "pass",
+      "details": "Status: 200",
+      "timestamp": "2026-03-11T18:46:37.987Z"
+    },
+    {
+      "name": "GET /api/v1/health",
+      "status": "warn",
+      "details": "Status: 404",
+      "timestamp": "2026-03-11T18:46:38.054Z"
+    },
+    {
+      "name": "Endpoint protégé retourne 401/403",
+      "status": "pass",
+      "details": "Status: 401",
+      "timestamp": "2026-03-11T18:46:38.115Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "01-login-page",
+      "description": "Page de connexion initiale",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\01-login-page.png",
+      "timestamp": "2026-03-11T18:46:13.432Z"
+    },
+    {
+      "name": "02-login-validation-empty",
+      "description": "Validation formulaire vide",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\02-login-validation-empty.png",
+      "timestamp": "2026-03-11T18:46:14.207Z"
+    },
+    {
+      "name": "03-login-validation-email",
+      "description": "Email invalide",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\03-login-validation-email.png",
+      "timestamp": "2026-03-11T18:46:15.194Z"
+    },
+    {
+      "name": "04-login-credentials-error",
+      "description": "Erreur credentials",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\04-login-credentials-error.png",
+      "timestamp": "2026-03-11T18:46:17.656Z"
+    },
+    {
+      "name": "05-register-page",
+      "description": "Page d'inscription",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\05-register-page.png",
+      "timestamp": "2026-03-11T18:46:18.529Z"
+    },
+    {
+      "name": "06-forgot-password",
+      "description": "Page mot de passe oublié",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\06-forgot-password.png",
+      "timestamp": "2026-03-11T18:46:19.323Z"
+    },
+    {
+      "name": "18-privacy-page",
+      "description": "Politique de confidentialité",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\18-privacy-page.png",
+      "timestamp": "2026-03-11T18:46:26.085Z"
+    },
+    {
+      "name": "19-terms-page",
+      "description": "Conditions d'utilisation",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\19-terms-page.png",
+      "timestamp": "2026-03-11T18:46:27.838Z"
+    },
+    {
+      "name": "20-help-page",
+      "description": "Page d'aide",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\20-help-page.png",
+      "timestamp": "2026-03-11T18:46:29.595Z"
+    },
+    {
+      "name": "21-responsive-mobile-portrait-login",
+      "description": "Login - Mobile Portrait",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\21-responsive-mobile-portrait-login.png",
+      "timestamp": "2026-03-11T18:46:31.481Z"
+    },
+    {
+      "name": "21-responsive-mobile-landscape-login",
+      "description": "Login - Mobile Landscape",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\21-responsive-mobile-landscape-login.png",
+      "timestamp": "2026-03-11T18:46:33.447Z"
+    },
+    {
+      "name": "21-responsive-tablet-login",
+      "description": "Login - Tablet",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\21-responsive-tablet-login.png",
+      "timestamp": "2026-03-11T18:46:35.503Z"
+    },
+    {
+      "name": "21-responsive-desktop-login",
+      "description": "Login - Desktop",
+      "path": "C:\\Users\\Tarik Gilani\\Desktop\\shield\\tests\\playwright\\reports\\screenshots-prod\\21-responsive-desktop-login.png",
+      "timestamp": "2026-03-11T18:46:37.602Z"
+    }
+  ],
+  "startTime": "2026-03-11T18:46:11.679Z",
+  "endTime": "2026-03-11T18:46:38.293Z"
+}

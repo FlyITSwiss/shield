@@ -1,0 +1,58 @@
+{
+  "total": 50,
+  "passed": 47,
+  "failed": 3,
+  "screenshots": [
+    {
+      "name": "login-filled",
+      "filename": "1772985381924-login-filled.png",
+      "desc": "Formulaire login rempli"
+    },
+    {
+      "name": "sos-idle",
+      "filename": "1772985383141-sos-idle.png",
+      "desc": "Page SOS - État initial"
+    },
+    {
+      "name": "sos-mobile-small",
+      "filename": "1772985383234-sos-mobile-small.png",
+      "desc": "SOS sur petit écran"
+    },
+    {
+      "name": "contacts-list",
+      "filename": "1772985383920-contacts-list.png",
+      "desc": "Liste des contacts"
+    },
+    {
+      "name": "history-list",
+      "filename": "1772985385253-history-list.png",
+      "desc": "Historique des alertes"
+    },
+    {
+      "name": "settings-main",
+      "filename": "1772985385894-settings-main.png",
+      "desc": "Page paramètres principale"
+    },
+    {
+      "name": "profile-edit",
+      "filename": "1772985386574-profile-edit.png",
+      "desc": "Édition du profil"
+    }
+  ],
+  "issues": [
+    {
+      "test": "Nom utilisateur affiché",
+      "details": ""
+    },
+    {
+      "test": "Modal ajout s'ouvre",
+      "details": "Modal non trouvée"
+    },
+    {
+      "test": "Nom utilisateur affiché",
+      "details": ""
+    }
+  ],
+  "startTime": 1772985380523,
+  "endTime": 1772985391007
+}

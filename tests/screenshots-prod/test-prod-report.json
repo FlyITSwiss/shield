@@ -1,0 +1,76 @@
+{
+  "improvements": [
+    {
+      "name": "shield-tracking.css accessible",
+      "passed": true,
+      "details": "HTTP 200"
+    },
+    {
+      "name": "Contient styles tracking",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "html overscroll-behavior: none",
+      "passed": true,
+      "details": "none"
+    },
+    {
+      "name": "body overscroll-behavior: none",
+      "passed": true,
+      "details": "none"
+    },
+    {
+      "name": "service-worker.js accessible",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Cache version v1.1.0",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "shield-tracking.css dans cache",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "settings.js dans cache",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "sos.js dans cache",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Modal suppression compte",
+      "passed": true,
+      "details": "Page protégée (normal)"
+    },
+    {
+      "name": "CSS Variables Fibonacci (--spacing-13)",
+      "passed": true,
+      "details": "13px"
+    },
+    {
+      "name": "CSS Variable --primary",
+      "passed": true,
+      "details": "#8E24AA"
+    },
+    {
+      "name": "CSS Variable --danger",
+      "passed": true,
+      "details": "#F44336"
+    }
+  ],
+  "screenshots": [
+    "1773066304602-prod-login.png",
+    "1773066305326-prod-register.png",
+    "1773066306053-prod-sos.png"
+  ],
+  "startTime": 1773066301329,
+  "endTime": 1773066306145
+}

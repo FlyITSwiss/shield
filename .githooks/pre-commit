@@ -222,7 +222,8 @@ check_mvc() {
 
             # Views ne doivent pas avoir de NOUVEAU SQL
             if echo "$file" | grep -qE "Views/|views/"; then
-                local sql=$(git diff --cached "$file" 2>/dev/null | grep -E "^\+" | grep -vE "^\+\+\+" | grep -iE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+(FROM|INTO|SET|\*|[a-z_]+)" | grep -vE "(//|/\*|\*|#|@)" || true)
+                # Exclure les faux positifs HTML (<select id=) et commentaires
+                local sql=$(git diff --cached "$file" 2>/dev/null | grep -E "^\+" | grep -vE "^\+\+\+" | grep -iE "(SELECT|INSERT|UPDATE|DELETE|JOIN)\s+(FROM|INTO|SET|\*|[a-z_]+)" | grep -vE "(//|/\*|\*|#|@|<select|selected)" || true)
                 if [ -n "$sql" ]; then
                     echo -e "${RED}❌ SQL dans View: $file${NC}"
                     violations=$((violations + 1))

@@ -318,5 +318,5 @@ try {
     }
 } catch (Exception $e) {
     error_log('Incidents API Error: ' . $e->getMessage());
-    jsonError('internal_error', 500);
+    jsonError($e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine(), 500);
 }

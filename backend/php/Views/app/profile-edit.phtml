@@ -1,0 +1,117 @@
+<?php
+/**
+ * SHIELD - Page édition du profil
+ */
+$pageTitle = __('profile.edit') . ' - SHIELD';
+$bodyClass = 'page-profile-edit';
+$showNavigation = false;
+$pageScripts = ['app/profile-edit.js'];
+?>
+
+<div class="profile-edit-container">
+    <!-- Header -->
+    <header class="profile-edit-header">
+        <button type="button" class="btn-back" id="btn-back" aria-label="<?= __('ui.back') ?>">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <h1 class="page-title"><?= __('profile.edit') ?></h1>
+    </header>
+
+    <form id="profile-edit-form" class="profile-form">
+        <!-- Photo de profil -->
+        <section class="form-section">
+            <div class="profile-photo-wrapper">
+                <div class="profile-photo" id="profile-photo">
+                    <?php if (!empty($user['profile_picture_url'])): ?>
+                        <img src="<?= htmlspecialchars($user['profile_picture_url']) ?>" alt="<?= __('profile.photo') ?>">
+                    <?php else: ?>
+                        <div class="photo-placeholder">
+                            <?= strtoupper(substr($user['first_name'] ?? 'U', 0, 1)) ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <button type="button" class="btn-change-photo" id="btn-change-photo">
+                    <?= __('profile.change_photo') ?>
+                </button>
+                <input type="file" id="photo-input" name="profile_picture" accept="image/*" class="hidden">
+            </div>
+        </section>
+
+        <!-- Informations personnelles -->
+        <section class="form-section">
+            <h2 class="section-title"><?= __('profile.title') ?></h2>
+
+            <div class="form-group">
+                <label for="first_name"><?= __('profile.first_name') ?></label>
+                <input type="text" id="first_name" name="first_name"
+                       value="<?= htmlspecialchars($user['first_name'] ?? '') ?>"
+                       placeholder="<?= __('auth.first_name_placeholder') ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last_name"><?= __('profile.last_name') ?></label>
+                <input type="text" id="last_name" name="last_name"
+                       value="<?= htmlspecialchars($user['last_name'] ?? '') ?>"
+                       placeholder="<?= __('auth.last_name_placeholder') ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email"><?= __('profile.email') ?></label>
+                <input type="email" id="email" name="email"
+                       value="<?= htmlspecialchars($user['email'] ?? '') ?>"
+                       placeholder="<?= __('auth.email_placeholder') ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone"><?= __('profile.phone') ?></label>
+                <input type="tel" id="phone" name="phone"
+                       value="<?= htmlspecialchars($user['phone'] ?? '') ?>"
+                       placeholder="<?= __('auth.phone_placeholder') ?>">
+            </div>
+        </section>
+
+        <!-- Informations médicales -->
+        <section class="form-section">
+            <h2 class="section-title"><?= __('profile.emergency_info') ?></h2>
+
+            <div class="form-group">
+                <label for="blood_type"><?= __('profile.blood_type') ?></label>
+                <select id="blood_type" name="blood_type">
+                    <option value="">-</option>
+                    <?php
+                    $bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+                    foreach ($bloodTypes as $type): ?>
+                        <option value="<?= $type ?>" <?= ($user['blood_type'] ?? '') === $type ? 'selected' : '' ?>>
+                            <?= $type ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="allergies"><?= __('profile.allergies') ?></label>
+                <textarea id="allergies" name="allergies" rows="2"
+                          placeholder="<?= __('profile.allergies') ?>"><?= htmlspecialchars($user['allergies'] ?? '') ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="medications"><?= __('profile.medications') ?></label>
+                <textarea id="medications" name="medications" rows="2"
+                          placeholder="<?= __('profile.medications') ?>"><?= htmlspecialchars($user['medications'] ?? '') ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="medical_notes"><?= __('profile.medical_notes') ?></label>
+                <textarea id="medical_notes" name="medical_notes" rows="3"
+                          placeholder="<?= __('profile.medical_notes') ?>"><?= htmlspecialchars($user['medical_notes'] ?? '') ?></textarea>
+            </div>
+        </section>
+
+        <!-- Bouton sauvegarder -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-save">
+                <?= __('btn.save') ?>
+            </button>
+        </div>
+    </form>
+</div>

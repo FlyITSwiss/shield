@@ -366,7 +366,7 @@ class GeoService
         $stmt = $this->db->prepare("
             INSERT INTO geo_cache (lat_rounded, lon_rounded, country_code, cached_at)
             VALUES (:lat, :lon, :country, NOW())
-            ON DUPLICATE KEY UPDATE country_code = :country, cached_at = NOW()
+            ON DUPLICATE KEY UPDATE country_code = VALUES(country_code), cached_at = NOW()
         ");
         $stmt->execute([
             'lat' => $latRound,
